@@ -1,3 +1,4 @@
 /app/metronic_theme
 /app/dev/metronic_assets
 /node_modules
+/.sass-cache

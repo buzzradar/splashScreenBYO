@@ -67,6 +67,8 @@ function onMasterConfigLoadedSuccess(masterConfJSON) {
 	this.d3SVG_Ctrl =  new D3Handler_CTRL(this.targetDOM.find('.preview'));
 	this.d3SVG_Ctrl.loadBGImage(this.masterConfJSON.AppSplash.backImage.url, _onBGLoadedSuccess.bind(this));
 
+	DisplayGlobals_SRV.setMasterConfig(masterConfJSON);
+
 }
 
 function _onBGLoadedSuccess() {

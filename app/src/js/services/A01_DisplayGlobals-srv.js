@@ -38,7 +38,7 @@ function DisplayGlobals () {
 //--------------------------------------
 
 
-let _version = "0.0.1";
+let _version = "0.0.2";
 
 
 DisplayGlobals.prototype.getVersion = function() {
@@ -218,6 +218,39 @@ DisplayGlobals.prototype.getScaleRatio = function() {
 DisplayGlobals.prototype.scaleRatio = function(num) {
   return num / _scaleRatio;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//----------------------------
+// Master Config
+//----------------------------
+
+let _masterConf;  
+
+DisplayGlobals.prototype.setMasterConfig = function (masterConf) {
+
+  _masterConf = masterConf
+  
+};
+
+
+DisplayGlobals.prototype.getMasterConfig = function () {
+
+  return _masterConf;
+  
+};
+
 
 
 

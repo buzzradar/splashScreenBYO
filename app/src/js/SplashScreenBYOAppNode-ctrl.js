@@ -127,6 +127,7 @@ function _setupWindowEvents() {
 
 
 
+
 function _onResizeWindow() {
 
     let width = $('div.splScr-16-9').width();

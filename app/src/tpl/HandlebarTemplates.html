@@ -19,9 +19,9 @@
                     <div class="form-body">
                         <!-- This will be filled dynamically -->
                     </div>
-                    <div class="form-actions text-right">
+<!--                     <div class="form-actions text-right">
                         <button type="submit" class="btn green-jungle">Update</button>
-                    </div>
+                    </div> -->
                 </form>
 
             </div>
@@ -110,31 +110,27 @@
         </div>
 
 
+
+
         <div class="form-group">
-            <label class="col-xs-3 control-label">Width</label>
-            <div class="col-xs-3">
-                <input type="text" class="form-control" placeholder="100">
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="col-xs-3 control-label">Height</label>
-            <div class="col-xs-3">
-                <input type="text" class="form-control" placeholder="100">
+            <label class="col-xs-3 control-label">Dimension</label>
+            <div class="col-xs-9">
+                <input type="text" class="form-control inlinesmall" placeholder="w">
+                <input type="text" class="form-control inlinesmall" placeholder="h">
             </div>
         </div>
 
         <div class="form-group">
-            <label class="col-xs-3 control-label">x</label>
-            <div class="col-xs-3">
-                <input type="text" class="form-control" placeholder="100">
+            <label class="col-xs-3 control-label">Position</label>
+            <div class="col-xs-9">
+                <input type="text" class="form-control inlinesmall" placeholder="x">
+                <input type="text" class="form-control inlinesmall" placeholder="y">
             </div>
         </div>
-        <div class="form-group">
-            <label class="col-xs-3 control-label">y</label>
-            <div class="col-xs-3">
-                <input type="text" class="form-control" placeholder="100">
-            </div>
-        </div>
+
+
+
+
 
         
 
@@ -186,40 +182,42 @@
 
     <div id="copy_item">
 
-        <a href="javascript:;" class="list-group-item" data-arrayid="999">
+        <a href="javascript:;" class="list-group-item" data-arrayid="{{id}}">
             <h4 class="list-group-item-heading margin-bottom-20">
-                <strong>Copy 1</strong>
+                <strong>Copy to be added to the Splash Board</strong>
                 <i class="fa fa-close pull-right"></i>
             </h4>
             <p class="list-group-item-text">               
                 <div class="form-group">
                     <label class="col-xs-3 control-label">Copy</label>
-                    <div class="col-xs-7">
-                        <input type="text" class="form-control" placeholder="This is the copy that will get displayed">
+                    <div class="col-xs-8">
+                        <input type="text" name="copy" class="form-control" placeholder="This is the copy that will get displayed" value="{{copy}}">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="col-xs-3 control-label">Width</label>
+                    <div class="col-xs-9">
+                        <input type="text" name="dim_w" class="form-control inlinesmall" placeholder="W" value="{{width}}">
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-xs-3 control-label">Positon</label>
-                    <div class="col-xs-3">
-                        <input type="text" class="form-control input-sm" placeholder="X">
-                    </div>
-                    <div class="col-xs-3">
-                        <input type="text" class="form-control input-sm" placeholder="Y">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-xs-3 control-label">Dimension</label>
-                    <div class="col-xs-3">
-                        <input type="text" class="form-control input-sm" placeholder="Width">
-                    </div>
-                    <div class="col-xs-3">
-                        <input type="text" class="form-control input-sm" placeholder="Height">
+                    <label class="col-xs-3 control-label">Position</label>
+                    <div class="col-xs-9">
+                        <input type="text" name="pos_x" class="form-control inlinesmall" placeholder="X" value="{{x}}">
+                        <input type="text" name="pos_y" class="form-control inlinesmall" placeholder="Y" value="{{y}}">
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-xs-3 control-label">Font Size</label>
-                    <div class="col-xs-3">
-                        <input type="text" class="form-control input-sm" placeholder="Size">
+                    <div class="col-md-2 col-sm-4 col-xs-3">
+                        <input type="text" name="size" class="form-control inlinesmall" placeholder="Size" value="{{size}}">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 control-label">Color</label>
+                    <div class="col-sm-12 col-md-3">
+                        <input type="text" class="form-control color-picker" data-control="hue" value="#{{colour}}">
                     </div>
                 </div>
             </p>
@@ -231,6 +229,70 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div id="formType4">
+
+
+        <div class="form-group">
+            <label class="col-xs-3 control-label">Enabled</label>
+            <div class="col-xs-2">
+                <input type="checkbox" name="divider-switch" class="make-switch" data-size="small" checked data-on-color="success" >
+                
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-3 control-label">Color</label>
+            <div class="col-sm-12 col-md-6">
+                <input type="text" class="form-control color-picker" data-control="hue" value="#e88223">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-xs-3 control-label">Dimension</label>
+            <div class="col-xs-9">
+                <input type="text" class="form-control inlinesmall" placeholder="w">
+                <input type="text" class="form-control inlinesmall" placeholder="h">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-xs-3 control-label">Position</label>
+            <div class="col-xs-9">
+                <input type="text" class="form-control inlinesmall" placeholder="x">
+                <input type="text" class="form-control inlinesmall" placeholder="y">
+            </div>
+        </div>
+
+
+
+
+
+        
+
+
+
+
+
+    </div>
 
 
 

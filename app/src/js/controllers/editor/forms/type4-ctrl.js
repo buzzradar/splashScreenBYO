@@ -22,12 +22,56 @@ const HBTemplates = require('../../../services/HBTemplates-srv');
 
 function FormType4_Ctrl () {
 
-    console.log ("%c -> Form Type 4 Constructor. DONE! ", "background:#ff0000;");
+	this.parentDOM = $('#splScrEditorForm');
+	this.copyArray = [
+		{id:1},
+	];
+    console.log ("%c -> Form Type 3 Constructor. DONE! ", "background:#ff0000;");
 
 }
 
 
 
+
+
+
+
+FormType4_Ctrl.prototype.load = function () {
+
+	this.parentDOM.find('.form-body').html(HBTemplates.getTemplate('formType4'));
+
+	$("[name='divider-switch']").bootstrapSwitch();
+	_addPickColors.call(this);
+
+}
+
+
+
+function _addPickColors() {
+
+    $('input.color-picker').each(function() {
+
+        $(this).minicolors({
+            control: $(this).attr('data-control') || 'hue',
+            defaultValue: $(this).attr('data-defaultValue') || '',
+            inline: $(this).attr('data-inline') === 'true',
+            letterCase: $(this).attr('data-letterCase') || 'lowercase',
+            opacity: $(this).attr('data-opacity'),
+            position: $(this).attr('data-position') || 'bottom left',
+            change: function(hex, opacity) {
+                if (!hex) return;
+                if (opacity) hex += ', ' + opacity;
+                if (typeof console === 'object') {
+                    console.log(hex);
+                }
+            },
+            theme: 'bootstrap'
+        });
+
+    });
+
+
+}
 
 
 
