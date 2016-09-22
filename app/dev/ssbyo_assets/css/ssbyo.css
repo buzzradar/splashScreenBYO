@@ -1,0 +1,42 @@
+/* BUZZ PANELS GLOBAL CSS v0.2 */
+/* --------------------------------------- */
+/* Splash Screen BYO */
+/* --------------------------------------- */
+.splScr-16-9 {
+  width: 100%;
+  background: #ddd;
+  padding-bottom: 56.25%;
+  margin-bottom: 10px;
+  position: relative;
+}
+.splScr-16-9 .preview {
+  top: 0px;
+  left: 0px;
+  position: absolute;
+  transform-origin: top left;
+  overflow: hidden;
+}
+.splScr-16-9 .preloader {
+  position: absolute;
+  z-index: 999;
+  height: 100%;
+  width: 100%;
+  text-align: center;
+  top: 50%;
+}
+
+.spl-scr-legend {
+  margin-top: 10px;
+  border: 1px solid #e7ecf1;
+  padding: 20px 0px;
+  background: white;
+}
+
+.draggable {
+  cursor: move;
+}
+
+/* --------------------------------------- */
+/* MEDIA QUERIES                           */
+/* --------------------------------------- */
+/* Smartphones (portrait and landscape) ----------- */

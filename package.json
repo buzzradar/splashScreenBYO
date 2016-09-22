@@ -1,0 +1,60 @@
+{
+  "name": "BuzzPanels",
+  "version": "0.0.03",
+  "description": "BuzzRadar HTML visualisations",
+  "browser": "app/src/index.js",
+  "scripts": {
+    "build": "browserify app/src/index.js | uglifyjs --screw-ie8 -m -c dead_code,sequences,conditionals,booleans,unused,if_return,join_vars,drop_debugger > app/dev/ssbyo_assets/js/SplashScreenBYO_min.js && gulp distribute",
+    "watch": "watchify app/src/index.js -d -v -o app/dev/ssbyo_assets/js/SplashScreenBYO.js & ",
+    "start": "npm run build && serve --compress app/dev/ -p 1619",
+    "dev": "npm run watch && gulp watch",
+    "test": "npm run lint -s && npm run build",
+    "lint-jscs": "jscs app/src/",
+    "lint-eslint": "eslint --ignore-path .gitignore app/src/",
+    "lint": "npm run lint-eslint && npm run lint-jscs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/buzzradar/htmlBuzzMixedMode.git"
+  },
+  "browserify": {
+    "transform": [
+      "babelify"
+    ]
+  },
+  "devDependencies": {
+    "browser-sync": "*",
+    "browserify": "^13.0.0",
+    "eslint": "^1.1.1",
+    "gulp": "^3.9.0",
+    "gulp-compass": "*",
+    "gulp-concat": "^2.6.0",
+    "gulp-css-to-js": "0.0.1",
+    "gulp-csstojs": "^1.0.1",
+    "gulp-dest": "^0.2.3",
+    "gulp-load-plugins": "*",
+    "gulp-merge": "^0.1.1",
+    "gulp-ruby-sass": "*",
+    "jscs": "^2.8.0",
+    "require-dir": "*",
+    "serve": "^1.4.0",
+    "uglify-js": "^2.6.1",
+    "uglifyify": "^3.0.1",
+    "watchify": "^3.7.0"
+  },
+  "author": "BuzzRadar",
+  "license": "All rights reserved",
+  "dependencies": {
+    "babelify": "^6.0.1",
+    "bowser": "^1.0.0",
+    "d3": "^3.5.16",
+    "eventemitter3": "^1.1.1",
+    "glslify": "^5.0.2",
+    "gulp-html-js-template": "^0.1.6",
+    "gulp-html-to-js": "0.0.1",
+    "gulp-statil": "0.0.9",
+    "handlebars": "^4.0.5",
+    "jquery": "^2.2.0",
+    "lodash": "^4.0.0"
+  }
+}
