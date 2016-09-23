@@ -92,13 +92,13 @@
         <p class="well"> <strong>Note:</strong> Drag the logo in the position you prefer or alternatively change the coordinates below. </p>
 
 
-        <div class="form-group">
+        <!-- <div class="form-group">
             <label class="col-xs-3 control-label">Enabled</label>
             <div class="col-xs-2">
                 <input type="checkbox" name="logo-switch" class="make-switch" data-size="small" checked data-on-color="success" >
                 
             </div>
-        </div>
+        </div> -->
 
         <div class="form-group control-group"> 
             <label class="col-xs-3 control-label" for="s57738c79e919b_file">Logo</label> 
@@ -115,16 +115,16 @@
         <div class="form-group">
             <label class="col-xs-3 control-label">Dimension</label>
             <div class="col-xs-9">
-                <input type="text" class="form-control inlinesmall" placeholder="w">
-                <input type="text" class="form-control inlinesmall" placeholder="h">
+                <input type="text" name="dim_w" class="form-control inlinesmall" placeholder="w" value="{{width}}">
+                <input type="text" name="dim_h" class="form-control inlinesmall" placeholder="h" value="{{height}}">
             </div>
         </div>
 
         <div class="form-group">
             <label class="col-xs-3 control-label">Position</label>
             <div class="col-xs-9">
-                <input type="text" class="form-control inlinesmall" placeholder="x">
-                <input type="text" class="form-control inlinesmall" placeholder="y">
+                <input type="text" name="pos_x" class="form-control inlinesmall" placeholder="x" value="{{x}}">
+                <input type="text" name="pos_y" class="form-control inlinesmall" placeholder="y" value="{{y}}">
             </div>
         </div>
 
@@ -184,7 +184,7 @@
 
         <a href="javascript:;" class="list-group-item" data-arrayid="{{id}}">
             <h4 class="list-group-item-heading margin-bottom-20">
-                <strong>Copy to be added to the Splash Board</strong>
+                <strong>Copy to be added to the Splash Screen</strong>
                 <i class="fa fa-close pull-right"></i>
             </h4>
             <p class="list-group-item-text">               
@@ -250,51 +250,72 @@
 
     <div id="formType4">
 
-
-        <div class="form-group">
-            <label class="col-xs-3 control-label">Enabled</label>
-            <div class="col-xs-2">
-                <input type="checkbox" name="divider-switch" class="make-switch" data-size="small" checked data-on-color="success" >
-                
-            </div>
+        <div class="list-group list-copy-items">
+            
         </div>
-
-        <div class="form-group">
-            <label class="col-md-3 control-label">Color</label>
-            <div class="col-sm-12 col-md-6">
-                <input type="text" class="form-control color-picker" data-control="hue" value="#e88223">
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label class="col-xs-3 control-label">Dimension</label>
-            <div class="col-xs-9">
-                <input type="text" class="form-control inlinesmall" placeholder="w">
-                <input type="text" class="form-control inlinesmall" placeholder="h">
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label class="col-xs-3 control-label">Position</label>
-            <div class="col-xs-9">
-                <input type="text" class="form-control inlinesmall" placeholder="x">
-                <input type="text" class="form-control inlinesmall" placeholder="y">
-            </div>
-        </div>
-
-
-
-
-
-        
-
-
-
-
 
     </div>
 
 
+
+
+
+
+
+
+
+
+
+
+
+    <div id="divider_item">
+
+
+
+        <a href="javascript:;" class="list-group-item" data-arrayid="{{id}}">
+            <h4 class="list-group-item-heading margin-bottom-20">
+                <strong>Divider to be added to the Splash Screen</strong>
+                <i class="fa fa-close pull-right"></i>
+            </h4>
+            <p class="list-group-item-text"> 
+
+                <div class="form-group">
+                    <label class="col-xs-3 control-label">Enabled</label>
+                    <div class="col-xs-2">
+                        <input type="checkbox" name="divider-switch" class="make-switch" data-size="small" checked data-on-color="success" >
+                        
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-3 control-label">Color</label>
+                    <div class="col-sm-12 col-md-6">
+                        <input type="text" class="form-control color-picker" data-control="hue" value="#e88223">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-xs-3 control-label">Dimension</label>
+                    <div class="col-xs-9">
+                        <input type="text" name="dim_w" class="form-control inlinesmall" placeholder="w" value="{{width}}">
+                        <input type="text" name="dim_h" class="form-control inlinesmall" placeholder="h" value="{{height}}">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-xs-3 control-label">Position</label>
+                    <div class="col-xs-9">
+                        <input type="text" name="pos_x" class="form-control inlinesmall" placeholder="x" value="{{x}}">
+                        <input type="text" name="pos_y" class="form-control inlinesmall" placeholder="y" value="{{y}}">
+                    </div>
+                </div>
+
+            </p>
+        </a>
+
+
+
+    </div>
 
 
 

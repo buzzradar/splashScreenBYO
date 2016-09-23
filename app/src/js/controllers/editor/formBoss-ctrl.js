@@ -55,7 +55,7 @@ function _init() {
 	});
 
 	//on Init load the General Settings Form
-	this.loadForm(3);	//Background Form
+	this.loadForm(4);	//Background Form
 
 }
 
@@ -69,14 +69,25 @@ FormBoss_Ctrl.prototype.loadForm = function (id) {
 	//Change title
 	this.parentDOM.find('.caption-subject').html(this.formArray[id-1].title)
 
+	//Load the form from the object reference
 	this.formArray[id-1].objRef.load();
+
+	if (id===2) {
+		DisplayGlobals_SRV.getLogoVendorRef().dragable(true);
+	}else{
+		DisplayGlobals_SRV.getLogoVendorRef().dragable(false);
+	}
 
 }
 
 
 
 
+FormBoss_Ctrl.prototype.updateLogoPosition = function (x,y) {
 
+	this.formArray[1].objRef.updateLogoPosition(x,y);
+
+}
 
 
 

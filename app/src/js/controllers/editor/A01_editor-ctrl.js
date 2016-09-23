@@ -2,6 +2,7 @@
 
 
 
+const _ = require("lodash");
 
 
 
@@ -61,6 +62,9 @@ function _init() {
 
 	this.legend_Ctrl = new Legend_CTRL(this.d3SVG_Ctrl,buttonsArray);
 	this.form_Ctrl = new Form_CTRL();
+	
+	_setupPublishButtons.call(this);
+
 
 };
 
@@ -82,18 +86,54 @@ Editor_Ctrl.prototype.loadFormSettings = function (id) {
 
 
 
+function _setupPublishButtons() {
+
+	$('a.btn-publish').click(_publish.bind(this));
+	$('a.btn-reset-changes').click(_reset.bind(this));
+	
+}
+
+
+function _publish() {
+
+	console.log("Original Object ->", DisplayGlobals_SRV.getMasterConfig());
+
+	this.publishChanges();
+
+}
+
+
+function _reset() {
+
+	console.log("Reset Object ->", DisplayGlobals_SRV.getMasterConfigReset());
+
+}
 
 
 
 
 
 
+Editor_Ctrl.prototype.publishChanges = function () {
+
+	this.d3SVG_Ctrl.showLoader('Updating...');
+
+	setTimeout(function() {
+		this.d3SVG_Ctrl.hideLoader();
+	}.bind(this),3000);
+
+}
 
 
 
 
 
 
+Editor_Ctrl.prototype.updateLogoPosition = function (x,y) {
+
+	this.form_Ctrl.updateLogoPosition(x,y);
+
+}
 
 
 

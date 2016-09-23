@@ -11,6 +11,7 @@
 
 const DisplayGlobals_SRV = require('../../../services/A01_DisplayGlobals-srv'); 
 const HBTemplates = require('../../../services/HBTemplates-srv');
+const DividerItem_CTRL = require('./dividerItem-ctrl');
 
 
 
@@ -23,10 +24,30 @@ const HBTemplates = require('../../../services/HBTemplates-srv');
 function FormType4_Ctrl () {
 
 	this.parentDOM = $('#splScrEditorForm');
-	this.copyArray = [
-		{id:1},
-	];
+	this.dividersArray = [];
+    this.dividerCtrlArray = [];
     console.log ("%c -> Form Type 3 Constructor. DONE! ", "background:#ff0000;");
+
+    _init.call(this);
+
+}
+
+
+
+
+
+
+function _init() {
+
+    _getMasterConfigValues.call(this);
+
+}
+
+
+
+function _getMasterConfigValues() {
+
+    this.dividersArray = DisplayGlobals_SRV.getMasterConfig().AppSplash.dividers;
 
 }
 
@@ -38,40 +59,97 @@ function FormType4_Ctrl () {
 
 FormType4_Ctrl.prototype.load = function () {
 
-	this.parentDOM.find('.form-body').html(HBTemplates.getTemplate('formType4'));
+	this.dom = HBTemplates.getTemplate('formType4');
+    this.parentDOM.find('.form-body').html(this.dom);
 
-	$("[name='divider-switch']").bootstrapSwitch();
-	_addPickColors.call(this);
+	// _addPickColors.call(this);
+    _addMoreDividersButton.call(this);
+    _loadDividerArray.call(this);
+
 
 }
 
 
 
-function _addPickColors() {
+function _addMoreDividersButton() {
 
-    $('input.color-picker').each(function() {
+    let btn = $('<a href="javascript:;" class="btn blue"><i class="fa fa-plus"></i> Add New Dividers </a>');
+    this.parentDOM.find('.actions').html(btn);
 
-        $(this).minicolors({
-            control: $(this).attr('data-control') || 'hue',
-            defaultValue: $(this).attr('data-defaultValue') || '',
-            inline: $(this).attr('data-inline') === 'true',
-            letterCase: $(this).attr('data-letterCase') || 'lowercase',
-            opacity: $(this).attr('data-opacity'),
-            position: $(this).attr('data-position') || 'bottom left',
-            change: function(hex, opacity) {
-                if (!hex) return;
-                if (opacity) hex += ', ' + opacity;
-                if (typeof console === 'object') {
-                    console.log(hex);
-                }
-            },
-            theme: 'bootstrap'
+    btn.click(_addMoreDividers.bind(this));
+
+}
+
+
+
+
+
+function _addMoreDividers() {
+
+    //Default model for the copy
+    let dividerMO = {
+                    "visible": 1,
+                    "colour":"FFFFFF",
+                    "x":66,
+                    "y":450,
+                    "width":1784,
+                    "height":2
+                }; 
+
+    this.dividersArray.push(dividerMO);
+
+    console.table(this.dividersArray);
+
+    _loadDividerArray.call(this);
+
+}   
+
+
+
+
+
+
+function _loadDividerArray() {
+
+    console.clear();
+    console.table(this.dividersArray)
+
+
+    _emptyList.call(this);
+
+    if (this.dividersArray.length > 0) {
+
+        $.each( this.dividersArray, function( key, item ) {
+            this.dividerCtrlArray.push(new DividerItem_CTRL(key, item) );
+        }.bind(this));
+
+        let self = this;
+        this.dom.find('i.fa-close').click( function() {
+            let i = $(this).closest('a.list-group-item').data('arrayid');
+            $(this).closest('a.list-group-item').remove();
+            self.dividersArray.splice(i,1);
+            console.log(i);
+            _loadDividerArray.call(self);
         });
 
-    });
 
+    }else{
+        this.dom.find('.list-divider-items').html('It seems there is no text, click on the button add copy.')
+    }
 
 }
+
+
+function _emptyList() {
+
+    this.dom.find('.list-divider-items').html('');
+    this.dividerCtrlArray = [];
+
+}
+
+
+
+
 
 
 

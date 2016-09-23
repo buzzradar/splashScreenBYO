@@ -68,7 +68,8 @@ function _getMasterConfigValues() {
 
 FormType3_Ctrl.prototype.load = function () {
 
-	this.parentDOM.find('.form-body').html(HBTemplates.getTemplate('formType3'));
+    this.dom = HBTemplates.getTemplate('formType3');
+	this.parentDOM.find('.form-body').html(this.dom);
 
 	_addMoreCopyButton.call(this);
 	_loadCopyArray.call(this);
@@ -80,7 +81,7 @@ FormType3_Ctrl.prototype.load = function () {
 function _addMoreCopyButton() {
 
 	let btn = $('<a href="javascript:;" class="btn blue"><i class="fa fa-plus"></i> Add New Copy </a>');
-	this.parentDOM.find('.actions').html(btn);
+	this.dom.find('.actions').html(btn);
 
 	btn.click(_addMoreCopy.bind(this));
 
@@ -89,7 +90,7 @@ function _addMoreCopyButton() {
 
 function _emptyList() {
 
-    this.parentDOM.find('.list-copy-items').html('');
+    this.dom.find('.list-copy-items').html('');
     this.copyCtrlArray = []
 
 }
@@ -107,7 +108,7 @@ function _loadCopyArray() {
         }.bind(this));
 
         let self = this;
-        this.parentDOM.find('i.fa-close').click( function() {
+        this.dom.find('i.fa-close').click( function() {
             let i = $(this).closest('a.list-group-item').data('arrayid');
             $(this).closest('a.list-group-item').remove();
             self.copyArray.splice(i,1);
@@ -117,7 +118,7 @@ function _loadCopyArray() {
 
 
 	}else{
-		this.parentDOM.find('.list-copy-items').html('It seems there is no text, click on the button add copy.')
+		this.dom.find('.list-copy-items').html('It seems there is no text, click on the button add copy.')
 	}
 
 }
@@ -133,7 +134,7 @@ function _addMoreCopy() {
     //Default model for the copy
 	let copyMO = {
                     "visible": 1,
-                    "colour":"FFFFFF",
+                    "colour":"00ff00",
                     "x":0,
                     "y":470,
                     "width":1920,

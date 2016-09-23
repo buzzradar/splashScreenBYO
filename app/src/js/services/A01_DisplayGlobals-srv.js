@@ -3,6 +3,7 @@
 
 
 
+const _ = require("lodash");
 
 
 //--------------------------------------
@@ -236,10 +237,11 @@ DisplayGlobals.prototype.scaleRatio = function(num) {
 // Master Config
 //----------------------------
 
-let _masterConf;  
+let _masterConf, _masterConfReset;  
 
 DisplayGlobals.prototype.setMasterConfig = function (masterConf) {
 
+  _masterConfReset = $.extend(true, {}, masterConf);
   _masterConf = masterConf
   
 };
@@ -252,11 +254,42 @@ DisplayGlobals.prototype.getMasterConfig = function () {
 };
 
 
+DisplayGlobals.prototype.getMasterConfigReset = function () {
+
+  return _masterConfReset;
+  
+};
 
 
 
 
 
+
+
+
+
+
+
+
+
+//----------------------------
+// Preview Reference
+//----------------------------
+
+let _previewCtr;;  
+
+DisplayGlobals.prototype.setPreviewRef = function (previewCtr) {
+
+  _previewCtr = previewCtr
+  
+};
+
+
+DisplayGlobals.prototype.getPreviewRef = function () {
+
+  return _previewCtr;
+  
+};
 
 
 
@@ -289,6 +322,27 @@ DisplayGlobals.prototype.getEditorRef = function () {
 
 
 
+
+
+
+//----------------------------
+// Logo Reference
+//----------------------------
+
+let _LogoVendorCtrl;  
+
+DisplayGlobals.prototype.setLogoVendorRef = function (LogoVendorCtrl) {
+
+  _LogoVendorCtrl = LogoVendorCtrl
+  
+};
+
+
+DisplayGlobals.prototype.getLogoVendorRef = function () {
+
+  return _LogoVendorCtrl;
+  
+};
 
 
 

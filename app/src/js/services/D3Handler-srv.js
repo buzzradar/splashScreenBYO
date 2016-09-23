@@ -3,7 +3,7 @@
 
 const _ = require("lodash");
 const DisplayGlobals_SRV = require('./A01_DisplayGlobals-srv'); 
-const d3 = require("d3");
+// const d3 = require("d3");
 const LogoVendor_CTRL = require('../controllers/preview/logoVendor-ctrl');
 const Buttons_CTRL = require('../controllers/preview/buttons-ctrl');
 
@@ -23,6 +23,7 @@ function D3Handler_CTRL (target) {
   this.logoVendor = null;
   this.copy = null;
   this.dividers  = null;
+  this.updatingGroup = null;
 
   _createSVG.call(this, target);
 
@@ -78,6 +79,8 @@ D3Handler_CTRL.prototype.loadBGImage = function (urlImage, onImageLoaded) {
 D3Handler_CTRL.prototype.loadVendorLogo = function (logoMO, onLogoLoaded) {
 
   this.logoVendor = new LogoVendor_CTRL(this.svgContainer, logoMO, onLogoLoaded);
+
+  DisplayGlobals_SRV.setLogoVendorRef(this.logoVendor);
 
 }
 
@@ -212,6 +215,99 @@ D3Handler_CTRL.prototype.drawLegendOnTop = function (buttonsArrayMO) {
   }.bind(this));
 
 }
+
+
+
+
+
+
+D3Handler_CTRL.prototype.showLoader = function (label) {
+
+  if (!this.updatingGroup) {
+
+    this.updatingGroup = this.svgContainer.append("g")
+
+    this.updatingGroup.append("rect")
+          .attr("x", 0)
+          .attr("y", 0)
+          .attr("width", 1920)
+          .attr("height", 1080)
+          .attr("fill", 'rgba(0, 0, 0, 0.7)');
+
+
+
+    let btnW = 300;
+    let btnH = 80;
+
+    this.updatingGroup.append("rect")
+          .attr("x", 1920/2 - btnW/2)
+          .attr("y", 1080/2 - btnH/2)
+          .attr("width", 300)
+          .attr("height", 80)
+          .attr("fill", '#67809F')
+          .attr("rx", 10)         
+          .attr("ry", 10); 
+
+
+    this.updatingGroup.append("text")
+          .attr("text-anchor", "middle")
+          .attr("x", 1920/2)
+          .attr("y", 1080/2 + 14)
+          .text( label )
+          .attr("font-family", this.fontFamily)
+          .attr("font-size", 42)
+          .attr("fill", '#ffffff' );
+
+  }
+
+}
+
+
+
+D3Handler_CTRL.prototype.hideLoader = function () {
+
+  if (this.updatingGroup) this.updatingGroup.remove();
+  this.updatingGroup = null;
+  console.log(this.updatingGroup)
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

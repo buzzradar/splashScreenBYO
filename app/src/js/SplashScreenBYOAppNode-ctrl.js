@@ -150,7 +150,8 @@ function _loadPreviews() {
         let masterConfig = $(item).data('masterconfig');
         let thumbPreview = $(item);
 
-        new Preview_CTRL(masterConfig, thumbPreview);
+        
+        DisplayGlobals_SRV.setPreviewRef( new Preview_CTRL(masterConfig, thumbPreview) );
 
     });
 
