@@ -42,8 +42,8 @@ function _loadLogoVendor() {
 
   let self = this;
 
-  let logoGroup = this.svgContainer.append("g")
-    .attr('class', 'draggable')
+  this.logoGroup = this.svgContainer.append("g")
+    // .attr('class', 'draggable')
     .data([ {"x":0, "y":0, initX: this.logoMO.x, initY:this.logoMO.y} ])
     .call(d3.drag()
 
@@ -69,7 +69,7 @@ function _loadLogoVendor() {
         }));
 
 
-  logoGroup.append("image")
+  this.logoGroup.append("image")
     .on('load', function() {
       this.onLogoLoaded();
     }.bind(this))
@@ -81,7 +81,7 @@ function _loadLogoVendor() {
 
 
 
-  this.dottedRect = logoGroup.append('rect')
+  this.dottedRect = this.logoGroup.append('rect')
   .attr('x', this.logoMO.x)
   .attr('y', this.logoMO.y)
   .attr('width', this.logoMO.width)
@@ -104,9 +104,12 @@ LogoVendor_CTRL.prototype.dragable = function (isDraggable) {
 
    this.isDragable = isDraggable;
    if (!isDraggable) {
-      this.dottedRect.style("stroke", 'transparent')
+      this.dottedRect.style("stroke", 'transparent');
+      this.logoGroup.attr('class', '');
+
    }else{
-      this.dottedRect.style("stroke", '#ffffff')
+      this.dottedRect.style("stroke", '#ffffff');
+      this.logoGroup.attr('class', 'draggable');
    }
 
 }

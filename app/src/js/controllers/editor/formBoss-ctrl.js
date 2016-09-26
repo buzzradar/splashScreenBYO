@@ -55,7 +55,7 @@ function _init() {
 	});
 
 	//on Init load the General Settings Form
-	this.loadForm(3);	//Background Form
+	this.loadForm(2);	//Background Form
 
 }
 
