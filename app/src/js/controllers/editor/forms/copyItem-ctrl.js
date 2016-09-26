@@ -103,7 +103,7 @@ function _validateDimensions() {
 
     if ( dim_w.length > 0 && !isNaN(dim_w) )  {
         this.copyDOM.find('input[name=dim_w]').closest('.form-group').removeClass('has-error');
-        this.copyMO.width = dim_w;
+        this.copyMO.width = Number(dim_w);
     }else{
         this.error = true;
         this.copyDOM.find('input[name=dim_w]').closest('.form-group').addClass('has-error');
@@ -121,8 +121,8 @@ function _validatePositions() {
 
     if ( (pos_x.length > 0 && pos_y.length > 0) && (!isNaN(pos_x) && !isNaN(pos_y)) )  {
         this.copyDOM.find('input[name=pos_x]').closest('.form-group').removeClass('has-error');
-        this.copyMO.x = pos_x;
-        this.copyMO.y = pos_y;
+        this.copyMO.x = Number(pos_x);
+        this.copyMO.y = Number(pos_y);
     }else{
         this.error = true;
         this.copyDOM.find('input[name=pos_x]').closest('.form-group').addClass('has-error');
@@ -139,7 +139,7 @@ function _validateSize() {
 
     if ( size.length > 0 && !isNaN(size) )  {
         this.copyDOM.find('input[name=size]').closest('.form-group').removeClass('has-error');
-        this.copyMO.size = size;
+        this.copyMO.size = Number(size);
     }else{
         this.error = true;
         this.copyDOM.find('input[name=size]').closest('.form-group').addClass('has-error');
