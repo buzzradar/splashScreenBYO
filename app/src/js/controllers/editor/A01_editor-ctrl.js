@@ -78,7 +78,7 @@ function _init() {
 Editor_Ctrl.prototype.loadFormSettings = function (id) {
 
 	this.form_Ctrl.loadForm(id);
-
+	
 }
 
 

@@ -11,6 +11,7 @@
 
 const DisplayGlobals_SRV = require('../../../services/A01_DisplayGlobals-srv'); 
 const HBTemplates = require('../../../services/HBTemplates-srv');
+const Utils_SRV = require('../../../services/Utils-srv');
 
 
 
@@ -83,18 +84,7 @@ function _validate() {
 
 function _validateDimensions() {
 
-    //Dimensions
-    let dim_w = $.trim(this.dom.find('input[name=dim_w]').val());
-    let dim_h = $.trim(this.dom.find('input[name=dim_h]').val());
-
-    if ( dim_w.length > 0 && !isNaN(dim_w) && (!isNaN(dim_h) && !isNaN(dim_h))  )  {
-        this.dom.find('input[name=dim_w]').closest('.form-group').removeClass('has-error');
-        this.vendorLogo.width = Number(dim_w);
-        this.vendorLogo.height = Number(dim_h);
-    }else{
-        this.error = true;
-        this.dom.find('input[name=dim_w]').closest('.form-group').addClass('has-error');
-    }
+    this.formError = Utils_SRV.validateDimensions(this.dom, this.vendorLogo);
 
 }
 
@@ -102,21 +92,7 @@ function _validateDimensions() {
 
 function _validatePositions() {
 
-    //Position
-    let pos_x = $.trim(this.dom.find('input[name=pos_x]').val());
-    let pos_y = $.trim(this.dom.find('input[name=pos_y]').val());
-
-    if ( (pos_x.length > 0 && pos_y.length > 0) && (!isNaN(pos_x) && !isNaN(pos_y)) )  {
-        this.dom.find('input[name=pos_x]').closest('.form-group').removeClass('has-error');
-        this.vendorLogo.x = Number(pos_x);
-        this.vendorLogo.y = Number(pos_y);
-    }else{
-        this.error = true;
-        this.dom.find('input[name=pos_x]').closest('.form-group').addClass('has-error');
-    }
-
-
-    console.log(this.vendorLogo)
+    this.formError = Utils_SRV.validatePositions(this.dom, this.vendorLogo);
 
 }
 

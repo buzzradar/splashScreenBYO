@@ -11,6 +11,7 @@
 
 const DisplayGlobals_SRV = require('../../../services/A01_DisplayGlobals-srv'); 
 const HBTemplates = require('../../../services/HBTemplates-srv');
+const Utils_SRV = require('../../../services/Utils-srv');
 
 
 
@@ -53,7 +54,7 @@ function _renderView() {
     this.dividerDOM = this.parentDOM.find('a[data-arrayid='+this.key+']');
 
     _addSwitch.call(this);
-    _addPickColors.call(this);
+    Utils_SRV.addPickColors('colour', this.dividerMO);
     _onFocusOut.call(this);
 
 }
@@ -95,18 +96,7 @@ DividerItem_Ctrl.prototype.validate =  function() {
 
 function _validateDimensions() {
 
-    //Dimensions
-    let dim_w = $.trim(this.dividerDOM.find('input[name=dim_w]').val());
-    let dim_h = $.trim(this.dividerDOM.find('input[name=dim_h]').val());
-
-    if ( (dim_w.length > 0 && !isNaN(dim_w)) && (dim_h.length > 0 && !isNaN(dim_h))  )  {
-        this.dividerDOM.find('input[name=dim_w]').closest('.form-group').removeClass('has-error');
-        this.dividerMO.width = Number(dim_w);
-        this.dividerMO.height = Number(dim_h);
-    }else{
-        this.error = true;
-        this.dividerDOM.find('input[name=dim_w]').closest('.form-group').addClass('has-error');
-    }
+    this.formError = Utils_SRV.validateDimensions(this.dividerDOM, this.dividerMO);
 
 }
 
@@ -114,18 +104,7 @@ function _validateDimensions() {
 
 function _validatePositions() {
 
-    //Position
-    let pos_x = $.trim(this.dividerDOM.find('input[name=pos_x]').val());
-    let pos_y = $.trim(this.dividerDOM.find('input[name=pos_y]').val());
-
-    if ( (pos_x.length > 0 && pos_y.length > 0) && (!isNaN(pos_x) && !isNaN(pos_y)) )  {
-        this.dividerDOM.find('input[name=pos_x]').closest('.form-group').removeClass('has-error');
-        this.dividerMO.x = Number(pos_x);
-        this.dividerMO.y = Number(pos_y);
-    }else{
-        this.error = true;
-        this.dividerDOM.find('input[name=pos_x]').closest('.form-group').addClass('has-error');
-    }
+    this.formError = Utils_SRV.validatePositions(this.dividerDOM, this.dividerMO);
 
 }
 

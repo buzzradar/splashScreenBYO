@@ -3,7 +3,6 @@
 
 const _ = require("lodash");
 const DisplayGlobals_SRV = require('../../services/A01_DisplayGlobals-srv'); 
-// const d3 = require("d3");
 
 
 

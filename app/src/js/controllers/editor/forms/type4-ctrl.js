@@ -26,7 +26,7 @@ function FormType4_Ctrl () {
 	this.parentDOM = $('#splScrEditorForm');
 	this.dividersArray = [];
     this.dividerCtrlArray = [];
-    console.log ("%c -> Form Type 3 Constructor. DONE! ", "background:#ff0000;");
+    console.log ("%c -> Form Type 4 Constructor. DONE! ", "background:#ff0000;");
 
     _init.call(this);
 

@@ -41,6 +41,13 @@
   display: inline-block;
 }
 
+.list-group-item.no-dashboard {
+  background: #f5d4d4;
+}
+.list-group-item.no-dashboard .list-group-item-heading strong {
+  color: red;
+}
+
 /* --------------------------------------- */
 /* MEDIA QUERIES                           */
 /* --------------------------------------- */
