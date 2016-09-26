@@ -23,7 +23,7 @@ const HBTemplates = require('../../../services/HBTemplates-srv');
 function DividerItem_Ctrl (key, dividerMO) {
 
     this.key = key;
-    this.parentDOM = $('#splScrEditorForm').find('.list-copy-items');
+    this.parentDOM = $('#splScrEditorForm').find('.list-divider-items');
     this.dividerDOM = null;
     this.formError = false;
     this.dividerMO = dividerMO;       
@@ -54,7 +54,7 @@ function _renderView() {
 
     _addSwitch.call(this);
     _addPickColors.call(this);
-    // _onFocusOut.call(this);
+    _onFocusOut.call(this);
 
 }
 
@@ -62,7 +62,13 @@ function _renderView() {
 
 function _addSwitch() {
 
+    this.dividerDOM.find("input[name='divider-switch']").prop( "checked", this.dividerMO.visible );
     this.dividerDOM.find("input[name='divider-switch']").bootstrapSwitch();
+
+    let self = this;
+    this.dividerDOM.find("input[name='divider-switch']").on("switchChange.bootstrapSwitch", function(event, state) {
+        self.dividerMO.visible = state;
+    });
 
 }
 
@@ -80,25 +86,8 @@ function _onFocusOut() {
 
 DividerItem_Ctrl.prototype.validate =  function() {
 
-    _validateCopy.call(this);
     _validateDimensions.call(this);
     _validatePositions.call(this);
-    _validateSize.call(this);
-
-}
-
-
-function _validateCopy() {
-
-    let copy = $.trim(this.dividerDOM.find('input[name=copy]').val());
-
-    if ( copy.length > 0 )  {
-        this.dividerDOM.find('input[name=copy]').closest('.form-group').removeClass('has-error');
-        this.dividerMO.copy = copy;
-    }else{
-        this.error = true;
-        this.dividerDOM.find('input[name=copy]').closest('.form-group').addClass('has-error');
-    }
 
 }
 
@@ -108,10 +97,12 @@ function _validateDimensions() {
 
     //Dimensions
     let dim_w = $.trim(this.dividerDOM.find('input[name=dim_w]').val());
+    let dim_h = $.trim(this.dividerDOM.find('input[name=dim_h]').val());
 
-    if ( dim_w.length > 0 && !isNaN(dim_w) )  {
+    if ( (dim_w.length > 0 && !isNaN(dim_w)) && (dim_h.length > 0 && !isNaN(dim_h))  )  {
         this.dividerDOM.find('input[name=dim_w]').closest('.form-group').removeClass('has-error');
-        this.dividerMO.width = dim_w;
+        this.dividerMO.width = Number(dim_w);
+        this.dividerMO.height = Number(dim_h);
     }else{
         this.error = true;
         this.dividerDOM.find('input[name=dim_w]').closest('.form-group').addClass('has-error');
@@ -129,8 +120,8 @@ function _validatePositions() {
 
     if ( (pos_x.length > 0 && pos_y.length > 0) && (!isNaN(pos_x) && !isNaN(pos_y)) )  {
         this.dividerDOM.find('input[name=pos_x]').closest('.form-group').removeClass('has-error');
-        this.dividerMO.x = pos_x;
-        this.dividerMO.y = pos_y;
+        this.dividerMO.x = Number(pos_x);
+        this.dividerMO.y = Number(pos_y);
     }else{
         this.error = true;
         this.dividerDOM.find('input[name=pos_x]').closest('.form-group').addClass('has-error');
@@ -140,18 +131,9 @@ function _validatePositions() {
 
 
 
-function _validateSize() {
+function _validateVisible() {
 
-    //Size
-    let size = $.trim(this.dividerDOM.find('input[name=size]').val());
 
-    if ( size.length > 0 && !isNaN(size) )  {
-        this.dividerDOM.find('input[name=size]').closest('.form-group').removeClass('has-error');
-        this.dividerMO.size = size;
-    }else{
-        this.error = true;
-        this.dividerDOM.find('input[name=size]').closest('.form-group').addClass('has-error');
-    }
 
 }
 
@@ -174,7 +156,7 @@ function _addPickColors() {
                 if (!hex) return;
                 if (opacity) hex += ', ' + opacity;
                 if (typeof console === 'object') {
-                    // console.log(hex.substring(1,6));
+                    // console.log(hex.substring(1,7));
                     self.dividerMO.colour = hex.substring(1,7);
                 }
             },

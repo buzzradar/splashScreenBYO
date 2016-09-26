@@ -81,7 +81,7 @@ FormType3_Ctrl.prototype.load = function () {
 function _addMoreCopyButton() {
 
 	let btn = $('<a href="javascript:;" class="btn blue"><i class="fa fa-plus"></i> Add New Copy </a>');
-	this.dom.find('.actions').html(btn);
+	this.parentDOM.find('.actions').html(btn);
 
 	btn.click(_addMoreCopy.bind(this));
 
@@ -90,7 +90,7 @@ function _addMoreCopyButton() {
 
 function _emptyList() {
 
-    this.dom.find('.list-copy-items').html('');
+    this.dom.html('');
     this.copyCtrlArray = []
 
 }
@@ -144,8 +144,6 @@ function _addMoreCopy() {
                 };
 
 	this.copyArray.push(copyMO);
-
-    console.table(this.copyArray);
 
 	_loadCopyArray.call(this);
 

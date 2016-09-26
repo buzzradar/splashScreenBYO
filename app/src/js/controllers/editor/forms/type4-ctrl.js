@@ -97,9 +97,6 @@ function _addMoreDividers() {
                 }; 
 
     this.dividersArray.push(dividerMO);
-
-    console.table(this.dividersArray);
-
     _loadDividerArray.call(this);
 
 }   
@@ -111,8 +108,8 @@ function _addMoreDividers() {
 
 function _loadDividerArray() {
 
-    console.clear();
-    console.table(this.dividersArray)
+    // console.clear();
+    // console.table(this.dividersArray)
 
 
     _emptyList.call(this);
@@ -128,7 +125,7 @@ function _loadDividerArray() {
             let i = $(this).closest('a.list-group-item').data('arrayid');
             $(this).closest('a.list-group-item').remove();
             self.dividersArray.splice(i,1);
-            console.log(i);
+            // console.log(i);
             _loadDividerArray.call(self);
         });
 
@@ -142,7 +139,7 @@ function _loadDividerArray() {
 
 function _emptyList() {
 
-    this.dom.find('.list-divider-items').html('');
+    this.dom.html('');
     this.dividerCtrlArray = [];
 
 }

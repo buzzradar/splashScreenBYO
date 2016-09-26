@@ -39,7 +39,7 @@ function CopyItem_Ctrl (key, copyMO) {
 
 function _init() {
 
-    console.log("Copy Item--->", this.copyMO);
+    // console.log("Copy Item--->", this.copyMO);
     _renderView.call(this);
 
 }
