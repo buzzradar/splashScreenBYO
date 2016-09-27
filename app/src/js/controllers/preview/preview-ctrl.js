@@ -25,12 +25,11 @@ const Editor_CTRL = require('../../controllers/editor/A01_editor-ctrl');
 // Constructor
 // ------------------------------------
 
-function Preview_Ctrl (masterConfig, targetDOM) {
+function Preview_Ctrl (masterConfJSON, targetDOM) {
 
 	this.d3SVG_Ctrl = null;
-	this.masterConfig = masterConfig;
 	this.targetDOM = targetDOM;
-	this.masterConfJSON = null;
+	this.masterConfJSON = masterConfJSON;
 
 	_init.call(this);
 
@@ -53,7 +52,10 @@ function Preview_Ctrl (masterConfig, targetDOM) {
 
 function _init() {
 
-	JSONHandler_SRV.load(this.masterConfig, onMasterConfigLoadedSuccess.bind(this));
+	DisplayGlobals_SRV.setMasterConfig(this.masterConfJSON);
+	
+	this.d3SVG_Ctrl =  new D3Handler_CTRL(this.targetDOM.find('.preview'));
+	this.d3SVG_Ctrl.loadBGImage(this.masterConfJSON.AppSplash.backImage.url, _onBGLoadedSuccess.bind(this));
 
 };
 
@@ -62,7 +64,6 @@ function _init() {
 
 function onMasterConfigLoadedSuccess(masterConfJSON) {
 
-    console.log ("%c -> Master Config Succesfully Loaded => ", "background:#00ff00;", masterConfJSON);
 	this.masterConfJSON = masterConfJSON;
 	DisplayGlobals_SRV.setMasterConfig(masterConfJSON);
 

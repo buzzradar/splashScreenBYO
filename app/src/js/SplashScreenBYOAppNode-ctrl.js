@@ -10,6 +10,7 @@ const DisplayGlobals_SRV = require('./services/A01_DisplayGlobals-srv');
 const APICalls_SRV = require('./services/APICalls-srv');
 const Rollbar = require('./services/rollbar.umd.nojson.min');
 const Preview_CTRL = require('./controllers/preview/preview-ctrl');
+const JSONHandler_SRV = require('./services/JSONHandler-srv');
 
 
 
@@ -149,8 +150,11 @@ function _loadPreviews() {
         let masterConfig = $(item).data('masterconfig');
         let thumbPreview = $(item);
 
-        
-        DisplayGlobals_SRV.setPreviewRef( new Preview_CTRL(masterConfig, thumbPreview) );
+        JSONHandler_SRV.load(masterConfig, function(masterConfJSON) {
+            console.log ("%c -> Master Config Succesfully Loaded => ", "background:#00ff00;", masterConfJSON);
+            console.log(masterConfJSON);
+            DisplayGlobals_SRV.setPreviewRef( new Preview_CTRL(masterConfJSON, thumbPreview) );
+        }.bind(this));
 
     });
 
@@ -158,15 +162,14 @@ function _loadPreviews() {
 
 
 
-
 SplashScreenBYOApp_NODE.prototype.updatePreview = function() {
 
     console.log("updatePreview in App Node!");
 
-    let masterConfig = DisplayGlobals_SRV.getMasterConfig();
+    let masterConfJSON = DisplayGlobals_SRV.getMasterConfig();
     let thumbPreview = $( 'div.splScr-16-9' );
 
-    DisplayGlobals_SRV.setPreviewRef( new Preview_CTRL(masterConfig, thumbPreview) );
+    DisplayGlobals_SRV.setPreviewRef( new Preview_CTRL(masterConfJSON, thumbPreview) );
 
 }
 
