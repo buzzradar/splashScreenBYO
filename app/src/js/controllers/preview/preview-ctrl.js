@@ -64,10 +64,11 @@ function onMasterConfigLoadedSuccess(masterConfJSON) {
 
     console.log ("%c -> Master Config Succesfully Loaded => ", "background:#00ff00;", masterConfJSON);
 	this.masterConfJSON = masterConfJSON;
+	DisplayGlobals_SRV.setMasterConfig(masterConfJSON);
+
 	this.d3SVG_Ctrl =  new D3Handler_CTRL(this.targetDOM.find('.preview'));
 	this.d3SVG_Ctrl.loadBGImage(this.masterConfJSON.AppSplash.backImage.url, _onBGLoadedSuccess.bind(this));
 
-	DisplayGlobals_SRV.setMasterConfig(masterConfJSON);
 
 }
 
@@ -108,7 +109,11 @@ function _onPreviewReady() {
 
 
 
+Preview_Ctrl.prototype.updateChanges = function () {
 
+	console.log("Preview--->updateChanges");
+
+}
 
 
 

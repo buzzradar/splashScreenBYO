@@ -117,8 +117,9 @@ function _addMoreDividers() {
 
 function _loadButtonArray() {
 
-    console.clear();
-    console.table(this.buttonsArray)
+
+    // console.clear();
+    // console.table(this.buttonsArray)
     _emptyList.call(this);
 
 
@@ -137,6 +138,9 @@ function _loadButtonArray() {
             self.buttonsArray.splice(i,1);
             // console.log(i);
             _loadButtonArray.call(self);
+            
+            DisplayGlobals_SRV.getAppNodeRef().updatePreview();
+
         });
 
         //Edit Button
@@ -149,6 +153,8 @@ function _loadButtonArray() {
     }else{
         this.dom.html('No buttons added yet!');
     }
+
+
 
 }
 

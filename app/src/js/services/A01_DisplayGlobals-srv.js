@@ -56,6 +56,35 @@ DisplayGlobals.prototype.getVersion = function() {
 
 
 
+//----------------------------
+// App Node Ref
+//----------------------------
+
+let _appNode;
+
+DisplayGlobals.prototype.setAppNodeRef = function(appNode) {
+
+  _appNode = appNode;
+
+};
+
+
+DisplayGlobals.prototype.getAppNodeRef = function() {
+
+    return _appNode;
+
+};
+
+
+
+
+
+
+
+
+
+
+
 
 
 

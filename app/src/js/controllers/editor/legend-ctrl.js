@@ -39,7 +39,7 @@ function _loadLegendBottom() {
 	$.each( this.buttonsArrayMO, function( key, item ) {
 
 		let offset = (key === 0) ? 'col-xs-offset-1 ' : '';
-		let btn = '<div class="'+offset+'col-xs-2"><button type="button" data-id="'+(key+1)+'" class="legend-btn btn btn-circle '+item.metroColor+'"> '+(key+1)+' </button> '+item.label+' </div>';
+		let btn = '<div class="'+offset+'col-xs-2"><button type="button" data-id="'+(key+1)+'" class="legend-btn btn btn-circle '+item.metroColor+'"> <strong>'+(key+1)+'</strong> </button> '+item.label+' </div>';
 		this.domTarget.append(btn);
 
 	}.bind(this));

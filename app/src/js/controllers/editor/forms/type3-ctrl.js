@@ -101,6 +101,10 @@ function _loadCopyArray() {
 
     _emptyList.call(this);
 
+
+console.log(this.copyArray, this.copyArray.length)
+
+
 	if (this.copyArray.length > 0) {
 
         $.each( this.copyArray, function( key, item ) {
@@ -118,7 +122,8 @@ function _loadCopyArray() {
 
 
 	}else{
-		this.dom.find('.list-copy-items').html('It seems there is no text, click on the button add copy.')
+
+		this.dom.html('It seems there is no text, click on the button above to Add New Copy.')
 	}
 
 }

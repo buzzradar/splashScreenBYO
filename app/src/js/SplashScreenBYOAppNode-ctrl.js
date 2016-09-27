@@ -52,11 +52,10 @@ function _setScriptTagReference() {
     
     for (i = 0; i < scriptsArray.length; i++) { // we loop through all script tag references until we come across <script src="SplashScreenBYO.js"> - Immo 26/01/15
         
-        src = scriptsArray[i].src;
-        if (src.indexOf("SplashScreenBYO") > -1) { // !IMPORTANT <script src="SplashScreenBYO.js"> needs to be called "SplashScreenBYO" 
+        // console.log( $(scriptsArray[i]).data('editor') )
 
+        if ($(scriptsArray[i]).data('editor')) {    //I go through all the scrips and If I find one that has a data-editor tag then is the one I need. BINGO!!!!!
             scriptTag = scriptsArray[i];
-        
         }
     
     }
@@ -160,7 +159,16 @@ function _loadPreviews() {
 
 
 
+SplashScreenBYOApp_NODE.prototype.updatePreview = function() {
 
+    console.log("updatePreview in App Node!");
+
+    let masterConfig = DisplayGlobals_SRV.getMasterConfig();
+    let thumbPreview = $( 'div.splScr-16-9' );
+
+    DisplayGlobals_SRV.setPreviewRef( new Preview_CTRL(masterConfig, thumbPreview) );
+
+}
 
 
 
