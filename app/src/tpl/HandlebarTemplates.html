@@ -391,17 +391,7 @@
         <div class="form-group">
             <label class="col-xs-3 control-label"><strong>Dashboard ID</strong></label>
             <div class="col-xs-5 dashboardID-select">
-                <!-- <input type="text" name="dashboardID" class="form-control" placeholder="Dashboard ID" value="{{dashboardID}}"> -->
-
-                <!-- <select name="dashboardIDSelect" class="form-control">
-                    <option data-valid="0" selected>Select a Dashboard</option>
-                    <option data-valid="1">Dashboard 1</option>
-                    <option data-valid="1">Dashboard 2</option>
-                    <option data-valid="1">Dashboard 3</option>
-                    <option data-valid="1">Dashboard 4</option>
-                    <option data-valid="1">Dashboard 5</option>
-                </select> -->
-
+                <!-- I will build the select dynamically from buttonFormItem-ctrl.js -->
             </div>
         </div>
 
@@ -415,7 +405,7 @@
         <div class="form-group">
             <label class="col-xs-3 control-label">Transparency</label>
             <div class="col-xs-5">
-                <input type="text" name="transp" class="form-control inlinesmall" placeholder="" value="{{backgroundTransparent}}">
+                <input type="text" name="backgroundTransparent" class="form-control inlinesmall" placeholder="" value="{{backgroundTransparent}}">
             </div>
         </div>
 
@@ -445,21 +435,21 @@
         <div class="form-group">
             <label class="col-md-3 control-label">Copy Color</label>
             <div class="col-sm-5">
-                <input type="text" name="copy.colour" class="form-control color-picker" data-control="hue" value="#{{copy.colour}}">
+                <input type="text" name="copy-colour" class="form-control color-picker" data-control="hue" value="#{{copy.colour}}">
             </div>
         </div>
 
         <div class="form-group">
             <label class="col-xs-3 control-label">Copy Size</label>
             <div class="col-xs-9">
-                <input type="text" name="pos_x" class="form-control inlinesmall" placeholder="x" value="{{copy.size}}">
+                <input type="text" name="copy-size" class="form-control inlinesmall" placeholder="x" value="{{copy.size}}">
             </div>
         </div>
 
         <div class="form-group">
             <label class="col-xs-3 control-label">Copy Weight</label>
             <div class="col-xs-9">
-                <input type="text" name="pos_x" class="form-control inlinesmall" placeholder="x" value="{{copy.weight}}">
+                <input type="text" name="copy-weight" class="form-control inlinesmall" placeholder="x" value="{{copy.weight}}">
             </div>
         </div>
 

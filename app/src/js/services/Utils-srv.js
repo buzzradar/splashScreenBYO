@@ -73,10 +73,12 @@ Utils_SRV.prototype.validatePositions = function (formDOM, objMO) {
     let pos_x = Number($.trim(formDOM.find('input[name=pos_x]').val()));
     let pos_y = Number($.trim(formDOM.find('input[name=pos_y]').val()));
 
+
     if ( (pos_x >=0 && pos_x <= 1920 ) &&  (pos_y >=0 && pos_y <= 1080) )  {
         formDOM.find('input[name=pos_x]').closest('.form-group').removeClass('has-error');
-        objMO.x = Number(pos_x);
-        objMO.y = Number(pos_y);
+
+        objMO.x = pos_x;
+        objMO.y = pos_y;
         formDOM.find('input[name=pos_x]').val(objMO.x);
         formDOM.find('input[name=pos_y]').val(objMO.y);
     }else{
@@ -154,7 +156,55 @@ Utils_SRV.prototype.addPickColors = function (property, objMO) {
 
 
 
+//----------------------------
+// Validate Transparency
+//----------------------------
 
+
+Utils_SRV.prototype.validateTransparency = function (formDOM, objMO, propertyName) {
+
+    let error = false;
+    let transp = Number($.trim(formDOM.find('input[name='+propertyName+']').val()));
+
+    if ( transp >=0 && transp <= 100  )  {
+        formDOM.find('input[name='+propertyName+']').closest('.form-group').removeClass('has-error');
+        objMO[propertyName] = Number(transp);
+        formDOM.find('input[name='+propertyName+']').val(objMO.backgroundTransparent);
+    }else{
+        error = true;
+        formDOM.find('input[name='+propertyName+']').closest('.form-group').addClass('has-error');
+    }
+  
+    return error;
+
+};
+
+
+
+
+
+//----------------------------
+// Validate Single Number
+//----------------------------
+
+
+Utils_SRV.prototype.validateCopySize = function (formDOM, objMO, propertyName) {
+
+    let error = false;
+    let transp = Number($.trim(formDOM.find('input[name='+propertyName+']').val()));
+
+    if ( transp >=0 && transp <= 100  )  {
+        formDOM.find('input[name='+propertyName+']').closest('.form-group').removeClass('has-error');
+        objMO[propertyName] = Number(transp);
+        formDOM.find('input[name='+propertyName+']').val(objMO.backgroundTransparent);
+    }else{
+        error = true;
+        formDOM.find('input[name='+propertyName+']').closest('.form-group').addClass('has-error');
+    }
+  
+    return error;
+
+};
 
 
 

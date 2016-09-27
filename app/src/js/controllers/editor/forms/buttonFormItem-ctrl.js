@@ -89,7 +89,6 @@ function _addSwitch() {
 
     let self = this;
     this.btnFormDOM.find("input[name='btn-switch']").on("switchChange.bootstrapSwitch", function(event, state) {
-        console.log(state)
         self.buttonMO.visible = state;
     });
 
@@ -98,23 +97,22 @@ function _addSwitch() {
 
 function _addDashboardsIDSelect() {
 
-    let arrayDashboards = ['AAAAAA', 'BBBBB', 'CCCCC', 'DDDDD'];
-    let selectHtml = '<select name="dashboardIDSelect" class="form-control"><option data-valid="false" selected>Select a Dashboard ID</option>';
+    let self = this;
+    let arrayDashboards = ['GO5RJV', 'BLCQSE', 'BEJJN7', 'GUULPR', 'BPS0AR'];
+    let selectHtml = '<select name="dashboardIDSelect" class="form-control"><option data-idvalue="false" selected>Select a Dashboard ID</option>';
 
     $.each( arrayDashboards, function( key, item ) {
-        selectHtml += '<option data-valid="true">'+item+'</option>';
+        let selected = (self.buttonMO.dashboardID === item) ? 'selected' : '';
+        selectHtml += '<option data-idvalue="'+item+'" '+selected+'>'+item+'</option>';
     }.bind(this));
     selectHtml += '</select>'
 
-    this.btnFormDOM.find('.dashboardID-select').html(selectHtml);
+    this.btnFormDOM.find('.dashboardID-select').html($(selectHtml));
 
     //onchange
-
-    console.clear();
-    console.log($(selectHtml))
-
-    $(selectHtml).change(function() {
-        console.log('aaaa')
+    this.btnFormDOM.find('select[name=dashboardIDSelect]').on('change', function() {
+        self.buttonMO.dashboardID = $(this).find(':selected').data('idvalue');
+        self.validate();
     });
 
 }
@@ -137,6 +135,9 @@ ButtonFormItem_Ctrl.prototype.validate =  function() {
     _validatePositions.call(this);
     _validateTransparency.call(this);
     _validateDashboardIDSelect.call(this);
+    _validateCopySize.call(this);
+    _validateCopyWeight.call(this);
+    _validateCopy.call(this);
 
 }
 
@@ -159,15 +160,55 @@ function _validatePositions() {
 
 function _validateTransparency() {
 
-    let transp = Number($.trim(this.btnFormDOM.find('input[name=transp]').val()));
+    this.formError = Utils_SRV.validateTransparency(this.btnFormDOM, this.buttonMO, "backgroundTransparent");
 
-    if ( transp >=0 && transp <=100  )  {
-        this.btnFormDOM.find('input[name=transp]').closest('.form-group').removeClass('has-error');
-        this.buttonMO.x = Number(transp);
-        this.btnFormDOM.find('input[name=transp]').val(transp);
+}
+
+
+function _validateCopySize() {
+
+    let copySize = Number($.trim(this.btnFormDOM.find('input[name=copy-size]').val()));
+
+    if ( copySize >=0 && copySize <= 300  )  {
+        this.btnFormDOM.find('input[name=copy-size]').closest('.form-group').removeClass('has-error');
+        this.buttonMO.copy.size = Number(copySize);
+        this.btnFormDOM.find('input[name=copy-size]').val(this.buttonMO.copy.size);
     }else{
         this.error = true;
-        this.btnFormDOM.find('input[name=transp]').closest('.form-group').addClass('has-error');
+        this.btnFormDOM.find('input[name=copy-size]').closest('.form-group').addClass('has-error');
+    }
+
+}
+
+
+function _validateCopyWeight() {
+
+    let copyWeight = Number($.trim(this.btnFormDOM.find('input[name=copy-weight]').val()));
+
+    if ( copyWeight >=0 && copyWeight <= 900  )  {
+        this.btnFormDOM.find('input[name=copy-weight]').closest('.form-group').removeClass('has-error');
+        this.buttonMO.copy.weight = Number(copyWeight);
+        this.btnFormDOM.find('input[name=copy-weight]').val(this.buttonMO.copy.weight);
+    }else{
+        this.error = true;
+        this.btnFormDOM.find('input[name=copy-weight]').closest('.form-group').addClass('has-error');
+    }
+
+}
+
+
+
+function _validateCopy() {
+
+    let copy = $.trim(this.btnFormDOM.find('input[name=copy]').val());
+
+    if ( copy.length > 0  )  {
+        this.btnFormDOM.find('input[name=copy]').closest('.form-group').removeClass('has-error');
+        this.buttonMO.copy.text = copy;
+        this.btnFormDOM.find('input[name=copy]').val(this.buttonMO.copy.text);
+    }else{
+        this.error = true;
+        this.btnFormDOM.find('input[name=copy]').closest('.form-group').addClass('has-error');
     }
 
 }
@@ -176,6 +217,7 @@ function _validateTransparency() {
 
 function _validateVisible() {
 
+    
 
 
 }
@@ -186,7 +228,7 @@ function _validateDashboardIDSelect() {
 
     let optionSelected = this.btnFormDOM.find('select option:selected');
 
-    if (!optionSelected.data('valid')) {
+    if (!optionSelected.data('idvalue')) {
         this.btnFormDOM.find('select option:selected').closest('.form-group').addClass('has-error');   
     }else{
         this.btnFormDOM.find('select option:selected').closest('.form-group').removeClass('has-error');   
