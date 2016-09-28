@@ -144,7 +144,7 @@ LogoVendor_CTRL.prototype.update = function () {
 
 LogoVendor_CTRL.prototype.reset = function() {
 
-  this.logoMO = DisplayGlobals_SRV.getMasterConfigReset().AppSplash.vendorLogo;
+  this.logoMO = DisplayGlobals_SRV.getMasterConfig().AppSplash.vendorLogo;
   this.update();
 
 }

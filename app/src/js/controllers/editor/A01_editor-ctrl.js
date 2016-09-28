@@ -107,7 +107,12 @@ function _reset() {
 
 	console.log("Reset Object ->", DisplayGlobals_SRV.getMasterConfigReset());
 
+  	DisplayGlobals_SRV.setMasterConfig( DisplayGlobals_SRV.getMasterConfigReset() );
+    	
+    //Update the Preview
     DisplayGlobals_SRV.getPreviewRef().resetChanges();
+    //Update the form on the left hand side
+    this.form_Ctrl.reset();
 
 }
 

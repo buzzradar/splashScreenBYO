@@ -127,6 +127,7 @@ Preview_Ctrl.prototype.updateLogoImage = function (imgObj) {
 
 Preview_Ctrl.prototype.resetChanges = function () {
 
+	console.log("PREVIEW => Reset all changes....")
 	this.d3SVG_Ctrl.resetChanges();
 
 }

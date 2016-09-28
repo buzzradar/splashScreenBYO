@@ -149,7 +149,12 @@ function _emptyList() {
 
 
 
+FormType4_Ctrl.prototype.reset = function() {
 
+    _getMasterConfigValues.call(this);
+    this.load();
+
+}
 
 
 

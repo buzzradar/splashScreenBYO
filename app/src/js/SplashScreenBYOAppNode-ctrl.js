@@ -91,6 +91,7 @@ function _getArguments() {
 
     let args = {
         'editor' : DisplayGlobals_SRV.getScriptTag().data('editor'),
+        'dashid' : DisplayGlobals_SRV.getScriptTag().data('dashid'),
     };
 
     console.log ("%c -> Arguments passed through <script> tag: ", "background:#a0b87a;", args);

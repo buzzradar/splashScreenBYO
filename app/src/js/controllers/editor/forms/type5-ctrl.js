@@ -120,9 +120,6 @@ function _loadButtonArray() {
 
     DisplayGlobals_SRV.getPreviewRef().updateChanges();
 
-
-    // console.clear();
-    // console.table(this.buttonsArray)
     _emptyList.call(this);
 
 
@@ -178,7 +175,12 @@ function _editButton(i) {
 
 
 
+FormType5_Ctrl.prototype.reset = function() {
 
+    _getMasterConfigValues.call(this);
+    this.load();
+
+}
 
 
 

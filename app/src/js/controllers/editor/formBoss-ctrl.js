@@ -28,6 +28,7 @@ const FormType5_CTRL = require('./forms/type5-ctrl');
 function FormBoss_Ctrl () {
 
 	this.parentDOM = $('#splScrEditorForm');
+	this.formId = 0;
 	this.formArray = [
 		{title : 'General Settings', objRef : null},
 		{title : 'Vendor Logo Settings', objRef : null},
@@ -55,13 +56,15 @@ function _init() {
 	});
 
 	//on Init load the General Settings Form
-	this.loadForm(1);	
+	this.loadForm(2);	
 
 }
 
 
 
 FormBoss_Ctrl.prototype.loadForm = function (id) {
+
+	this.formId = id;
 
 	//Reset the Actions on the Top of the form
 	this.parentDOM.find('.actions').html('');
@@ -70,7 +73,7 @@ FormBoss_Ctrl.prototype.loadForm = function (id) {
 	this.parentDOM.find('.caption-subject').html(this.formArray[id-1].title)
 
 	//Load the form from the object reference
-	this.formArray[id-1].objRef.load();
+	this.formArray[this.formId-1].objRef.load();
 
 	if (id===2) {
 		DisplayGlobals_SRV.getLogoVendorRef().dragable(true);
@@ -86,6 +89,22 @@ FormBoss_Ctrl.prototype.loadForm = function (id) {
 FormBoss_Ctrl.prototype.updateLogoPosition = function (x,y) {
 
 	this.formArray[1].objRef.updateLogoPosition(x,y);
+
+}
+
+
+
+
+FormBoss_Ctrl.prototype.reset = function () {
+
+	console.log("FORM => form reset.....", this.formId)
+
+	$.each( this.formArray, function( key, item ) {
+		item.objRef.reset();
+	});
+	this.formArray[this.formId-1].objRef.reset();
+
+
 
 }
 

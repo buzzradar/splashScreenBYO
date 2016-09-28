@@ -100,9 +100,10 @@ Buttons_CTRL.prototype.update = function() {
 
 Buttons_CTRL.prototype.reset = function() {
 
-  this.buttonsArrayMO = DisplayGlobals_SRV.getMasterConfigReset().AppSplash.buttons;
-  this.update();
-
+  this.allButtonsGroup.selectAll("*").remove();
+  this.buttonsArrayMO = DisplayGlobals_SRV.getMasterConfig().AppSplash.buttons;
+  _loadButtons.call(this);
+  
 }
 
 

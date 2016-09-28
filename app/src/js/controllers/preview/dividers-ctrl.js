@@ -68,7 +68,7 @@ Dividers_CTRL.prototype.update = function() {
 
 Dividers_CTRL.prototype.reset = function() {
 
-  this.linesArrayMO = DisplayGlobals_SRV.getMasterConfigReset().AppSplash.dividers;
+  this.linesArrayMO = DisplayGlobals_SRV.getMasterConfig().AppSplash.dividers;
   this.update();
 
 }
