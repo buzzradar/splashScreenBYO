@@ -89,6 +89,9 @@ DividerItem_Ctrl.prototype.validate =  function() {
 
     _validateDimensions.call(this);
     _validatePositions.call(this);
+    
+    DisplayGlobals_SRV.getPreviewRef().updateChanges();
+
 
 }
 
@@ -137,6 +140,8 @@ function _addPickColors() {
                 if (typeof console === 'object') {
                     // console.log(hex.substring(1,7));
                     self.dividerMO.colour = hex.substring(1,7);
+                    DisplayGlobals_SRV.getPreviewRef().updateChanges();
+
                 }
             },
             theme: 'bootstrap'

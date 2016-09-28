@@ -55,6 +55,9 @@ FormType1_Ctrl.prototype.load = function () {
 	this.parentDOM.find('.form-body').html(this.dom);
 	$("[name='bg-switch']").bootstrapSwitch();
 
+
+	_onFileUploadEvent.call(this);
+
 }
 
 
@@ -70,7 +73,24 @@ function _getMasterConfigValues() {
 
 
 
+function _onFileUploadEvent() {
 
+	$('#bg_file').change(function(){
+
+		if (this.files && this.files[0]) {
+			var reader = new FileReader();
+			reader.onload = function (e) {
+
+				DisplayGlobals_SRV.getPreviewRef().updateBgImage(e.target.result);
+
+			};
+			reader.readAsDataURL(this.files[0]);	//do not delete
+		}
+
+	});
+
+
+}
 
 
 

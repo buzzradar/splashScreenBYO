@@ -12,15 +12,14 @@ const DisplayGlobals_SRV = require('../../services/A01_DisplayGlobals-srv');
 
 
 
-function LogoVendor_CTRL (svg, logoMO, onLogoLoaded) {
+function LogoVendor_CTRL (svg, logoMO) {
 
 	this.svgContainer = svg;
 	this.logoMO = logoMO;
-	this.onLogoLoaded = onLogoLoaded;
-  this.isDragable = false;
+  this.isDragable = true;
   this.dottedRect = null;
 
-	_loadLogoVendor.call(this);
+  _createGroup.call(this);
 
 }
 
@@ -28,7 +27,12 @@ function LogoVendor_CTRL (svg, logoMO, onLogoLoaded) {
 
 
 
+function _createGroup() {
 
+
+  _loadLogoVendor.call(this);
+
+}
 
 
 
@@ -40,9 +44,9 @@ function LogoVendor_CTRL (svg, logoMO, onLogoLoaded) {
 function _loadLogoVendor() {
 
   let self = this;
+  this.logoGroup = this.svgContainer.append("g");
 
-  this.logoGroup = this.svgContainer.append("g")
-    // .attr('class', 'draggable')
+  this.logoGroup 
     .data([ {"x":0, "y":0, initX: this.logoMO.x, initY:this.logoMO.y} ])
     .call(d3.drag()
 
@@ -68,16 +72,12 @@ function _loadLogoVendor() {
         }));
 
 
-  this.logoGroup.append("image")
-    .on('load', function() {
-      this.onLogoLoaded();
-    }.bind(this))
+  this.logo = this.logoGroup.append("image")
     .attr("xlink:href",this.logoMO.url)
     .attr("width", this.logoMO.width)
     .attr("height", this.logoMO.height)
     .attr("x", this.logoMO.x)
     .attr("y", this.logoMO.y)
-
 
 
   this.dottedRect = this.logoGroup.append('rect')
@@ -91,18 +91,16 @@ function _loadLogoVendor() {
   .style("stroke-dasharray", ("20, 20"))
 
 
+   _isDragable.call(this);
+
 }
 
 
 
 
+function _isDragable() {
 
-
-
-LogoVendor_CTRL.prototype.dragable = function (isDraggable) {
-
-   this.isDragable = isDraggable;
-   if (!isDraggable) {
+  if (!this.isDragable) {
       this.dottedRect.style("stroke", 'transparent');
       this.logoGroup.attr('class', '');
 
@@ -115,6 +113,32 @@ LogoVendor_CTRL.prototype.dragable = function (isDraggable) {
 
 
 
+
+LogoVendor_CTRL.prototype.updateLogo = function (imgObject) {
+
+  this.logo
+    .attr("xlink:href", imgObject);
+
+}
+
+
+
+
+LogoVendor_CTRL.prototype.dragable = function (isDragable) {
+
+   this.isDragable = isDragable;
+   _isDragable.call(this);
+
+
+}
+
+
+LogoVendor_CTRL.prototype.update = function () {
+
+    this.logoGroup.selectAll("*").remove();
+    _loadLogoVendor.call(this);
+
+}
 
 
 

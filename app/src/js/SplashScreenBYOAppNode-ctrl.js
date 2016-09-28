@@ -162,22 +162,6 @@ function _loadPreviews() {
 
 
 
-SplashScreenBYOApp_NODE.prototype.updatePreview = function() {
-
-    console.log("updatePreview in App Node!");
-
-    let masterConfJSON = DisplayGlobals_SRV.getMasterConfig();
-    let thumbPreview = $( 'div.splScr-16-9' );
-
-    DisplayGlobals_SRV.setPreviewRef( new Preview_CTRL(masterConfJSON, thumbPreview) );
-
-}
-
-
-
-
-
-
 
 
 

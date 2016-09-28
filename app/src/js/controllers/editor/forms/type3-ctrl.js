@@ -99,11 +99,9 @@ function _emptyList() {
 
 function _loadCopyArray() {
 
+    DisplayGlobals_SRV.getPreviewRef().updateChanges();
+
     _emptyList.call(this);
-
-
-console.log(this.copyArray, this.copyArray.length)
-
 
 	if (this.copyArray.length > 0) {
 

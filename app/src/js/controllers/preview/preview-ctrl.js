@@ -75,12 +75,7 @@ function onMasterConfigLoadedSuccess(masterConfJSON) {
 
 function _onBGLoadedSuccess() {
 
-	this.d3SVG_Ctrl.loadVendorLogo(this.masterConfJSON.AppSplash.vendorLogo, _onVendorLogoLoadedSuccess.bind(this));
-
-}
-
-function _onVendorLogoLoadedSuccess() {
-
+	this.d3SVG_Ctrl.loadVendorLogo(this.masterConfJSON.AppSplash.vendorLogo);
 	this.d3SVG_Ctrl.loadCopy(this.masterConfJSON.AppSplash.copy);
 	this.d3SVG_Ctrl.loadLine(this.masterConfJSON.AppSplash.dividers);
 	this.d3SVG_Ctrl.loadButtons(this.masterConfJSON.AppSplash.buttons);
@@ -91,8 +86,8 @@ function _onVendorLogoLoadedSuccess() {
 	}
 
 	_onPreviewReady.call(this);
-
 }
+
 
 
 function _onPreviewReady() {
@@ -113,10 +108,22 @@ function _onPreviewReady() {
 Preview_Ctrl.prototype.updateChanges = function () {
 
 	console.log("Preview--->updateChanges");
+	this.d3SVG_Ctrl.updateChanges();
 
 }
 
 
+Preview_Ctrl.prototype.updateBgImage = function (imgObj) {
+
+	this.d3SVG_Ctrl.updateBGImage(imgObj);
+
+}
+
+Preview_Ctrl.prototype.updateLogoImage = function (imgObj) {
+
+	this.d3SVG_Ctrl.updateLogoImage(imgObj);
+
+}
 
 
 

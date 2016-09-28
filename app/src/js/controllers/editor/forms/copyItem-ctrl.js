@@ -78,6 +78,9 @@ CopyItem_Ctrl.prototype.validate =  function() {
     _validatePositions.call(this);
     _validateSize.call(this);
 
+    DisplayGlobals_SRV.getPreviewRef().updateChanges();
+    
+
 }
 
 

@@ -3,9 +3,10 @@
 
 const _ = require("lodash");
 const DisplayGlobals_SRV = require('./A01_DisplayGlobals-srv'); 
-// const d3 = require("d3");
 const LogoVendor_CTRL = require('../controllers/preview/logoVendor-ctrl');
 const Buttons_CTRL = require('../controllers/preview/buttons-ctrl');
+const Dividers_CTRL = require('../controllers/preview/dividers-ctrl');
+const Copy_CTRL = require('../controllers/preview/copy-ctrl');
 
 
 
@@ -60,6 +61,8 @@ D3Handler_CTRL.prototype.loadBGImage = function (urlImage, onImageLoaded) {
   this.bg = this.svgContainer.append("image")
     .on('load', function() {
          onImageLoaded();
+         //I remove the listener we do not need it any longer
+         d3.select(this).on('load',null);
     })
     .attr("xlink:href", urlImage)
     .attr("width", 1920)
@@ -68,7 +71,12 @@ D3Handler_CTRL.prototype.loadBGImage = function (urlImage, onImageLoaded) {
 }
 
 
+D3Handler_CTRL.prototype.updateBGImage = function (imgObject) {
 
+  this.bg
+    .attr("xlink:href", imgObject);
+
+}
 
 
 
@@ -85,7 +93,11 @@ D3Handler_CTRL.prototype.loadVendorLogo = function (logoMO, onLogoLoaded) {
 }
 
 
+D3Handler_CTRL.prototype.updateLogoImage = function (imgObject) {
 
+  this.logoVendor.updateLogo(imgObject);
+
+}
 
 
 
@@ -93,37 +105,7 @@ D3Handler_CTRL.prototype.loadVendorLogo = function (logoMO, onLogoLoaded) {
 
 D3Handler_CTRL.prototype.loadCopy = function (copyArrayMO) {
 
-  let d3copyData = [];
-
-  $.each( copyArrayMO, function( key, item ) {
-
-    let obj = {
-      cx : 1920/2,
-      cy : item.y + item.size,             //I have to add a small offset cause d3 text y anchor position is on the bottom.
-      color : item.colour,
-      visible : item.visible,
-      size : item.size,
-      width : item.width,
-      weight : item.weight,
-      copy : item.copy,
-    }
-    d3copyData.push(obj);
-
-  });
-
-  let text = this.svgContainer.selectAll("text")
-      .data(d3copyData)
-      .enter()
-      .append("text");
-
-  this.copy = text
-      .attr("text-anchor", "middle")
-      .attr("x", function(d) { return d.cx; })
-      .attr("y", function(d) { return d.cy; })
-      .text( function (d) { return d.copy })
-      .attr("font-family", this.fontFamily)
-      .attr("font-size", function(d) { return d.size; })
-      .attr("fill", function(d) { return '#'+d.color; });
+  this.copy = new Copy_CTRL(this.svgContainer, copyArrayMO);
 
 }
 
@@ -132,37 +114,7 @@ D3Handler_CTRL.prototype.loadCopy = function (copyArrayMO) {
 
 D3Handler_CTRL.prototype.loadLine = function (linesArrayMO) {
 
-  let d3lineData = [];
-
-  $.each( linesArrayMO, function( key, item ) {
-
-    let obj = {
-      x1 : item.x,
-      y1 : item.y,
-      x2 : item.x + item.width,
-      y2 : item.y + item.height,
-      visible : item.visible,
-      color : item.colour,
-      width : item.width,
-      height : item.height,
-    }
-    d3lineData.push(obj);
-
-  });
-
-  let line = this.svgContainer.selectAll("line")
-      .data(d3lineData)
-      .enter()
-      .append("line");
-
-  line
-      .attr("x1", function(d) { return d.x1; })
-      .attr("y1", function(d) { return d.y1; })
-      .attr("x2", function(d) { return d.x2; })
-      .attr("y2", function(d) { return d.y2; })
-      .attr("stroke-width", function(d) { return d.height; })
-      .attr("stroke", function(d) { return '#' + d.color; });
-
+  this.dividers = new Dividers_CTRL(this.svgContainer, linesArrayMO);
 
 }
 
@@ -269,6 +221,20 @@ D3Handler_CTRL.prototype.hideLoader = function () {
   if (this.updatingGroup) this.updatingGroup.remove();
   this.updatingGroup = null;
   console.log(this.updatingGroup)
+
+}
+
+
+
+
+D3Handler_CTRL.prototype.updateChanges = function () {
+
+  console.log("D3: update changes....");
+
+  this.buttons.update();
+  this.dividers.update();
+  this.copy.update();
+  this.logoVendor.update();
 
 }
 

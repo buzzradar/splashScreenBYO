@@ -50,6 +50,7 @@ FormType2_Ctrl.prototype.load = function () {
 	// $("[name='logo-switch']").bootstrapSwitch();
 
     _onFocusOut.call(this);
+    _onFileUploadEvent.call(this);
 
 }
 
@@ -78,6 +79,8 @@ function _validate() {
 
     _validateDimensions.call(this);
     _validatePositions.call(this);
+
+    DisplayGlobals_SRV.getPreviewRef().updateChanges();
 
 }
 
@@ -111,7 +114,24 @@ FormType2_Ctrl.prototype.updateLogoPosition = function (x,y) {
 
 
 
+function _onFileUploadEvent() {
 
+    $('#logoVendor_file').change(function(){
+
+        if (this.files && this.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+
+                // DisplayGlobals_SRV.getPreviewRef().updateLogoImage(e.target.result);
+
+            };
+            reader.readAsDataURL(this.files[0]);    //do not delete
+        }
+
+    });
+
+
+}
 
 
 

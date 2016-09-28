@@ -18,7 +18,7 @@ function Buttons_CTRL (svg, buttonsArrayMO) {
 	this.svgContainer = svg;
 	this.buttonsArrayMO = buttonsArrayMO;
 
-	_loadButtons.call(this);
+  _createGroup.call(this);
 
 }
 
@@ -29,7 +29,13 @@ function Buttons_CTRL (svg, buttonsArrayMO) {
 
 
 
+function _createGroup() {
 
+  this.allButtonsGroup = this.svgContainer.append("g");
+
+  _loadButtons.call(this);
+
+}
 
 
 
@@ -39,7 +45,7 @@ function _loadButtons() {
 
   $.each( this.buttonsArrayMO, function( key, item ) {
 
-    let buttonGroup = this.svgContainer.append("g");
+    let buttonGroup = this.allButtonsGroup.append("g");
 
     let btnMO = {
       x : item.x,
@@ -84,7 +90,12 @@ function _loadButtons() {
 }
 
 
+Buttons_CTRL.prototype.update = function() {
 
+  this.allButtonsGroup.selectAll("*").remove();
+  _loadButtons.call(this);
+
+}
 
 
 

@@ -108,6 +108,7 @@ function _addMoreDividers() {
     this.buttonsArray.push(buttonMO);
     _loadButtonArray.call(this);
 
+
 }   
 
 
@@ -116,6 +117,8 @@ function _addMoreDividers() {
 
 
 function _loadButtonArray() {
+
+    DisplayGlobals_SRV.getPreviewRef().updateChanges();
 
 
     // console.clear();
@@ -138,9 +141,6 @@ function _loadButtonArray() {
             self.buttonsArray.splice(i,1);
             // console.log(i);
             _loadButtonArray.call(self);
-            
-            DisplayGlobals_SRV.getAppNodeRef().updatePreview();
-
         });
 
         //Edit Button

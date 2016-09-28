@@ -139,6 +139,9 @@ ButtonFormItem_Ctrl.prototype.validate =  function() {
     _validateCopyWeight.call(this);
     _validateCopy.call(this);
 
+    DisplayGlobals_SRV.getPreviewRef().updateChanges();
+
+
 }
 
 
@@ -262,6 +265,9 @@ function _addBothPickColors() {
                     }else{  //Copy color
                         self.buttonMO.copy.colour = hex.substring(1,7);
                     }
+
+                    DisplayGlobals_SRV.getPreviewRef().updateChanges();
+
                     
                 }
             },

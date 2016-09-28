@@ -111,6 +111,8 @@ function _loadDividerArray() {
     // console.clear();
     // console.table(this.dividersArray)
 
+    DisplayGlobals_SRV.getPreviewRef().updateChanges();
+
 
     _emptyList.call(this);
 
