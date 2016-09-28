@@ -133,7 +133,7 @@ function _loadDividerArray() {
 
 
     }else{
-        this.dom.find('.list-divider-items').html('It seems there is no text, click on the button add copy.')
+        this.dom.html('It seems there is no text, click on the button add copy.')
     }
 
 }

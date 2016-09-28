@@ -220,7 +220,6 @@ D3Handler_CTRL.prototype.hideLoader = function () {
 
   if (this.updatingGroup) this.updatingGroup.remove();
   this.updatingGroup = null;
-  console.log(this.updatingGroup)
 
 }
 
@@ -229,7 +228,7 @@ D3Handler_CTRL.prototype.hideLoader = function () {
 
 D3Handler_CTRL.prototype.updateChanges = function () {
 
-  console.log("D3: update changes....");
+  // console.log("D3: update changes....");
 
   this.buttons.update();
   this.dividers.update();
@@ -239,7 +238,14 @@ D3Handler_CTRL.prototype.updateChanges = function () {
 }
 
 
+D3Handler_CTRL.prototype.resetChanges = function () {
 
+  this.buttons.reset();
+  this.dividers.reset();
+  this.copy.reset();
+  this.logoVendor.reset();
+
+}
 
 
 

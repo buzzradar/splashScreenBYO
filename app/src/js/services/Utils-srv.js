@@ -4,6 +4,7 @@
 
 
 const _ = require("lodash");
+const DisplayGlobals_SRV = require('./A01_DisplayGlobals-srv'); 
 
 
 //--------------------------------------
@@ -143,6 +144,7 @@ Utils_SRV.prototype.addPickColors = function (property, objMO) {
                 if (opacity) hex += ', ' + opacity;
                 if (typeof console === 'object') {
                     objMO[property] = hex.substring(1,7);
+                    DisplayGlobals_SRV.getPreviewRef().updateChanges();
                 }
             },
             theme: 'bootstrap'

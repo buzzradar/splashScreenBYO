@@ -107,6 +107,8 @@ function _reset() {
 
 	console.log("Reset Object ->", DisplayGlobals_SRV.getMasterConfigReset());
 
+    DisplayGlobals_SRV.getPreviewRef().resetChanges();
+
 }
 
 

@@ -16,7 +16,7 @@ function LogoVendor_CTRL (svg, logoMO) {
 
 	this.svgContainer = svg;
 	this.logoMO = logoMO;
-  this.isDragable = true;
+  this.isDragable = false;
   this.dottedRect = null;
 
   _createGroup.call(this);
@@ -142,7 +142,12 @@ LogoVendor_CTRL.prototype.update = function () {
 
 
 
+LogoVendor_CTRL.prototype.reset = function() {
 
+  this.logoMO = DisplayGlobals_SRV.getMasterConfigReset().AppSplash.vendorLogo;
+  this.update();
+
+}
 
 
 

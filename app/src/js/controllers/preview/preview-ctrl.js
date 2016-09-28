@@ -107,7 +107,6 @@ function _onPreviewReady() {
 
 Preview_Ctrl.prototype.updateChanges = function () {
 
-	console.log("Preview--->updateChanges");
 	this.d3SVG_Ctrl.updateChanges();
 
 }
@@ -126,7 +125,11 @@ Preview_Ctrl.prototype.updateLogoImage = function (imgObj) {
 }
 
 
+Preview_Ctrl.prototype.resetChanges = function () {
 
+	this.d3SVG_Ctrl.resetChanges();
+
+}
 
 
 

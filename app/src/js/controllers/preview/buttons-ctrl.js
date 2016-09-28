@@ -98,6 +98,14 @@ Buttons_CTRL.prototype.update = function() {
 }
 
 
+Buttons_CTRL.prototype.reset = function() {
+
+  this.buttonsArrayMO = DisplayGlobals_SRV.getMasterConfigReset().AppSplash.buttons;
+  this.update();
+
+}
+
+
 
 
 

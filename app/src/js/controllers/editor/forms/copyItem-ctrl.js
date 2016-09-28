@@ -54,6 +54,7 @@ function _renderView() {
     this.parentDOM.append(HBTemplates.getTemplate('copy_item', this.copyMO));
     this.copyDOM = this.parentDOM.find('a[data-arrayid='+this.key+']');
 
+    console.log("Adding pick colors to the Copy!!!!!!!!!!!!!!!!!!", 'colour', this.copyMO)
     Utils_SRV.addPickColors('colour', this.copyMO);
     _onFocusOut.call(this);
 

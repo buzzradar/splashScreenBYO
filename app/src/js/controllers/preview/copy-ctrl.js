@@ -70,7 +70,12 @@ Copy_CTRL.prototype.update = function() {
 }
 
 
+Copy_CTRL.prototype.reset = function() {
 
+  this.copyArrayMO = DisplayGlobals_SRV.getMasterConfigReset().AppSplash.copy;
+  this.update();
+
+}
 
 
 
