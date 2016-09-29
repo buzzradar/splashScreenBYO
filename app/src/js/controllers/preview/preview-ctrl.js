@@ -107,6 +107,10 @@ function _onPreviewReady() {
 
 Preview_Ctrl.prototype.updateChanges = function () {
 
+	// console.log(DisplayGlobals_SRV.getMasterConfig().AppSplash)
+
+	
+
 	this.d3SVG_Ctrl.updateChanges();
 
 }

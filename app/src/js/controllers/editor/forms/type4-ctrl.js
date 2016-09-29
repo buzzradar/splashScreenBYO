@@ -88,6 +88,8 @@ function _addMoreDividers() {
 
     //Default model for the copy
     let dividerMO = {
+                    "id" : 0,
+                    "deleted" : false,
                     "visible": 1,
                     "colour":"FFFFFF",
                     "x":66,
@@ -124,7 +126,8 @@ function _loadDividerArray() {
 
         let self = this;
         this.dom.find('i.fa-close').click( function() {
-            let i = $(this).closest('a.list-group-item').data('arrayid');
+            // let i = $(this).closest('a.list-group-item').data('arrayid');
+            let i = $(this).closest('a.list-group-item').index();
             $(this).closest('a.list-group-item').remove();
             self.dividersArray.splice(i,1);
             // console.log(i);
@@ -152,7 +155,6 @@ function _emptyList() {
 FormType4_Ctrl.prototype.reset = function() {
 
     _getMasterConfigValues.call(this);
-    this.load();
 
 }
 

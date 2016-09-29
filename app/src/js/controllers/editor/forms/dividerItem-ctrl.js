@@ -28,7 +28,6 @@ function DividerItem_Ctrl (key, dividerMO) {
     this.dividerDOM = null;
     this.formError = false;
     this.dividerMO = dividerMO;       
-    this.dividerMO['id'] = key;
 
     _init.call(this);
 
@@ -49,9 +48,8 @@ function _init() {
 
 function _renderView() {
 
-
-    this.parentDOM.append(HBTemplates.getTemplate('divider_item', this.dividerMO));
-    this.dividerDOM = this.parentDOM.find('a[data-arrayid='+this.key+']');
+    this.dividerDOM = HBTemplates.getTemplate('divider_item', this.dividerMO);
+    this.parentDOM.append(this.dividerDOM);
 
     _addSwitch.call(this);
     Utils_SRV.addPickColors('colour', this.dividerMO);
@@ -77,6 +75,7 @@ function _addSwitch() {
 function _onFocusOut() {
 
     this.dividerDOM.find('input').focusout(function() {
+        console.log("on focus out")
         this.validate();
     }.bind(this));
 

@@ -21,7 +21,6 @@ const JSONHandler_SRV = require('./services/JSONHandler-srv');
 
 
 
-
 //----------------------------
 //  Constructor
 //----------------------------
@@ -91,12 +90,15 @@ function _getArguments() {
 
     let args = {
         'editor' : DisplayGlobals_SRV.getScriptTag().data('editor'),
-        'dashid' : DisplayGlobals_SRV.getScriptTag().data('dashid'),
+        'save' : DisplayGlobals_SRV.getScriptTag().data('save'),
+        'publish' : DisplayGlobals_SRV.getScriptTag().data('publish'),
+        'reset' : DisplayGlobals_SRV.getScriptTag().data('reset'),
     };
 
     console.log ("%c -> Arguments passed through <script> tag: ", "background:#a0b87a;", args);
 
     DisplayGlobals_SRV.setArguments(args);
+    APICalls_SRV.setURLFromArguments();
 
     _startSplashScreenBYO();
 

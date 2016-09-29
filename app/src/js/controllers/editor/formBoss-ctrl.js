@@ -56,7 +56,7 @@ function _init() {
 	});
 
 	//on Init load the General Settings Form
-	this.loadForm(1);	
+	this.loadForm(3);	
 
 }
 
@@ -102,9 +102,7 @@ FormBoss_Ctrl.prototype.reset = function () {
 	$.each( this.formArray, function( key, item ) {
 		item.objRef.reset();
 	});
-	this.formArray[this.formId-1].objRef.reset();
-
-
+	this.formArray[this.formId-1].objRef.load();
 
 }
 

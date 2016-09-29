@@ -89,6 +89,8 @@ function _addMoreDividers() {
 
     //Default model for the copy
     let buttonMO = {
+                    "id" : 0,
+                    "deleted" : false,
 					"visible": 1,
                     "dashboardID": false,
                     "background":"ff00ff",
@@ -133,7 +135,8 @@ function _loadButtonArray() {
         //Remove Button
         let self = this;
         this.dom.find('i.fa-close').click( function() {
-            let i = $(this).closest('a.list-group-item').data('arrayid');
+            // let i = $(this).closest('a.list-group-item').data('arrayid');
+            let i = $(this).closest('a.list-group-item').index();
             $(this).closest('a.list-group-item').remove();
             self.buttonsArray.splice(i,1);
             // console.log(i);
@@ -142,7 +145,8 @@ function _loadButtonArray() {
 
         //Edit Button
         this.dom.find('a.list-group-item').click(function() {
-            let i = $(this).data('arrayid');
+            // let i = $(this).data('arrayid');
+            let i = $(this).index();
         	_editButton.call(self,i);
         });
 
@@ -178,7 +182,6 @@ function _editButton(i) {
 FormType5_Ctrl.prototype.reset = function() {
 
     _getMasterConfigValues.call(this);
-    this.load();
 
 }
 

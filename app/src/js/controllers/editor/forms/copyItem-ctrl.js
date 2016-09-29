@@ -28,8 +28,7 @@ function CopyItem_Ctrl (key, copyMO) {
     this.copyDOM = null;
     this.formError = false;
     this.copyMO = copyMO;       
-    this.copyMO['id'] = key;
-
+    
     _init.call(this);
 
 }
@@ -50,11 +49,9 @@ function _init() {
 
 function _renderView() {
 
+    this.copyDOM = HBTemplates.getTemplate('copy_item', this.copyMO);
+    this.parentDOM.append(this.copyDOM);
 
-    this.parentDOM.append(HBTemplates.getTemplate('copy_item', this.copyMO));
-    this.copyDOM = this.parentDOM.find('a[data-arrayid='+this.key+']');
-
-    console.log("Adding pick colors to the Copy!!!!!!!!!!!!!!!!!!", 'colour', this.copyMO)
     Utils_SRV.addPickColors('colour', this.copyMO);
     _onFocusOut.call(this);
 

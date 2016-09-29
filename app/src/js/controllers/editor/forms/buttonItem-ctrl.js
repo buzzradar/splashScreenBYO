@@ -27,7 +27,6 @@ function ButtonItem_Ctrl (key, buttonMO) {
     this.btnListDOM = null;
     this.formError = false;
     this.buttonMO = buttonMO;       
-    this.buttonMO['id'] = key;
 
     _init.call(this);
 
@@ -49,8 +48,8 @@ function _init() {
 function _renderView() {
 
 
-    this.parentDOM.append(HBTemplates.getTemplate('button_item', this.buttonMO));
-    this.btnListDOM = this.parentDOM.find('a[data-arrayid='+this.key+']');
+    this.btnListDOM = HBTemplates.getTemplate('button_item', this.buttonMO);
+    this.parentDOM.append(this.btnListDOM);
 
 
     if (this.buttonMO.dashboardID === false) {

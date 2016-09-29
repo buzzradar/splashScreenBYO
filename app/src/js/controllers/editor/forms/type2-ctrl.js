@@ -137,7 +137,6 @@ function _onFileUploadEvent() {
 FormType2_Ctrl.prototype.reset = function() {
 
     _getMasterConfigValues.call(this);
-    this.load();
 
 }
 

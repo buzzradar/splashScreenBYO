@@ -111,7 +111,8 @@ function _loadCopyArray() {
 
         let self = this;
         this.dom.find('i.fa-close').click( function() {
-            let i = $(this).closest('a.list-group-item').data('arrayid');
+            // let i = $(this).closest('a.list-group-item').data('arrayid');
+            let i = $(this).closest('a.list-group-item').index();
             $(this).closest('a.list-group-item').remove();
             self.copyArray.splice(i,1);
             console.log(i)
@@ -136,6 +137,8 @@ function _addMoreCopy() {
 
     //Default model for the copy
 	let copyMO = {
+                    "id" : 0,
+                    "deleted" : false,
                     "visible": 1,
                     "colour":"00ff00",
                     "x":0,
@@ -160,7 +163,6 @@ function _addMoreCopy() {
 FormType3_Ctrl.prototype.reset = function() {
 
     _getMasterConfigValues.call(this);
-    this.load();
 
 }
 
