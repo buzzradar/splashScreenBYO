@@ -28,7 +28,7 @@ function Legend_Ctrl (svg, buttonsArrayMO) {
 
 
 	_loadLegendBottom.call(this);
-	// _loadLegendOver.call(this);
+	_loadLegendOver.call(this);
 
 }
 
@@ -46,7 +46,10 @@ function _loadLegendBottom() {
 
 	this.domTarget.append('<div class="clearfix"></div>');
 
-	_addBehaviour.call(this);
+	$('.legend-btn').click(function() {
+		let id = $(this).data('id');
+		DisplayGlobals_SRV.getEditorRef().loadFormSettings(id);
+	});
 
 }
 
@@ -58,16 +61,6 @@ function _loadLegendOver() {
 
 }
 
-
-
-function _addBehaviour() {
-
-	$('.legend-btn').click(function() {
-		let id = $(this).data('id');
-		DisplayGlobals_SRV.getEditorRef().loadFormSettings(id);
-	});
-
-}
 
 
 

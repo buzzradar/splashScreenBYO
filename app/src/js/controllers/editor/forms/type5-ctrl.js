@@ -77,7 +77,7 @@ function _addMoreButtonsButton() {
     let btn = $('<a href="javascript:;" class="btn blue"><i class="fa fa-plus"></i> Add New Buttons </a>');
     this.parentDOM.find('.actions').html(btn);
 
-    btn.click(_addMoreDividers.bind(this));
+    btn.click(_addMoreButtons.bind(this));
 
 }
 
@@ -85,7 +85,7 @@ function _addMoreButtonsButton() {
 
 
 
-function _addMoreDividers() {
+function _addMoreButtons() {
 
     //Default model for the copy
     let buttonMO = {
@@ -182,6 +182,14 @@ function _editButton(i) {
 FormType5_Ctrl.prototype.reset = function() {
 
     _getMasterConfigValues.call(this);
+
+}
+
+
+
+FormType5_Ctrl.prototype.editButton = function(i) {
+
+    _editButton.call(this,i);
 
 }
 

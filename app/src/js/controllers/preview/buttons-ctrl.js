@@ -45,7 +45,10 @@ function _loadButtons() {
 
   $.each( this.buttonsArrayMO, function( key, item ) {
 
-    let buttonGroup = this.allButtonsGroup.append("g");
+    let buttonGroup = this.allButtonsGroup.append("g")
+                        .attr('class', 'clickable')
+                        .attr('index', key)
+
 
     let btnMO = {
       x : item.x,
@@ -83,6 +86,12 @@ function _loadButtons() {
         .attr("font-family", this.fontFamily)
         .attr("font-size", btnMO.copy.size)
         .attr("fill", '#'+btnMO.copy.color );
+
+      buttonGroup.on("click", function() {
+        let index = $(this).attr('index');
+        DisplayGlobals_SRV.getEditorRef().form_Ctrl.loadForm(5)      //Load the Buttons Form
+        DisplayGlobals_SRV.getEditorRef().form_Ctrl.formArray[4].objRef.editButton(index);     //Objet to Edit buttons
+      })
 
   }.bind(this));
 

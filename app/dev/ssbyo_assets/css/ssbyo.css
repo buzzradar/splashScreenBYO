@@ -36,6 +36,10 @@
   cursor: move;
 }
 
+.clickable {
+  cursor: pointer;
+}
+
 .inlinesmall {
   width: 65px;
   display: inline-block;
