@@ -56,7 +56,7 @@ function _init() {
 	});
 
 	//on Init load the General Settings Form
-	this.loadForm(3);	
+	this.loadForm(1);	
 
 }
 

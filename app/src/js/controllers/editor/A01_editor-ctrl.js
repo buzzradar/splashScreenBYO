@@ -14,6 +14,8 @@ const DisplayGlobals_SRV = require('../../services/A01_DisplayGlobals-srv');
 const HBTemplates = require('../../services/HBTemplates-srv');
 const Legend_CTRL = require('../../controllers/editor/legend-ctrl');
 const Form_CTRL = require('../../controllers/editor/formBoss-ctrl');
+const APICalls_SRV = require('../../services/APICalls-srv');
+const Utils_SRV = require('../../services/Utils-srv');
 
 
 
@@ -88,8 +90,26 @@ Editor_Ctrl.prototype.loadFormSettings = function (id) {
 
 function _setupPublishButtons() {
 
-	$('a.btn-publish').click(_publish.bind(this));
-	$('a.btn-reset-changes').click(_reset.bind(this));
+	//PUBLISH
+	$('a.btn-publish').confirmation({
+	  singleton: true,
+	  placement: 'bottom',
+	  title : 'Are you sure you want to publish it?',
+	  onConfirm: _publish.bind(this),
+	  btnOkClass : 'btn-sm green-jungle',
+	  btnCancelClass : 'btn-sm default',
+	});
+
+	//RESET
+	$('a.btn-reset-changes').confirmation({
+	  singleton: true,
+	  placement: 'bottom',
+	  title : 'Reset the changes?',
+	  onConfirm: _reset.bind(this),
+	  btnOkClass : 'btn-sm green-jungle',
+	  btnCancelClass : 'btn-sm default',
+	});
+
 	
 }
 
@@ -97,7 +117,6 @@ function _setupPublishButtons() {
 function _publish() {
 
 	console.log("Original Object ->", DisplayGlobals_SRV.getMasterConfig());
-
 	this.publishChanges();
 
 }
@@ -123,11 +142,9 @@ function _reset() {
 
 Editor_Ctrl.prototype.publishChanges = function () {
 
-	this.d3SVG_Ctrl.showLoader('Updating...');
-
-	setTimeout(function() {
-		this.d3SVG_Ctrl.hideLoader();
-	}.bind(this),300);
+	APICalls_SRV.call('publish', DisplayGlobals_SRV.getMasterConfig(),function(ret) {
+		if (ret.status === "error") Utils_SRV.bootbox('Oops! Something went wrong while publishing. Please try again later or contact <a href="mailto:support@buzzradar.com">support.</a>');
+	}.bind(this));
 
 }
 

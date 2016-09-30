@@ -27,7 +27,7 @@ function FormType5_Ctrl () {
 	this.parentDOM = $('#splScrEditorForm');
 	this.buttonsArray = [];
     this.buttonCtrlArray = [];
-    console.log ("%c -> Form Type 5 Constructor. DONE! ", "background:#ff0000;");
+    // console.log ("%c -> Form Type 5 Constructor. DONE! ", "background:#ff0000;");
 
     _init.call(this);
 

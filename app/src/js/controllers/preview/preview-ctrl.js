@@ -14,6 +14,8 @@ const HBTemplates = require('../../services/HBTemplates-srv');
 const D3Handler_CTRL = require('../../services/D3Handler-srv');
 const JSONHandler_SRV = require('../../services/JSONHandler-srv');
 const Editor_CTRL = require('../../controllers/editor/A01_editor-ctrl');
+const APICalls_SRV = require('../../services/APICalls-srv');
+const Utils_SRV = require('../../services/Utils-srv');
 
 
 
@@ -30,6 +32,8 @@ function Preview_Ctrl (masterConfJSON, targetDOM) {
 	this.d3SVG_Ctrl = null;
 	this.targetDOM = targetDOM;
 	this.masterConfJSON = masterConfJSON;
+    this.autoSaveTimeout = setTimeout(function() {});
+
 
 	_init.call(this);
 
@@ -109,9 +113,18 @@ Preview_Ctrl.prototype.updateChanges = function () {
 
 	// console.log(DisplayGlobals_SRV.getMasterConfig().AppSplash)
 
-	
-
 	this.d3SVG_Ctrl.updateChanges();
+
+    clearTimeout(this.autoSaveTimeout);
+
+    this.autoSaveTimeout = setTimeout(function() {
+        console.log("now you can update the server");
+		APICalls_SRV.call('save', DisplayGlobals_SRV.getMasterConfig(),function(ret) {
+			if (ret.status === "error") Utils_SRV.bootbox('Oops! Something went wrong while trying to save the changes. Please try again later or contact <a href="mailto:support@buzzradar.com">support.</a>');
+		}.bind(this));
+    },500);
+
+
 
 }
 
@@ -142,7 +155,17 @@ Preview_Ctrl.prototype.resetChanges = function () {
 
 
 
+Preview_Ctrl.prototype.showLoader = function (message) {
 
+	this.d3SVG_Ctrl.showLoader("Updating...");
+
+}
+
+Preview_Ctrl.prototype.hideLoader = function (message) {
+
+	this.d3SVG_Ctrl.hideLoader();
+
+}
 
 
 

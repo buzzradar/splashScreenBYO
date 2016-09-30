@@ -25,7 +25,7 @@ function FormType1_Ctrl () {
 	this.parentDOM = $('#splScrEditorForm');
 	this.backImage = null;
 
-    console.log ("%c -> Form Type 1 Constructor. DONE! ", "background:#ff0000;");
+    // console.log ("%c -> Form Type 1 Constructor. DONE! ", "background:#ff0000;");
 
     _init.call(this)
 

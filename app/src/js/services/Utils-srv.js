@@ -129,6 +129,7 @@ Utils_SRV.prototype.validateWidth = function (formDOM, objMO) {
 
 Utils_SRV.prototype.addPickColors = function (property, objMO) {
 
+
     let self = this;
     $('input.color-picker').each(function() {
 
@@ -207,6 +208,37 @@ Utils_SRV.prototype.validateCopySize = function (formDOM, objMO, propertyName) {
     return error;
 
 };
+
+
+
+
+
+
+
+
+
+//----------------------------
+// Display bootbox
+//----------------------------
+
+
+Utils_SRV.prototype.bootbox = function (message) {
+
+    bootbox.dialog({
+        message: message,
+        buttons: {
+            cancel: {
+                label: "Close",
+                className: "default",
+                callback: function () {
+                    console.log("callback done!");
+                }
+            },
+        }
+    });
+
+};
+
 
 
 

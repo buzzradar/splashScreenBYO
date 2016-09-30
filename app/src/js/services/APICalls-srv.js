@@ -56,7 +56,7 @@ ApiCalls.prototype.setURLFromArguments = function () {
 
 
 
-ApiCalls.prototype.call = function (urlCall, dataObj, callBack, delay, message) {
+ApiCalls.prototype.call = function (urlCall, dataObj, callBack, delay) {
 
 	console.log ("%c -> ", "background:#87eb9d;", "APICalls.ajaxCall() -> is Dev? " + DisplayGlobals_SRV.isDev() + " and URL ->" , urlCall, dataObj);
 
@@ -64,15 +64,13 @@ ApiCalls.prototype.call = function (urlCall, dataObj, callBack, delay, message) 
 
 	//If delay not set, should be 0
 	delay = (!delay) ? 0 : delay;
-	if (message) {
-    	$('.bz-cta-message').html(message);
-	}
 
-
+	DisplayGlobals_SRV.getPreviewRef().showLoader("Updating...");
+	
 	setTimeout(function() {
         
 
-		_fatalCall(urlCall, dataObj, callBack, delay, message);
+		_fatalCall(urlCall, dataObj, callBack, delay);
 
 		
 
@@ -96,7 +94,7 @@ ApiCalls.prototype.call = function (urlCall, dataObj, callBack, delay, message) 
 
 
 
-function _fatalCall(urlCall, dataObj, callBack, delay, message) {
+function _fatalCall(urlCall, dataObj, callBack, delay) {
 
 
 
@@ -112,19 +110,21 @@ function _fatalCall(urlCall, dataObj, callBack, delay, message) {
 		success: function(retJson, status, jqXHR) {
 			console.log ("%c -> ", "background:#87eb9d;", "Return ---> ajaxCall()", jqXHR.status, retJson);
 
+			DisplayGlobals_SRV.getPreviewRef().hideLoader();
+
 
 			switch(jqXHR.status) {
 				case 200:
 					//Success
-					callBack(retJson);
+					if(callBack) callBack(retJson);
 				break;
 				case 400:
 					//Bad Request
-					callBack({"status" : 400});
+					if(callBack) callBack({"status" : 400});
 				break;
 				case 500:
 					//Internal Server Error
-					callBack({"status" : 500});
+					if(callBack) callBack({"status" : 500});
 				break;
 			}
 

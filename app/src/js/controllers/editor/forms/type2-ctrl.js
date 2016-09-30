@@ -25,7 +25,7 @@ function FormType2_Ctrl () {
 
 	this.parentDOM = $('#splScrEditorForm');
 	this.vendorLogo = null;
-    console.log ("%c -> Form Type 2 Constructor. DONE! ", "background:#ff0000;");
+    // console.log ("%c -> Form Type 2 Constructor. DONE! ", "background:#ff0000;");
     _init.call(this);
 
 }

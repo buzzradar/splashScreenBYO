@@ -26,7 +26,7 @@ function FormType3_Ctrl () {
 	this.parentDOM = $('#splScrEditorForm');
 	this.copyArray = [];
     this.copyCtrlArray = [];   
-    console.log ("%c -> Form Type 3 Constructor. DONE! ", "background:#ff0000;");
+    // console.log ("%c -> Form Type 3 Constructor. DONE! ", "background:#ff0000;");
 
     _init.call(this);
 
