@@ -54,7 +54,7 @@ ApiCalls.prototype.setURLFromArguments = function () {
 
 
 
-ApiCalls.prototype.call = function (urlCall, dataObj, callBack, delay) {
+ApiCalls.prototype.call = function (urlCall, dataObj, callBack, label,  delay) {
 
 	console.log ("%c -> ", "background:#87eb9d;", "APICalls.ajaxCall() -> is Dev? " + DisplayGlobals_SRV.isDev() + " and URL ->" , urlCall, dataObj);
 
@@ -63,7 +63,7 @@ ApiCalls.prototype.call = function (urlCall, dataObj, callBack, delay) {
 	//If delay not set, should be 0
 	delay = (!delay) ? 0 : delay;
 
-	DisplayGlobals_SRV.getPreviewRef().showLoader("Updating...");
+	DisplayGlobals_SRV.getPreviewRef().showLoader(label + "...");
 	
 	setTimeout(function() {
         

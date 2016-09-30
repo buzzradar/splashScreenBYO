@@ -124,15 +124,6 @@ function _publish() {
 
 function _reset() {
 
-	// console.log("Reset Object ->", DisplayGlobals_SRV.getMasterConfigReset());
-
- //  	DisplayGlobals_SRV.setMasterConfig( DisplayGlobals_SRV.getMasterConfigReset() );
-    	
- //    //Update the Preview
- //    DisplayGlobals_SRV.getPreviewRef().resetChanges();
- //    //Update the form on the left hand side
- //    this.form_Ctrl.reset();
-
 	APICalls_SRV.call('reset', DisplayGlobals_SRV.getMasterConfig(),function(ret) {
 		if (ret.status === "error") {
 			Utils_SRV.bootbox('Oops! Something went wrong while publishing. Please try again later or contact <a href="mailto:support@buzzradar.com">support.</a>');
@@ -146,8 +137,6 @@ function _reset() {
 		}
 	}.bind(this));
 
-
-
 }
 
 
@@ -159,7 +148,7 @@ Editor_Ctrl.prototype.publishChanges = function () {
 
 	APICalls_SRV.call('publish', DisplayGlobals_SRV.getMasterConfig(),function(ret) {
 		if (ret.status === "error") Utils_SRV.bootbox('Oops! Something went wrong while publishing. Please try again later or contact <a href="mailto:support@buzzradar.com">support.</a>');
-	}.bind(this));
+	}.bind(this), 'Publishing');
 
 }
 

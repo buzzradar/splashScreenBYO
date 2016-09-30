@@ -121,7 +121,7 @@ Preview_Ctrl.prototype.updateChanges = function () {
         console.log("now you can update the server");
 		APICalls_SRV.call('save', DisplayGlobals_SRV.getMasterConfig(),function(ret) {
 			if (ret.status === "error") Utils_SRV.bootbox('Oops! Something went wrong while trying to save the changes. Please try again later or contact <a href="mailto:support@buzzradar.com">support.</a>');
-		}.bind(this));
+		}.bind(this), 'Saving');
     },500);
 
 
@@ -155,13 +155,13 @@ Preview_Ctrl.prototype.resetChanges = function () {
 
 
 
-Preview_Ctrl.prototype.showLoader = function (message) {
+Preview_Ctrl.prototype.showLoader = function (label) {
 
-	this.d3SVG_Ctrl.showLoader("Updating...");
+	this.d3SVG_Ctrl.showLoader(label);
 
 }
 
-Preview_Ctrl.prototype.hideLoader = function (message) {
+Preview_Ctrl.prototype.hideLoader = function () {
 
 	this.d3SVG_Ctrl.hideLoader();
 
