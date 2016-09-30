@@ -16,9 +16,7 @@ let _ApiCalls;
 function ApiCalls () {
 
   _ApiCalls = this;
-  this.numGNIPCalls = 0;
-  this.GNIPminCalls = 3;
-  this.GNIPmaxCalls = 10;
+
 
 }
 

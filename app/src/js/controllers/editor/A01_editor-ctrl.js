@@ -124,14 +124,29 @@ function _publish() {
 
 function _reset() {
 
-	console.log("Reset Object ->", DisplayGlobals_SRV.getMasterConfigReset());
+	// console.log("Reset Object ->", DisplayGlobals_SRV.getMasterConfigReset());
 
-  	DisplayGlobals_SRV.setMasterConfig( DisplayGlobals_SRV.getMasterConfigReset() );
+ //  	DisplayGlobals_SRV.setMasterConfig( DisplayGlobals_SRV.getMasterConfigReset() );
     	
-    //Update the Preview
-    DisplayGlobals_SRV.getPreviewRef().resetChanges();
-    //Update the form on the left hand side
-    this.form_Ctrl.reset();
+ //    //Update the Preview
+ //    DisplayGlobals_SRV.getPreviewRef().resetChanges();
+ //    //Update the form on the left hand side
+ //    this.form_Ctrl.reset();
+
+	APICalls_SRV.call('reset', DisplayGlobals_SRV.getMasterConfig(),function(ret) {
+		if (ret.status === "error") {
+			Utils_SRV.bootbox('Oops! Something went wrong while publishing. Please try again later or contact <a href="mailto:support@buzzradar.com">support.</a>');
+		}else{
+    		console.log ("%c -> RESET Succes! => ", "background:#ffff00;", ret);
+    		DisplayGlobals_SRV.setMasterConfig(ret);
+		   	//Update the Preview
+		    DisplayGlobals_SRV.getPreviewRef().resetChanges();
+		    //Update the form on the left hand side
+		    this.form_Ctrl.reset();
+		}
+	}.bind(this));
+
+
 
 }
 
