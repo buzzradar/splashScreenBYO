@@ -56,7 +56,7 @@ ApiCalls.prototype.setURLFromArguments = function () {
 
 ApiCalls.prototype.call = function (urlCall, dataObj, callBack, label,  delay) {
 
-	console.log ("%c -> ", "background:#87eb9d;", "APICalls.ajaxCall() -> is Dev? " + DisplayGlobals_SRV.isDev() + " and URL ->" , urlCall, dataObj);
+	console.log ("%c -> ", "background:#87eb9d;", "APICalls.ajaxCall() URL ->" , urlCall, dataObj);
 
 	urlCall = this.URLs[urlCall]
 

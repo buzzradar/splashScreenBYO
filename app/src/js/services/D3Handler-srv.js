@@ -179,12 +179,12 @@ D3Handler_CTRL.prototype.showLoader = function (label) {
 
     this.updatingGroup = this.svgContainer.append("g")
 
-    this.updatingGroup.append("rect")
-          .attr("x", 0)
-          .attr("y", 0)
-          .attr("width", 1920)
-          .attr("height", 1080)
-          .attr("fill", 'rgba(0, 0, 0, 0.7)');
+    // this.updatingGroup.append("rect")
+    //       .attr("x", 0)
+    //       .attr("y", 0)
+    //       .attr("width", 1920)
+    //       .attr("height", 1080)
+    //       .attr("fill", 'rgba(0, 0, 0, 0.7)');
 
 
 
@@ -192,8 +192,8 @@ D3Handler_CTRL.prototype.showLoader = function (label) {
     let btnH = 80;
 
     this.updatingGroup.append("rect")
-          .attr("x", 1920/2 - btnW/2)
-          .attr("y", 1080/2 - btnH/2)
+          .attr("x", 1920 - btnW - 20)
+          .attr("y", 20)
           .attr("width", 300)
           .attr("height", 80)
           .attr("fill", '#67809F')
@@ -203,8 +203,8 @@ D3Handler_CTRL.prototype.showLoader = function (label) {
 
     this.updatingGroup.append("text")
           .attr("text-anchor", "middle")
-          .attr("x", 1920/2)
-          .attr("y", 1080/2 + 14)
+          .attr("x", 1920 - btnW/2 - 16)
+          .attr("y", btnH - 5)
           .text( label )
           .attr("font-family", this.fontFamily)
           .attr("font-size", 42)
