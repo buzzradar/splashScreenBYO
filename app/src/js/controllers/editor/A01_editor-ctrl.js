@@ -56,7 +56,7 @@ function _init() {
 
 	let buttonsArray = [
 		{cx:211, cy:245, radius : 40, label : 'General', fill : '#c0c0c0', 'metroColor' : 'blue-oleo', index : 1},
-		{cx:1471, cy:150, radius : 40, label : 'Logo', fill : '#c0c0c0', 'metroColor' : 'blue-oleo', index : 2},
+		{cx:1471, cy:150,radius : 40, label : 'Logo', fill : '#c0c0c0', 'metroColor' : 'blue-oleo', index : 2},
 		{cx:922, cy:570, radius : 40, label : 'Copy', fill : '#c0c0c0', 'metroColor' : 'blue-oleo', index : 3},
 		{cx:922, cy:410, radius : 40, label : 'Divider', fill : '#c0c0c0', 'metroColor' : 'blue-oleo', index : 4},
 		{cx:150, cy:960, radius : 40, label : 'Buttons', fill : '#c0c0c0', 'metroColor' : 'blue-oleo', index : 5},

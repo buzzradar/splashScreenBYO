@@ -12,6 +12,7 @@
 const DisplayGlobals_SRV = require('../../../services/A01_DisplayGlobals-srv'); 
 const HBTemplates = require('../../../services/HBTemplates-srv');
 const Utils_SRV = require('../../../services/Utils-srv');
+const APICalls_SRV = require('../../../services/APICalls-srv');
 
 
 
@@ -98,22 +99,30 @@ function _addSwitch() {
 function _addDashboardsIDSelect() {
 
     let self = this;
-    let arrayDashboards = ['GO5RJV', 'BLCQSE', 'BEJJN7', 'GUULPR', 'BPS0AR'];
-    let selectHtml = '<select name="dashboardIDSelect" class="form-control"><option data-idvalue="false" selected>Select a Dashboard ID</option>';
+    APICalls_SRV.call('arrayids', {},function(ret) {
+        
+        let arrayDashboards = ret.arrayIds;
+        let selectHtml = '<select name="dashboardIDSelect" class="form-control"><option data-idvalue="false" selected>Select a Dashboard ID</option>';
 
-    $.each( arrayDashboards, function( key, item ) {
-        let selected = (self.buttonMO.dashboardID === item) ? 'selected' : '';
-        selectHtml += '<option data-idvalue="'+item+'" '+selected+'>'+item+'</option>';
-    }.bind(this));
-    selectHtml += '</select>'
+        $.each( arrayDashboards, function( key, item ) {
+            let selected = (self.buttonMO.dashboardID === item) ? 'selected' : '';
+            selectHtml += '<option data-idvalue="'+item+'" '+selected+'>'+item+'</option>';
+        }.bind(this));
+        selectHtml += '</select>'
 
-    this.btnFormDOM.find('.dashboardID-select').html($(selectHtml));
+        this.btnFormDOM.find('.dashboardID-select').html($(selectHtml));
 
-    //onchange
-    this.btnFormDOM.find('select[name=dashboardIDSelect]').on('change', function() {
-        self.buttonMO.dashboardID = $(this).find(':selected').data('idvalue');
-        self.validate();
-    });
+        //onchange
+        this.btnFormDOM.find('select[name=dashboardIDSelect]').on('change', function() {
+            self.buttonMO.dashboardID = $(this).find(':selected').data('idvalue');
+            self.validate();
+        });  
+        
+    }.bind(this), 'Getting Ids');
+
+
+
+
 
 }
 

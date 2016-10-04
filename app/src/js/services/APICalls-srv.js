@@ -27,6 +27,7 @@ ApiCalls.prototype.setURLFromArguments = function () {
 
   this.URLs = {
   	
+  	arrayids : DisplayGlobals_SRV.getArguments().arrayids,
   	save : DisplayGlobals_SRV.getArguments().save,
   	publish : DisplayGlobals_SRV.getArguments().publish,
   	reset : DisplayGlobals_SRV.getArguments().reset,
@@ -56,7 +57,7 @@ ApiCalls.prototype.setURLFromArguments = function () {
 
 ApiCalls.prototype.call = function (urlCall, dataObj, callBack, label,  delay) {
 
-	console.log ("%c -> ", "background:#87eb9d;", "APICalls.ajaxCall() URL ->" , urlCall, dataObj);
+	console.log ("%c -> ", "background:#87eb9d;", "APICalls.ajaxCall() URL ->" , this.URLs[urlCall], dataObj);
 
 	urlCall = this.URLs[urlCall]
 

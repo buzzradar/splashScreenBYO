@@ -90,6 +90,7 @@ function _getArguments() {
 
     let args = {
         'editor' : DisplayGlobals_SRV.getScriptTag().data('editor'),
+        'arrayids' : DisplayGlobals_SRV.getScriptTag().data('arrayids'),
         'save' : DisplayGlobals_SRV.getScriptTag().data('save'),
         'publish' : DisplayGlobals_SRV.getScriptTag().data('publish'),
         'reset' : DisplayGlobals_SRV.getScriptTag().data('reset'),
