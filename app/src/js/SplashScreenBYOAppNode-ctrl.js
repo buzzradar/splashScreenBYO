@@ -37,7 +37,6 @@ function SplashScreenBYOApp_NODE () {
 
     _setRollbarAccount.call(this);
     _setScriptTagReference.call(this);
-    _getArguments.call(this);
 
 
 }
@@ -49,12 +48,10 @@ function SplashScreenBYOApp_NODE () {
 function _setScriptTagReference() {
 
     let i, src, scriptTag, scriptsArray = document.scripts;
-    
+   
     for (i = 0; i < scriptsArray.length; i++) { // we loop through all script tag references until we come across <script src="SplashScreenBYO.js"> - Immo 26/01/15
         
-        // console.log( $(scriptsArray[i]).data('editor') )
-
-        if ($(scriptsArray[i]).data('editor')) {    //I go through all the scrips and If I find one that has a data-editor tag then is the one I need. BINGO!!!!!
+        if (typeof $(scriptsArray[i]).data('editor') !== undefined ) {    //I go through all the scrips and If I find one that has a data-editor tag then is the one I need. BINGO!!!!!
             scriptTag = scriptsArray[i];
         }
     
@@ -62,6 +59,7 @@ function _setScriptTagReference() {
 
     console.log("Script tag->", scriptTag);
     DisplayGlobals_SRV.setScriptTag (scriptTag); 
+    _getArguments.call(this);
 
 }
 
@@ -101,7 +99,11 @@ function _getArguments() {
     DisplayGlobals_SRV.setArguments(args);
     APICalls_SRV.setURLFromArguments();
 
-    if (args.editor) _getDashboardsIDs();
+    if (args.editor) {
+        _getDashboardsIDs();
+    }else{
+        _startSplashScreenBYO();
+    }
 
 }
 
