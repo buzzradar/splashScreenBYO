@@ -13,6 +13,7 @@ const DisplayGlobals_SRV = require('../../../services/A01_DisplayGlobals-srv');
 const HBTemplates = require('../../../services/HBTemplates-srv');
 const ButtonItem_CTRL = require('./buttonItem-ctrl');
 const ButtonFormItem_CTRL = require('./buttonFormItem-ctrl');
+const APICalls_SRV = require('../../../services/APICalls-srv');
 
 
 
@@ -27,6 +28,7 @@ function FormType5_Ctrl () {
 	this.parentDOM = $('#splScrEditorForm');
 	this.buttonsArray = [];
     this.buttonCtrlArray = [];
+    this.dashboardsIDsArray = [];
     // console.log ("%c -> Form Type 5 Constructor. DONE! ", "background:#ff0000;");
 
     _init.call(this);
@@ -51,8 +53,6 @@ function _getMasterConfigValues() {
     this.buttonsArray = DisplayGlobals_SRV.getMasterConfig().AppSplash.buttons;
 
 }
-
-
 
 
 
@@ -171,7 +171,7 @@ function _emptyList() {
 
 function _editButton(i) {
 
-	new ButtonFormItem_CTRL(i, this.buttonsArray[i])
+	new ButtonFormItem_CTRL(i, this.buttonsArray[i], DisplayGlobals_SRV.getArrayIds() )
 
 }
 

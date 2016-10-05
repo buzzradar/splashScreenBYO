@@ -101,9 +101,24 @@ function _getArguments() {
     DisplayGlobals_SRV.setArguments(args);
     APICalls_SRV.setURLFromArguments();
 
-    _startSplashScreenBYO();
+    _getDashboardsIDs();
 
 }
+
+
+
+function _getDashboardsIDs() {
+
+    APICalls_SRV.call('arrayids', {},function(ret) {
+        
+        DisplayGlobals_SRV.setArrayIds(ret.arrayIds);
+        _startSplashScreenBYO();
+      
+    });
+
+
+}
+
 
 
 

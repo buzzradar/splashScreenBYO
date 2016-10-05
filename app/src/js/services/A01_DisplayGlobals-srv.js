@@ -39,7 +39,7 @@ function DisplayGlobals () {
 //--------------------------------------
 
 
-let _version = "0.11";
+let _version = "0.12";
 
 
 DisplayGlobals.prototype.getVersion = function() {
@@ -384,6 +384,29 @@ DisplayGlobals.prototype.getLogoVendorRef = function () {
 
 
 
+
+
+
+
+
+//----------------------------
+// Array Dashboards IDs
+//----------------------------
+
+let _dashboardsIDsArray;  
+
+DisplayGlobals.prototype.setArrayIds = function (dashboardsIDsArray) {
+
+  _dashboardsIDsArray = dashboardsIDsArray
+  
+};
+
+
+DisplayGlobals.prototype.getArrayIds = function () {
+
+  return _dashboardsIDsArray;
+  
+};
 
 
 

@@ -22,8 +22,9 @@ const APICalls_SRV = require('../../../services/APICalls-srv');
 // Constructor
 // ------------------------------------
 
-function ButtonFormItem_Ctrl (key, buttonMO) {
+function ButtonFormItem_Ctrl (key, buttonMO, arrayDashboardIDs) {
 
+    this.arrayDashboardIDs = arrayDashboardIDs;
     this.key = key;
     this.parentDOM = $('#splScrEditorForm');
     this.btnFormDOM = null;
@@ -99,29 +100,22 @@ function _addSwitch() {
 function _addDashboardsIDSelect() {
 
     let self = this;
-    APICalls_SRV.call('arrayids', {},function(ret) {
-        
-        let arrayDashboards = ret.arrayIds;
-        let selectHtml = '<select name="dashboardIDSelect" class="form-control"><option data-idvalue="false" selected>Select a Dashboard ID</option>';
+    let arrayDashboards = this.arrayDashboardIDs;
+    let selectHtml = '<select name="dashboardIDSelect" class="form-control"><option data-idvalue="false" selected>Select a Dashboard ID</option>';
 
-        $.each( arrayDashboards, function( key, item ) {
-            let selected = (self.buttonMO.dashboardID === item) ? 'selected' : '';
-            selectHtml += '<option data-idvalue="'+item+'" '+selected+'>'+item+'</option>';
-        }.bind(this));
-        selectHtml += '</select>'
+    $.each( arrayDashboards, function( key, item ) {
+        let selected = (self.buttonMO.dashboardID === item) ? 'selected' : '';
+        selectHtml += '<option data-idvalue="'+item+'" '+selected+'>'+item+'</option>';
+    }.bind(this));
+    selectHtml += '</select>'
 
-        this.btnFormDOM.find('.dashboardID-select').html($(selectHtml));
+    this.btnFormDOM.find('.dashboardID-select').html($(selectHtml));
 
-        //onchange
-        this.btnFormDOM.find('select[name=dashboardIDSelect]').on('change', function() {
-            self.buttonMO.dashboardID = $(this).find(':selected').data('idvalue');
-            self.validate();
-        });  
-        
-    }.bind(this), 'Getting Ids');
-
-
-
+    //onchange
+    this.btnFormDOM.find('select[name=dashboardIDSelect]').on('change', function() {
+        self.buttonMO.dashboardID = $(this).find(':selected').data('idvalue');
+        self.validate();
+    });  
 
 
 }

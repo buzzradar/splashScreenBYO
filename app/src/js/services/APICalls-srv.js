@@ -64,12 +64,12 @@ ApiCalls.prototype.call = function (urlCall, dataObj, callBack, label,  delay) {
 	//If delay not set, should be 0
 	delay = (!delay) ? 0 : delay;
 
-	DisplayGlobals_SRV.getPreviewRef().showLoader(label + "...");
+	if(label) DisplayGlobals_SRV.getPreviewRef().showLoader(label + "...");
 	
 	setTimeout(function() {
         
 
-		_fatalCall(urlCall, dataObj, callBack, delay);
+		_fatalCall(urlCall, dataObj, callBack, label, delay);
 
 		
 
@@ -93,7 +93,7 @@ ApiCalls.prototype.call = function (urlCall, dataObj, callBack, label,  delay) {
 
 
 
-function _fatalCall(urlCall, dataObj, callBack, delay) {
+function _fatalCall(urlCall, dataObj, callBack, label, delay) {
 
 
 
@@ -109,7 +109,7 @@ function _fatalCall(urlCall, dataObj, callBack, delay) {
 		success: function(retJson, status, jqXHR) {
 			console.log ("%c -> ", "background:#87eb9d;", "Return ---> ajaxCall()", jqXHR.status, retJson);
 
-			DisplayGlobals_SRV.getPreviewRef().hideLoader();
+			if (label) DisplayGlobals_SRV.getPreviewRef().hideLoader();
 
 
 			switch(jqXHR.status) {
