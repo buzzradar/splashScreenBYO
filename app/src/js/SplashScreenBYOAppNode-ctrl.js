@@ -101,7 +101,7 @@ function _getArguments() {
     DisplayGlobals_SRV.setArguments(args);
     APICalls_SRV.setURLFromArguments();
 
-    _getDashboardsIDs();
+    if (args.editor) _getDashboardsIDs();
 
 }
 
