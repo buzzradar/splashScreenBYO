@@ -98,7 +98,7 @@ function _fatalCall(urlCall, dataObj, callBack, label, delay) {
 
 
 	$.ajax({
-		type: 'GET',
+		type: 'POST',
 		url: urlCall,
 		data: dataObj,
 		async: false,
