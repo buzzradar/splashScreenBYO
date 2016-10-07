@@ -46,15 +46,19 @@ function _createGroup() {
 function _loadCopy() {
 
   $.each( this.copyArrayMO, function( key, item ) {
-    
-    this.allCopyGroup.append("text")
-      .attr("text-anchor", "middle")
-      .attr("x", 1920/2)
-      .attr("y", item.y + item.size)
-      .text( item.copy)
-      .attr("font-family", this.fontFamily )
-      .attr("font-size", item.size)
-      .attr("fill", '#'+item.colour);
+
+    if (!item.deleted) {
+
+      this.allCopyGroup.append("text")
+        .attr("text-anchor", "middle")
+        .attr("x", 1920/2)
+        .attr("y", item.y + item.size)
+        .text( item.copy)
+        .attr("font-family", this.fontFamily )
+        .attr("font-size", item.size)
+        .attr("fill", '#'+item.colour);
+
+    }
 
   }.bind(this));
 

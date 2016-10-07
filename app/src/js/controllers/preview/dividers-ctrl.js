@@ -45,13 +45,17 @@ function _loadDividers() {
 
   $.each( this.linesArrayMO, function( key, item ) {
     
-    this.allDividersGroup.append("line")
-      .attr("x1", item.x)
-      .attr("y1", item.y)
-      .attr("x2", item.x + item.width)
-      .attr("y2", item.y + item.height)
-      .attr("stroke-width", item.height)
-      .attr("stroke", '#'+item.colour);
+    if (!item.deleted) {
+
+      this.allDividersGroup.append("line")
+        .attr("x1", item.x)
+        .attr("y1", item.y)
+        .attr("x2", item.x + item.width)
+        .attr("y2", item.y + item.height)
+        .attr("stroke-width", item.height)
+        .attr("stroke", '#'+item.colour);
+
+    }
 
   }.bind(this));
 

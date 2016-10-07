@@ -99,24 +99,48 @@ function _emptyList() {
 
 function _loadCopyArray(onInit) {
 
+    //---------------------------------------
+    // DEVELOPER NOTE (7/10/2016)
+    // In the masterConfig there are elements than can be added, deleted such Copy, dividers and Buttons
+    // If those elements come from the DB they will have a unique ID if not id = 0.
+    // When they have a unique ID and the user deletes them I need to set delete=true.
+    // If the user creates a new element and then decides to delete it we do not need to set deleted=true, we just
+    // need to remove it from the Arra because Marius does not need to know about it.
+    //---------------------------------------
+
     if (!onInit) DisplayGlobals_SRV.getPreviewRef().updateChanges();
 
     _emptyList.call(this);
 
-	if (this.copyArray.length > 0) {
+	if ( _anyVisibleCopy.call(this) ) {
 
         $.each( this.copyArray, function( key, item ) {
-            this.copyCtrlArray.push(new CopyItem_CTRL(key, item) );
+            // this.copyCtrlArray.push(new CopyItem_CTRL(key, item) );
+            if (item.deleted === false) {
+                item['index'] = key;
+                this.copyCtrlArray.push(new CopyItem_CTRL(item) );
+            }
         }.bind(this));
 
         let self = this;
         this.dom.find('i.fa-close').click( function() {
-            // let i = $(this).closest('a.list-group-item').data('arrayid');
-            let i = $(this).closest('a.list-group-item').index();
+
+            let id = $(this).closest('a.list-group-item').data('id');
+            let index = $(this).closest('a.list-group-item').data('index');
+
             $(this).closest('a.list-group-item').remove();
-            self.copyArray.splice(i,1);
-            console.log(i)
+            if ( id === 0 ) {
+                //This means the item was added by the app. So It does not have a uniqueID
+                //No need to do anything
+                //just remove the button from the array
+                self.copyArray.splice(index,1);
+            }else{
+                let copyMO = _getCopyMO.call(self,id);
+                copyMO.deleted = true;
+            }
+
             _loadCopyArray.call(self);
+
         });
 
 
@@ -155,6 +179,35 @@ function _addMoreCopy() {
 
 }	
 
+
+
+function _getCopyMO(id) {
+
+    let ret = false;
+    $.each( this.copyArray, function( key, item ) {
+        console.log(id, item.id);
+        if (item.id === id) {
+            ret = item;
+        }
+    }.bind(this));
+
+    return ret;
+
+}
+
+
+function _anyVisibleCopy() {
+
+    let ret = false;
+    $.each( this.copyArray, function( key, item ) {
+        if (!item.deleted) {
+            ret = true;
+        }
+    }.bind(this));
+
+    return ret;
+
+}
 
 
 

@@ -20,14 +20,12 @@ const HBTemplates = require('../../../services/HBTemplates-srv');
 // Constructor
 // ------------------------------------
 
-function ButtonItem_Ctrl (key, buttonMO) {
+function ButtonItem_Ctrl (buttonMO) {
 
-    this.key = key;
     this.parentDOM = $('#splScrEditorForm').find('.list-button-items');
     this.btnListDOM = null;
     this.formError = false;
     this.buttonMO = buttonMO;  
-    this.buttonMO['index'] = key;     
 
     _init.call(this);
 

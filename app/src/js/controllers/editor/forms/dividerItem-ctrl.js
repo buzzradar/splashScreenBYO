@@ -21,9 +21,8 @@ const Utils_SRV = require('../../../services/Utils-srv');
 // Constructor
 // ------------------------------------
 
-function DividerItem_Ctrl (key, dividerMO) {
+function DividerItem_Ctrl (dividerMO) {
 
-    this.key = key;
     this.parentDOM = $('#splScrEditorForm').find('.list-divider-items');
     this.dividerDOM = null;
     this.formError = false;

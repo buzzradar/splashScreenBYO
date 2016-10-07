@@ -22,15 +22,14 @@ const APICalls_SRV = require('../../../services/APICalls-srv');
 // Constructor
 // ------------------------------------
 
-function ButtonFormItem_Ctrl (key, buttonMO, arrayDashboardIDs) {
+function ButtonFormItem_Ctrl (buttonMO, arrayDashboardIDs) {
 
     this.arrayDashboardIDs = arrayDashboardIDs;
-    this.key = key;
     this.parentDOM = $('#splScrEditorForm');
     this.btnFormDOM = null;
     this.formError = false;
     this.buttonMO = buttonMO;       
-    this.buttonMO['id'] = key;
+
 
     _init.call(this);
 

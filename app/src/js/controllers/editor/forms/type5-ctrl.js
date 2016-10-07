@@ -137,7 +137,7 @@ function _loadButtonArray(onInit) {
 
 
 
-    if (this.buttonsArray.length > 0) {
+    if ( _anyVisibleButtons.call(this) ) {
 
 
 
@@ -146,7 +146,8 @@ function _loadButtonArray(onInit) {
         $.each( this.buttonsArray, function( key, item ) {
             if (item.deleted === false) {
         	    item.copy.text = _.unescape(item.copy.text);
-                this.buttonCtrlArray.push(new ButtonItem_CTRL(key, item) );
+                item['index'] = key;
+                this.buttonCtrlArray.push(new ButtonItem_CTRL(item) );
             }
         }.bind(this));
 
@@ -189,7 +190,7 @@ function _loadButtonArray(onInit) {
 
 
     }else{
-        this.dom.html('No buttons added yet!');
+        this.dom.html('No buttons added to the Launcher, click on the button above to add more.');
     }
 
 
@@ -208,7 +209,7 @@ function _emptyList() {
 
 function _editButton(i) {
 
-	new ButtonFormItem_CTRL(i, this.buttonsArray[i], DisplayGlobals_SRV.getArrayIds() )
+	new ButtonFormItem_CTRL(this.buttonsArray[i], DisplayGlobals_SRV.getArrayIds() )
 
 }
 
@@ -220,7 +221,6 @@ function _getButtonMO(id) {
     $.each( this.buttonsArray, function( key, item ) {
         console.log(id, item.id);
         if (item.id === id) {
-            console.log("hooooooray!", item);
             ret = item;
         }
     }.bind(this));
@@ -230,6 +230,19 @@ function _getButtonMO(id) {
 }
 
 
+
+function _anyVisibleButtons() {
+
+    let ret = false;
+    $.each( this.buttonsArray, function( key, item ) {
+        if (!item.deleted) {
+            ret = true;
+        }
+    }.bind(this));
+
+    return ret;
+
+}
 
 
 

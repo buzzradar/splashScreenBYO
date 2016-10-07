@@ -21,9 +21,8 @@ const Utils_SRV = require('../../../services/Utils-srv');
 // Constructor
 // ------------------------------------
 
-function CopyItem_Ctrl (key, copyMO) {
+function CopyItem_Ctrl (copyMO) {
 
-    this.key = key;
     this.parentDOM = $('#splScrEditorForm').find('.list-copy-items');
     this.copyDOM = null;
     this.formError = false;
