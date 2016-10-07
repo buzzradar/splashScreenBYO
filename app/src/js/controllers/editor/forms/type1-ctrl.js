@@ -73,7 +73,7 @@ function _getMasterConfigValues() {
 
 function _getVisible() {
 
-	let vis = (DisplayGlobals_SRV.getMasterConfig().AppSplash.visible===1) ? 'checked' : '';
+	let vis = (DisplayGlobals_SRV.getMasterConfig().AppSplash.enabled===1) ? 'checked' : '';
 	return vis;
 
 }
@@ -122,7 +122,7 @@ function _addSwitchButton() {
 	  // console.log(this); // DOM element
 	  // console.log(event); // jQuery event
 	  // console.log(state); // true | false
-	  DisplayGlobals_SRV.getMasterConfig().AppSplash.visible = Number(state);
+	  DisplayGlobals_SRV.getMasterConfig().AppSplash.enabled = Number(state);
       DisplayGlobals_SRV.getPreviewRef().updateChanges();
 
 	});
