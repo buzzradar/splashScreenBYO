@@ -27,12 +27,17 @@ JSONHandler.prototype.load = function (jsonURL,onSuccess) {
   console.log("JSONHandler -> loadJSON : " + jsonURL);
 
     $.ajax({
-            dataType: "json",
+            dataType: "jsonp",
+            jsonp: "callback",
             url: jsonURL,
             // data: data,
             success: function(jsonObj) {
                 console.log("JSON SUCCESS -->", jsonObj);
                 onSuccess(jsonObj);
+            },
+            error : function(ret) {
+                console.log("JSON ERROR -->", ret);
+
             }
     });
 

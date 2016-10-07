@@ -56,11 +56,10 @@ function _createSVG(target) {
 
 
 
-D3Handler_CTRL.prototype.loadBGImage = function (urlImage, onImageLoaded) {
+D3Handler_CTRL.prototype.loadBGImage = function (urlImage) {
 
   this.bg = this.svgContainer.append("image")
     .on('load', function() {
-         onImageLoaded();
          //I remove the listener we do not need it any longer
          d3.select(this).on('load',null);
     })

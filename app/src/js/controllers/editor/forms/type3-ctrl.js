@@ -72,7 +72,7 @@ FormType3_Ctrl.prototype.load = function () {
 	this.parentDOM.find('.form-body').html(this.dom);
 
 	_addMoreCopyButton.call(this);
-	_loadCopyArray.call(this);
+	_loadCopyArray.call(this, true);
 
 }
 
@@ -97,9 +97,9 @@ function _emptyList() {
 
 
 
-function _loadCopyArray() {
+function _loadCopyArray(onInit) {
 
-    DisplayGlobals_SRV.getPreviewRef().updateChanges();
+    if (!onInit) DisplayGlobals_SRV.getPreviewRef().updateChanges();
 
     _emptyList.call(this);
 

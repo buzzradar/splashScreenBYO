@@ -59,26 +59,7 @@ function _init() {
 	DisplayGlobals_SRV.setMasterConfig(this.masterConfJSON);
 	
 	this.d3SVG_Ctrl =  new D3Handler_CTRL(this.targetDOM.find('.preview'));
-	this.d3SVG_Ctrl.loadBGImage(this.masterConfJSON.AppSplash.backImage.url, _onBGLoadedSuccess.bind(this));
-
-};
-
-
-
-
-function onMasterConfigLoadedSuccess(masterConfJSON) {
-
-	this.masterConfJSON = masterConfJSON;
-	DisplayGlobals_SRV.setMasterConfig(masterConfJSON);
-
-	this.d3SVG_Ctrl =  new D3Handler_CTRL(this.targetDOM.find('.preview'));
-	this.d3SVG_Ctrl.loadBGImage(this.masterConfJSON.AppSplash.backImage.url, _onBGLoadedSuccess.bind(this));
-
-
-}
-
-function _onBGLoadedSuccess() {
-
+	this.d3SVG_Ctrl.loadBGImage(this.masterConfJSON.AppSplash.backImage.url);
 	this.d3SVG_Ctrl.loadVendorLogo(this.masterConfJSON.AppSplash.vendorLogo);
 	this.d3SVG_Ctrl.loadCopy(this.masterConfJSON.AppSplash.copy);
 	this.d3SVG_Ctrl.loadLine(this.masterConfJSON.AppSplash.dividers);
@@ -90,7 +71,9 @@ function _onBGLoadedSuccess() {
 	}
 
 	_onPreviewReady.call(this);
-}
+
+};
+
 
 
 
@@ -118,13 +101,16 @@ Preview_Ctrl.prototype.updateChanges = function () {
     clearTimeout(this.autoSaveTimeout);
 
     this.autoSaveTimeout = setTimeout(function() {
-        console.log("now you can update the server");
-		APICalls_SRV.call('save', DisplayGlobals_SRV.getMasterConfig(),function(ret) {
+
+		APICalls_SRV.call('POST','save', DisplayGlobals_SRV.getMasterConfig(),function(ret) {
 			if (ret.status === "error") Utils_SRV.bootbox('Oops! Something went wrong while trying to save the changes. Please try again later or contact <a href="mailto:support@buzzradar.com">support.</a>');
 		}.bind(this), 'Saving');
+
+		//Make publish and reset available 
+    	$('a.btn-publish').removeClass('disabled');
+		$('a.btn-reset-changes').removeClass('disabled');
+
     },500);
-
-
 
 }
 

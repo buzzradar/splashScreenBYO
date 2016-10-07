@@ -64,7 +64,7 @@ FormType4_Ctrl.prototype.load = function () {
 
 	// _addPickColors.call(this);
     _addMoreDividersButton.call(this);
-    _loadDividerArray.call(this);
+    _loadDividerArray.call(this, true);
 
 
 }
@@ -108,12 +108,12 @@ function _addMoreDividers() {
 
 
 
-function _loadDividerArray() {
+function _loadDividerArray(onInit) {
 
     // console.clear();
     // console.table(this.dividersArray)
 
-    DisplayGlobals_SRV.getPreviewRef().updateChanges();
+    if(!onInit) DisplayGlobals_SRV.getPreviewRef().updateChanges();
 
 
     _emptyList.call(this);

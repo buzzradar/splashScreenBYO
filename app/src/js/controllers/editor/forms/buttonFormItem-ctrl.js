@@ -105,7 +105,7 @@ function _addDashboardsIDSelect() {
 
     $.each( arrayDashboards, function( key, item ) {
         let selected = (self.buttonMO.dashboardID === item) ? 'selected' : '';
-        selectHtml += '<option data-idvalue="'+item+'" '+selected+'>'+item+'</option>';
+        selectHtml += '<option data-idvalue="'+item.id+'" '+selected+'>'+item.name+'</option>';
     }.bind(this));
     selectHtml += '</select>'
 

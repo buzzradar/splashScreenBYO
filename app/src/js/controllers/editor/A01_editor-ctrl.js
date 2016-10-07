@@ -99,6 +99,7 @@ function _setupPublishButtons() {
 	  btnOkClass : 'btn-sm green-jungle',
 	  btnCancelClass : 'btn-sm default',
 	});
+	$('a.btn-publish').addClass('disabled');
 
 	//RESET
 	$('a.btn-reset-changes').confirmation({
@@ -109,6 +110,8 @@ function _setupPublishButtons() {
 	  btnOkClass : 'btn-sm green-jungle',
 	  btnCancelClass : 'btn-sm default',
 	});
+	$('a.btn-reset-changes').addClass('disabled');
+	
 
 	
 }
@@ -124,7 +127,7 @@ function _publish() {
 
 function _reset() {
 
-	APICalls_SRV.call('reset', DisplayGlobals_SRV.getMasterConfig(),function(ret) {
+	APICalls_SRV.call('GET','reset', {},function(ret) {
 		if (ret.status === "error") {
 			Utils_SRV.bootbox('Oops! Something went wrong while publishing. Please try again later or contact <a href="mailto:support@buzzradar.com">support.</a>');
 		}else{
@@ -146,7 +149,7 @@ function _reset() {
 
 Editor_Ctrl.prototype.publishChanges = function () {
 
-	APICalls_SRV.call('publish', DisplayGlobals_SRV.getMasterConfig(),function(ret) {
+	APICalls_SRV.call('POST','publish', DisplayGlobals_SRV.getMasterConfig(),function(ret) {
 		if (ret.status === "error") Utils_SRV.bootbox('Oops! Something went wrong while publishing. Please try again later or contact <a href="mailto:support@buzzradar.com">support.</a>');
 	}.bind(this), 'Publishing');
 

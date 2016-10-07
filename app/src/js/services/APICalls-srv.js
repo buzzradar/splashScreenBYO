@@ -55,23 +55,19 @@ ApiCalls.prototype.setURLFromArguments = function () {
 
 
 
-ApiCalls.prototype.call = function (urlCall, dataObj, callBack, label,  delay) {
+ApiCalls.prototype.call = function (type, urlCall, dataObj, callBack, label,  delay) {
+
 
 	console.log ("%c -> ", "background:#87eb9d;", "APICalls.ajaxCall() URL ->" , this.URLs[urlCall], dataObj);
-
 	urlCall = this.URLs[urlCall]
 
 	//If delay not set, should be 0
 	delay = (!delay) ? 0 : delay;
-
 	if(label) DisplayGlobals_SRV.getPreviewRef().showLoader(label + "...");
 	
 	setTimeout(function() {
         
-
-		_fatalCall(urlCall, dataObj, callBack, label, delay);
-
-		
+		_fatalCall(type, urlCall, dataObj, callBack, label, delay);
 
     }.bind(this),delay);
 
@@ -80,7 +76,14 @@ ApiCalls.prototype.call = function (urlCall, dataObj, callBack, label,  delay) {
 
 
 
-  
+
+
+
+
+
+
+
+
 };
 
 
@@ -93,54 +96,109 @@ ApiCalls.prototype.call = function (urlCall, dataObj, callBack, label,  delay) {
 
 
 
-function _fatalCall(urlCall, dataObj, callBack, label, delay) {
+function _fatalCall(type, urlCall, dataObj, callBack, label, delay) {
 
 
+	if (type === 'GET') {
 
-	$.ajax({
-		type: 'POST',
-		url: urlCall,
-		data: dataObj,
-		async: false,
-		jsonpCallback: 'jsonCallback',
-		contentType: "application/json",
-		dataType: 'jsonp',
-		timeout : 1000*120,
-		success: function(retJson, status, jqXHR) {
-			console.log ("%c -> ", "background:#87eb9d;", "Return ---> ajaxCall()", jqXHR.status, retJson);
+		//-------------
+		//GET
+		//-------------
 
-			if (label) DisplayGlobals_SRV.getPreviewRef().hideLoader();
-
-
-			switch(jqXHR.status) {
-				case 200:
-					//Success
-					if(callBack) callBack(retJson);
-				break;
-				case 400:
-					//Bad Request
-					if(callBack) callBack({"status" : 400});
-				break;
-				case 500:
-					//Internal Server Error
-					if(callBack) callBack({"status" : 500});
-				break;
+		$.ajax({
+			type: 'GET',
+			url: urlCall,
+			async: false,
+			jsonpCallback: 'jsonCallback',
+			contentType: "application/json",
+			dataType: 'jsonp',
+			success: function(json) {
+				if(callBack) callBack(json);
+			},
+			error: function(e) {
+				console.log ("%c -> ", "background:#ff0000;", "GET APICalls.ajaxCall() ---> Error" + e.responseText);
 			}
+		});
 
-		},
-		error: function(x,t,m) {
+	}else{
 
-			if(t==="timeout") {
-				console.error ("ERROR ---> ajaxCall() Timeout!!!!!" + urlCall);
-				// DisplayGlobals_SRV.rollbarError("ERROR ---> ajaxCall() Timeout!!!!!" + urlCall);
-	        } else {
-				console.error ("ERROR ---> ajaxCall() " + urlCall);
-				// DisplayGlobals_SRV.rollbarError("ERROR ---> ajaxCall()" + urlCall);
-	        }
+		//-------------
+		//POST
+		//-------------
 
-		}
 
-	});
+		$.post(urlCall, dataObj)
+			.done(function( data ) {
+					console.log ("%c -> ", "background:#87eb9d;", "APICalls.ajaxCall() ---> ", data);
+					if (label) DisplayGlobals_SRV.getPreviewRef().hideLoader();
+					if(callBack) callBack(data);
+			})
+			.fail(function() {
+				console.log ("%c -> ", "background:#ff0000;", "POST APICalls.ajaxCall() ---> Error");
+			})
+			.always(function() {
+				if (label) DisplayGlobals_SRV.getPreviewRef().hideLoader();
+			});
+
+	}
+
+
+	
+
+
+
+
+
+
+
+
+	// $.ajax({
+	// 	type: 'POST',
+	// 	url: urlCall,
+	// 	data: dataObj,
+	// 	async: false,
+	// 	jsonpCallback: 'jsonCallback',
+	// 	contentType: "application/json",
+	// 	dataType: 'jsonp',
+	// 	timeout : 1000*120,
+	// 	success: function(retJson, status, jqXHR) {
+	// 		console.log ("%c -> ", "background:#87eb9d;", "Return ---> ajaxCall()", jqXHR.status, retJson);
+
+	// 		if (label) DisplayGlobals_SRV.getPreviewRef().hideLoader();
+
+
+	// 		switch(jqXHR.status) {
+	// 			case 200:
+	// 				//Success
+	// 				if(callBack) callBack(retJson);
+	// 			break;
+	// 			case 400:
+	// 				//Bad Request
+	// 				if(callBack) callBack({"status" : 400});
+	// 			break;
+	// 			case 500:
+	// 				//Internal Server Error
+	// 				if(callBack) callBack({"status" : 500});
+	// 			break;
+	// 		}
+
+	// 	},
+	// 	error: function(x,t,m) {
+
+	// 		if(t==="timeout") {
+	// 			console.error ("ERROR ---> ajaxCall() Timeout!!!!!" + urlCall);
+	// 			// DisplayGlobals_SRV.rollbarError("ERROR ---> ajaxCall() Timeout!!!!!" + urlCall);
+	//         } else {
+	// 			console.error ("ERROR ---> ajaxCall() " + urlCall);
+	// 			// DisplayGlobals_SRV.rollbarError("ERROR ---> ajaxCall()" + urlCall);
+	//         }
+
+	// 	}
+
+	// });
+
+
+
 
 
 }

@@ -57,7 +57,7 @@ function _setScriptTagReference() {
     
     }
 
-    console.log("Script tag->", scriptTag);
+    // console.log("Script tag->", scriptTag);
     DisplayGlobals_SRV.setScriptTag (scriptTag); 
     _getArguments.call(this);
 
@@ -111,7 +111,7 @@ function _getArguments() {
 
 function _getDashboardsIDs() {
 
-    APICalls_SRV.call('arrayids', {},function(ret) {
+    APICalls_SRV.call('GET','arrayids', {},function(ret) {
         
         DisplayGlobals_SRV.setArrayIds(ret.arrayIds);
         _startSplashScreenBYO();
@@ -171,11 +171,27 @@ function _loadPreviews() {
         let masterConfig = $(item).data('masterconfig');
         let thumbPreview = $(item);
 
-        JSONHandler_SRV.load(masterConfig, function(masterConfJSON) {
-            console.log ("%c -> Master Config Succesfully Loaded => ", "background:#00ff00;", masterConfJSON);
-            console.log(masterConfJSON);
-            DisplayGlobals_SRV.setPreviewRef( new Preview_CTRL(masterConfJSON, thumbPreview) );
-        }.bind(this));
+
+
+        console.log ("%c -> ATTENTION!!!!!!!!!!!!!!!!!!!!!!!!", "background:#FF0000;");
+        console.log ("%c -> ATTENTION!!!!!!!!!!!!!!!!!!!!!!!!", "background:#FF0000;");
+        console.log ("%c -> ATTENTION!!!!!!!!!!!!!!!!!!!!!!!!", "background:#FF0000;");
+        console.log ("%c -> ATTENTION!!!!!!!!!!!!!!!!!!!!!!!!", "background:#FF0000;");
+
+        let masterConfJSON = { "AppSplash": { "name" : "Name of the Splash Screen", "version": 62, "vendorLogo":{ "url": "http://insights.buzzradar.com/uploads/splash_screen/57d1420c1d043.svg" , "x": 510, "y": 60, "width": 900, "height": 302 }, "backImage":{ "url": "http://insights.buzzradar.com/uploads/splash_screen/57d143035121e.jpg" }, "dividers":[ { "id" : 11111, "visible": 1, "colour":"FFFFFF", "x":66, "y":450, "width":1784, "height":2, "deleted" : false, } ], "copy":[ { "id" : 11111, "visible": 1, "colour":"FFFFFF", "x":0, "y":470, "width":1920, "size":34, "weight":400, "copy":"Select from the demo dashboards below, or enter your own dashboard ID by hitting ALT + E", "deleted" : false, } ], "buttons":[ { "id" : 11111, "visible": 1, "dashboardID":"GO5RJV", "background":"F6921E", "backgroundTransparent":0, "x":81, "y":630, "width":548, "height":90, "copy": { "text":"Expired2", "size":50, "colour":"404040", "weight":200 }, "deleted" : false, } , { "id" : 22222, "visible": 1, "dashboardID":"BLCQSE", "background":"F6921E", "backgroundTransparent":0, "x":704, "y":630, "width":530, "height":90, "copy": { "text":"iSKO", "size":50, "colour":"404040", "weight":200 }, "deleted" : false, } , { "id" : 3333, "visible": 1, "dashboardID":"BEJJN7", "background":"F6921E", "backgroundTransparent":0, "x":1309, "y":630, "width":530, "height":90, "copy": { "text":"GoPro", "size":50, "colour":"404040", "weight":200 }, "deleted" : false, } , { "id" : 4444, "visible": 1, "dashboardID":"GUULPR", "background":"F6921E", "backgroundTransparent":0, "x":81, "y":815, "width":548, "height":90, "copy": { "text":"Marks &amp; Spencer", "size":50, "colour":"404040", "weight":200 }, "deleted" : false, } , { "id" : 55555, "visible": 1, "dashboardID":"BPS0AR", "background":"F6921E", "backgroundTransparent":0, "x":1309, "y":815, "width":530, "height":90, "copy": { "text":"Premier League", "size":50, "colour":"404040", "weight":200 }, "deleted" : false, } ] }};
+        console.log ("%c -> REMOVE THIS ONCE BYO WORKS => ", "background:#FF0000;", masterConfJSON);
+        DisplayGlobals_SRV.setPreviewRef( new Preview_CTRL(masterConfJSON, thumbPreview) );
+
+
+
+
+
+
+        // JSONHandler_SRV.load(masterConfig, function(masterConfJSON) {
+        //     console.log ("%c -> Master Config Succesfully Loaded => ", "background:#00ff00;", masterConfJSON);
+        //     console.log(masterConfJSON);
+        //     DisplayGlobals_SRV.setPreviewRef( new Preview_CTRL(masterConfJSON, thumbPreview) );
+        // }.bind(this));
 
     });
 

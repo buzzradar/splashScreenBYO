@@ -65,7 +65,7 @@ FormType5_Ctrl.prototype.load = function () {
 
 	// _addPickColors.call(this);
     _addMoreButtonsButton.call(this);
-    _loadButtonArray.call(this);
+    _loadButtonArray.call(this, true);
 
 
 }
@@ -118,36 +118,73 @@ function _addMoreButtons() {
 
 
 
-function _loadButtonArray() {
+function _loadButtonArray(onInit) {
 
-    DisplayGlobals_SRV.getPreviewRef().updateChanges();
+
+    //---------------------------------------
+    // DEVELOPER NOTE (7/10/2016)
+    // In the masterConfig there are elements than can be added, deleted such Copy, dividers and Buttons
+    // If those elements come from the DB they will have a unique ID if not id = 0.
+    // When they have a unique ID and the user deletes them I need to set delete=true.
+    // If the user creates a new element and then decides to delete it we do not need to set deleted=true, we just
+    // need to remove it from the Arra because Marius does not need to know about it.
+    //---------------------------------------
+
+
+    if(!onInit) DisplayGlobals_SRV.getPreviewRef().updateChanges();
 
     _emptyList.call(this);
 
 
+
     if (this.buttonsArray.length > 0) {
 
+
+
+
+
         $.each( this.buttonsArray, function( key, item ) {
-        	item.copy.text = _.unescape(item.copy.text);
-            this.buttonCtrlArray.push(new ButtonItem_CTRL(key, item) );
+            if (item.deleted === false) {
+        	    item.copy.text = _.unescape(item.copy.text);
+                this.buttonCtrlArray.push(new ButtonItem_CTRL(key, item) );
+            }
         }.bind(this));
 
         //Remove Button
         let self = this;
         this.dom.find('i.fa-close').click( function() {
-            // let i = $(this).closest('a.list-group-item').data('arrayid');
-            let i = $(this).closest('a.list-group-item').index();
+
+
+
+
+
+            let id = $(this).closest('a.list-group-item').data('id');
+            let index = $(this).closest('a.list-group-item').data('index');
+
             $(this).closest('a.list-group-item').remove();
-            self.buttonsArray.splice(i,1);
-            // console.log(i);
+            if ( id === 0 ) {
+                //This means the button was added by the app. So It does not have a uniqueID
+                //No need to do anything
+                //just remove the button from the array
+                self.buttonsArray.splice(index,1);
+            }else{
+                let btnMO = _getButtonMO.call(self,id);
+                btnMO.deleted = true;
+            }
+
             _loadButtonArray.call(self);
+
+
+            
+
+
+
         });
 
         //Edit Button
         this.dom.find('a.list-group-item').click(function() {
-            // let i = $(this).data('arrayid');
-            let i = $(this).index();
-        	_editButton.call(self,i);
+            let index = $(this).data('index');
+        	_editButton.call(self,index);
         });
 
 
@@ -162,7 +199,7 @@ function _loadButtonArray() {
 
 function _emptyList() {
 
-    this.dom.html('');
+    this.dom.empty();
     this.buttonCtrlArray = [];
 
 }
@@ -172,6 +209,23 @@ function _emptyList() {
 function _editButton(i) {
 
 	new ButtonFormItem_CTRL(i, this.buttonsArray[i], DisplayGlobals_SRV.getArrayIds() )
+
+}
+
+
+
+function _getButtonMO(id) {
+
+    let ret = false;
+    $.each( this.buttonsArray, function( key, item ) {
+        console.log(id, item.id);
+        if (item.id === id) {
+            console.log("hooooooray!", item);
+            ret = item;
+        }
+    }.bind(this));
+
+    return ret;
 
 }
 

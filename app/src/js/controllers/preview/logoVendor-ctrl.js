@@ -64,6 +64,8 @@ function _loadLogoVendor() {
 
                 DisplayGlobals_SRV.getEditorRef().updateLogoPosition(newX,newY);
 
+                DisplayGlobals_SRV.getPreviewRef().updateChanges();
+
                 d3.select(this).attr("transform", function(d,i){
                     return "translate(" + [ DisplayGlobals_SRV.scaleRatio(d.x) ,DisplayGlobals_SRV.scaleRatio(d.y) ] + ")"
                 })

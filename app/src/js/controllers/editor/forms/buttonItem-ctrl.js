@@ -26,7 +26,8 @@ function ButtonItem_Ctrl (key, buttonMO) {
     this.parentDOM = $('#splScrEditorForm').find('.list-button-items');
     this.btnListDOM = null;
     this.formError = false;
-    this.buttonMO = buttonMO;       
+    this.buttonMO = buttonMO;  
+    this.buttonMO['index'] = key;     
 
     _init.call(this);
 
