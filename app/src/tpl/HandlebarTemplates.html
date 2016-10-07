@@ -47,7 +47,7 @@
         <div class="form-group">
             <label class="col-xs-3 control-label">Name</label>
             <div class="col-xs-8">
-                <input type="text" class="form-control" placeholder="Enter text">
+                <input type="text" name="launcherName" class="form-control" placeholder="Enter the name of the Launcher" value="{{name}}">
             </div>
         </div>
 
@@ -63,7 +63,7 @@
         <div class="form-group">
             <label class="col-xs-3 control-label">Visible</label>
             <div class="col-xs-2">
-                <input type="checkbox" name="bg-switch" class="make-switch" data-size="small" checked data-on-color="success" >
+                <input type="checkbox" name="bg-switch" class="make-switch" data-size="small" {{visible}} data-on-color="success">
                 
             </div>
         </div>

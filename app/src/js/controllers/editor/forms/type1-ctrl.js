@@ -51,12 +51,12 @@ function _init() {
 
 FormType1_Ctrl.prototype.load = function () {
 
-	this.dom = HBTemplates.getTemplate('formType1');
-	this.parentDOM.find('.form-body').html(this.dom);
-	$("[name='bg-switch']").bootstrapSwitch();
+	this.settingsDom = HBTemplates.getTemplate('formType1', {name: DisplayGlobals_SRV.getMasterConfig().AppSplash.name, visible : _getVisible.call(this) });
+	this.parentDOM.find('.form-body').html(this.settingsDom);
 
-
+	_addSwitchButton.call(this);
 	_onFileUploadEvent.call(this);
+	_onFocusOut.call(this);
 
 }
 
@@ -67,6 +67,26 @@ FormType1_Ctrl.prototype.load = function () {
 function _getMasterConfigValues() {
 
     this.backImage = DisplayGlobals_SRV.getMasterConfig().AppSplash.backImage;
+
+}
+
+
+function _getVisible() {
+
+	let vis = (DisplayGlobals_SRV.getMasterConfig().AppSplash.visible===1) ? 'checked' : '';
+	return vis;
+
+}
+
+
+
+
+function _onFocusOut() {
+
+    this.settingsDom.find('input').focusout(function() {
+		DisplayGlobals_SRV.getMasterConfig().AppSplash.name = $('input[name=launcherName]').val();
+     	DisplayGlobals_SRV.getPreviewRef().updateChanges();
+    }.bind(this));
 
 }
 
@@ -89,6 +109,23 @@ function _onFileUploadEvent() {
 
 	});
 
+
+}
+
+
+
+function _addSwitchButton() {
+
+	$("[name='bg-switch']").bootstrapSwitch();
+
+	$('input[name="bg-switch"]').on('switchChange.bootstrapSwitch', function(event, state) {
+	  // console.log(this); // DOM element
+	  // console.log(event); // jQuery event
+	  // console.log(state); // true | false
+	  DisplayGlobals_SRV.getMasterConfig().AppSplash.visible = Number(state);
+      DisplayGlobals_SRV.getPreviewRef().updateChanges();
+
+	});
 
 }
 
