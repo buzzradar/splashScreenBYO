@@ -143,7 +143,7 @@ function _getUploadifySettings (imageID, fileSizeLimit, buttonText) {
         'queueID'          : 'queue1',
         'uploadScript'     : DisplayGlobals_SRV.getArguments().phppath+'uploadifive-image-only.php',
         'formData'         : { 'imageType' : imageID },
-        'onUploadComplete' : function(file, data) { console.log("onUploadComplete Success!!!!!!!"); }
+        'onUploadComplete' : function(file, data) { console.log("onUploadComplete Logo Vendor Success!!!!!!!  After this load the image..."); }
     };
 
 }

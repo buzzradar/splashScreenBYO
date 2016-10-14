@@ -98,7 +98,7 @@ function _onFocusOut() {
 
 function _setupUploadify() {
 
-	$('#cf_backgroundImageUpload').uploadifive( _getUploadifySettings("UNIQUEID"+Date.now(), 3000, 'UPLOAD IMAGE') );
+	$('#cf_backgroundImageUpload').uploadifive( _getUploadifySettings("UNIQUEID"+Date.now(), 3000, 'UPLOAD BG IMAGE') );
 
 }
 
@@ -140,7 +140,7 @@ function _getUploadifySettings (imageID, fileSizeLimit, buttonText) {
 		'queueID'          : 'queue1',
 		'uploadScript'     : DisplayGlobals_SRV.getArguments().phppath+'uploadifive-image-only.php',
 		'formData'         : { 'imageType' : imageID },
-		'onUploadComplete' : function(file, data) { console.log("onUploadComplete Success!!!!!!!"); }
+		'onUploadComplete' : function(file, data) { console.log("onUploadComplete Background Success!!!!!!! After this load the image..."); }
 	};
 
 }
