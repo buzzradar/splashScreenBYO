@@ -52,6 +52,14 @@
   color: red;
 }
 
+.upload-btn-class {
+  background: #3598dc;
+  color: white;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+}
+
 /* --------------------------------------- */
 /* MEDIA QUERIES                           */
 /* --------------------------------------- */

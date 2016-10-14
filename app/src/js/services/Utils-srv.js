@@ -245,7 +245,94 @@ Utils_SRV.prototype.bootbox = function (message) {
 
 
 
+Utils_SRV.prototype.getJsonVal = function (defaultVal, jsonVal, convertTo) {
 
+
+    let jsonValConverted, isValid = true;
+
+
+
+    if (_.isNaN(jsonVal) || _.isNull(jsonVal) || _.isUndefined(jsonVal) || jsonVal == "undefined" || jsonVal == "null") isValid = false;
+
+
+
+    if (isValid) {
+
+        switch (convertTo) {
+
+            case "BOOLEAN":
+
+                jsonVal = jsonVal.toString ().toUpperCase ();
+
+                if (jsonVal === "TRUE") { // if we have a true/false string in JSON
+
+                    jsonValConverted = true;
+
+                }else if (jsonVal === "FALSE") {
+
+                    jsonValConverted = false;
+
+                } else if (jsonVal) { // if we have a 0/1 number val in JSON
+
+                    jsonVal = Number(jsonVal);
+                    
+                    if (jsonVal > 0) {
+
+                        jsonValConverted = true;
+
+                    } else {
+
+                        jsonValConverted = false;
+                        
+                    }
+
+                }
+
+            break;
+
+            case "NUMBER":
+
+                let s = jsonVal.toString ();
+
+                if (s === "EXPANDFIT") {
+
+                    jsonValConverted = 0;
+
+                } else {
+
+                    s = s.replace(/'/g,"").replace(/,/g,".");
+                    jsonVal = Number(s);
+                    if (!_.isNaN(jsonVal)) jsonValConverted = jsonVal;
+
+                }
+
+                
+            break;
+
+            case "HEX":
+                if (jsonVal.length > 5) jsonValConverted = jsonVal.toString ();
+            break;
+
+            case "UPPERCASE":
+                jsonValConverted = jsonVal.toString ().toUpperCase();
+            break;
+
+            default:
+                jsonValConverted = jsonVal.toString ();
+            break;
+
+        }
+
+        if (jsonValConverted == "null" || jsonValConverted == "NULL") jsonValConverted = defaultVal;
+
+        defaultVal = jsonValConverted;
+
+    }
+
+
+    return defaultVal;
+
+};
 
 
 

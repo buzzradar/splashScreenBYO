@@ -54,10 +54,14 @@
         <div class="form-group control-group"> 
             <label class="col-xs-3 control-label" for="bg_file">Image</label> 
             <div class="col-xs-8 controls sonata-ba-field sonata-ba-field-standard-natural "> 
-                <input type="file" id="bg_file" name="s57738c79e919b[file]" class="m-wrap form-control"> 
-                <span class="help-block sonata-ba-field-help">Please choose an image to be used as a background for the Splash Screen.</span> 
-            </div>
 
+                <form>
+                    <div id="queue1"></div>
+                    <input id="cf_backgroundImageUpload" name="cf_backgroundImageUpload" type="file" multiple="false">
+                </form>
+
+                
+            </div>
         </div>
 
         <div class="form-group">
@@ -103,8 +107,10 @@
         <div class="form-group control-group"> 
             <label class="col-xs-3 control-label" for="logoVendor_file">Logo</label> 
             <div class="col-xs-8 controls sonata-ba-field sonata-ba-field-standard-natural "> 
-                <input type="file" id="logoVendor_file" name="s57738c79e919b[file]" class="m-wrap form-control"> 
-                <span class="help-block sonata-ba-field-help">Please choose an image to be used as a Logo Vendor for the Splash Screen.</span> 
+                <form>
+                    <div id="queue1"></div>
+                    <input id="cf_backgroundLogoVendorUpload" name="cf_backgroundLogoVendorUpload" type="file" multiple="false">
+                </form>
             </div>
 
         </div>
@@ -357,7 +363,7 @@
 
         <a href="javascript:;" class="list-group-item" data-id="{{id}}" data-index="{{index}}" data-dashboard="{{dashboardID}}">
             <h4 class="list-group-item-heading margin-bottom-20">
-                <i class="fa fa-arrow-circle-right"></i> Dashboard ID: <strong>{{dashboardID}}</strong>
+                <i class="fa fa-arrow-circle-right"></i> Dashboard: <strong>{{dashboardRef}}</strong>
                 <i class="fa fa-close pull-right"></i>
             </h4>
             <p class="list-group-item-text"> 

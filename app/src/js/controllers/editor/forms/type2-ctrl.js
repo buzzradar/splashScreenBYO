@@ -50,9 +50,19 @@ FormType2_Ctrl.prototype.load = function () {
 	// $("[name='logo-switch']").bootstrapSwitch();
 
     _onFocusOut.call(this);
-    _onFileUploadEvent.call(this);
+    _setupUploadify.call(this);
 
 }
+
+
+
+
+function _setupUploadify() {
+
+    $('#cf_backgroundLogoVendorUpload').uploadifive( _getUploadifySettings("UNIQUEID"+Date.now(), 3000, 'UPLOAD LOGO IMAGE') );
+
+}
+
 
 
 
@@ -114,24 +124,32 @@ FormType2_Ctrl.prototype.updateLogoPosition = function (x,y) {
 
 
 
-function _onFileUploadEvent() {
 
-    $('#logoVendor_file').change(function(){
 
-        if (this.files && this.files[0]) {
-            var reader = new FileReader();
-            reader.onload = function (e) {
+function _getUploadifySettings (imageID, fileSizeLimit, buttonText) {
 
-                // DisplayGlobals_SRV.getPreviewRef().updateLogoImage(e.target.result);
-
-            };
-            reader.readAsDataURL(this.files[0]);    //do not delete
-        }
-
-    });
-
+    return {
+        'auto'             : true,
+        'multi'            : false,
+        'height'           : 30,
+        'width'            : 120,
+        'buttonClass'      : 'upload-btn-class',
+        'removeCompleted'  : true, // removes the upload progress view once done
+        'uploadLimit'      : 0,
+        'queueSizeLimit'   : 0,
+        'fileSizeLimit'    : 3000,
+        'buttonText'       : 'UPLOAD&nbsp;IMAGE',
+        'checkScript'      : DisplayGlobals_SRV.getArguments().phppath+'check-exists.php',
+        'queueID'          : 'queue1',
+        'uploadScript'     : DisplayGlobals_SRV.getArguments().phppath+'uploadifive-image-only.php',
+        'formData'         : { 'imageType' : imageID },
+        'onUploadComplete' : function(file, data) { console.log("onUploadComplete Success!!!!!!!"); }
+    };
 
 }
+
+
+
 
 
 FormType2_Ctrl.prototype.reset = function() {

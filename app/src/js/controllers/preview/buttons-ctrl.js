@@ -3,7 +3,8 @@
 
 const _ = require("lodash");
 const DisplayGlobals_SRV = require('../../services/A01_DisplayGlobals-srv'); 
-const d3 = require("d3");
+const Utils_SRV = require('../../services/Utils-srv');
+
 
 
 
@@ -45,7 +46,10 @@ function _loadButtons() {
 
   $.each( this.buttonsArrayMO, function( key, item ) {
 
-    if (item.deleted === false) {
+    item.deleted = Utils_SRV.getJsonVal(false, item.deleted, "BOOLEAN");
+
+    if (item.deleted === false ) {
+
 
 
         let buttonGroup = this.allButtonsGroup.append("g")
@@ -54,20 +58,20 @@ function _loadButtons() {
 
 
         let btnMO = {
-          x : item.x,
-          y : item.y,
-          width : item.width,
-          height : item.height,
+          x : Utils_SRV.getJsonVal(0, item.x, "NUMBER"),
+          y : Utils_SRV.getJsonVal(0, item.y, "NUMBER"),
+          width : Utils_SRV.getJsonVal(300, item.width, "NUMBER"),
+          height : Utils_SRV.getJsonVal(300, item.height, "NUMBER"),
           background : '#'+item.background,
           radius : 7,
           copy : {
-            cx : item.x + item.width/2,
-            cy : item.y + item.height/2 + item.copy.size/3,       //I have to add a small offset cause d3 text y anchor position is on the bottom.
+            cx : Utils_SRV.getJsonVal(0, item.x, "NUMBER") + Utils_SRV.getJsonVal(0, item.width, "NUMBER")/2,
+            cy : Utils_SRV.getJsonVal(0, item.y, "NUMBER") + Utils_SRV.getJsonVal(0, item.height, "NUMBER")/2 + Utils_SRV.getJsonVal(0, item.copy.size, "NUMBER")/3,       //I have to add a small offset cause d3 text y anchor position is on the bottom.
             color : item.copy.colour,
             visible : true,
-            size : item.copy.size,
+            size : Utils_SRV.getJsonVal(30, item.copy.size, "NUMBER"),
             width : 100,
-            weight : item.copy.weight,
+            weight : Utils_SRV.getJsonVal(400, item.copy.weight, "NUMBER"),
             copy : _.unescape(item.copy.text),
           }
         }

@@ -103,8 +103,11 @@ function _addDashboardsIDSelect() {
     let selectHtml = '<select name="dashboardIDSelect" class="form-control"><option data-idvalue="false" selected>Select a Dashboard ID</option>';
 
     $.each( arrayDashboards, function( key, item ) {
-        let selected = (self.buttonMO.dashboardID === item.id) ? 'selected' : '';
-        selectHtml += '<option data-idvalue="'+item.id+'" '+selected+'>'+item.name+'</option>';
+
+        // console.log(self.buttonMO.dashboardID, item.id);
+
+        let selected = ( self.buttonMO.dashboardID === String(item.id) ) ? 'selected' : '';
+        selectHtml += '<option data-idvalue="'+item.id+'" '+selected+'>'+item.ref+'</option>';
     }.bind(this));
     selectHtml += '</select>'
 
@@ -112,8 +115,17 @@ function _addDashboardsIDSelect() {
 
     //onchange
     this.btnFormDOM.find('select[name=dashboardIDSelect]').on('change', function() {
-        self.buttonMO.dashboardID = $(this).find(':selected').data('idvalue');
+
+        var dashID = $(this).find(':selected').data('idvalue');
+        if (dashID === false) {
+            self.buttonMO.dashboardID = false;
+            self.buttonMO.dashboardRef = false;
+        }else{
+            self.buttonMO.dashboardID = $(this).find(':selected').data('idvalue');
+            self.buttonMO.dashboardRef = $(this).find(':selected').val();
+        }
         self.validate();
+
     });  
 
 

@@ -63,6 +63,10 @@ D3Handler_CTRL.prototype.loadBGImage = function (urlImage) {
          //I remove the listener we do not need it any longer
          d3.select(this).on('load',null);
     })
+    .on('error', function() {
+         //I remove the listener we do not need it any longer
+         d3.select(this).on('error',null);
+    })
     .attr("xlink:href", urlImage)
     .attr("width", 1920)
     .attr("height", 1080);

@@ -3,7 +3,7 @@
 
 const _ = require("lodash");
 const DisplayGlobals_SRV = require('../../services/A01_DisplayGlobals-srv'); 
-const d3 = require("d3");
+const Utils_SRV = require('../../services/Utils-srv');
 
 
 
@@ -47,21 +47,22 @@ function _loadCopy() {
 
   $.each( this.copyArrayMO, function( key, item ) {
 
+    item.deleted = Utils_SRV.getJsonVal(false, item.deleted, "BOOLEAN");
+
     if (!item.deleted) {
 
       this.allCopyGroup.append("text")
         .attr("text-anchor", "middle")
         .attr("x", 1920/2)
-        .attr("y", item.y + item.size)
+        .attr("y", Number(item.y) + Number(item.size) ) 
         .text( item.copy)
         .attr("font-family", this.fontFamily )
-        .attr("font-size", item.size)
+        .attr("font-size", Number(item.size) )
         .attr("fill", '#'+item.colour);
 
     }
 
   }.bind(this));
-
 
 }
 

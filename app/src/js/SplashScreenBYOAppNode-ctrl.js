@@ -87,11 +87,14 @@ function _setRollbarAccount() {
 function _getArguments() {
 
     let args = {
+        // 'dev' : DisplayGlobals_SRV.getScriptTag().data('dev'),
         'editor' : DisplayGlobals_SRV.getScriptTag().data('editor'),
         'arrayids' : DisplayGlobals_SRV.getScriptTag().data('arrayids'),
         'save' : DisplayGlobals_SRV.getScriptTag().data('save'),
         'publish' : DisplayGlobals_SRV.getScriptTag().data('publish'),
         'reset' : DisplayGlobals_SRV.getScriptTag().data('reset'),
+        'uploadspath' : DisplayGlobals_SRV.getScriptTag().data('uploadspath'),
+        'phppath' : DisplayGlobals_SRV.getScriptTag().data('phppath'),
     };
 
     console.log ("%c -> Arguments passed through <script> tag: ", "background:#a0b87a;", args);
@@ -113,6 +116,7 @@ function _getDashboardsIDs() {
 
     APICalls_SRV.call('GET','arrayids', {},function(ret) {
         
+        console.log("The Array of IDs I get from Marius--->", ret.arrayIds)
         DisplayGlobals_SRV.setArrayIds(ret.arrayIds);
         _startSplashScreenBYO();
       
@@ -178,7 +182,7 @@ function _loadPreviews() {
         // console.log ("%c -> ATTENTION!!!!!!!!!!!!!!!!!!!!!!!!", "background:#FF0000;");
         // console.log ("%c -> ATTENTION!!!!!!!!!!!!!!!!!!!!!!!!", "background:#FF0000;");
 
-        // let masterConfJSON = { "AppSplash": { "name" : "Name of the Splash Screen","visible" : 1, "version": 62, "vendorLogo":{ "url": "http://insights.buzzradar.com/uploads/splash_screen/57d1420c1d043.svg" , "x": 510, "y": 60, "width": 900, "height": 302 }, "backImage":{ "url": "http://insights.buzzradar.com/uploads/splash_screen/57d143035121e.jpg" }, "dividers":[ { "id" : 11111, "visible": 1, "colour":"FFFFFF", "x":66, "y":450, "width":1784, "height":2, "deleted" : false, } ], "copy":[ { "id" : 11111, "visible": 1, "colour":"FFFFFF", "x":0, "y":470, "width":1920, "size":34, "weight":400, "copy":"Select from the demo dashboards below, or enter your own dashboard ID by hitting ALT + E", "deleted" : false, } ], "buttons":[ { "id" : 11111, "visible": 1, "dashboardID":"GO5RJV", "background":"F6921E", "backgroundTransparent":0, "x":81, "y":630, "width":548, "height":90, "copy": { "text":"Expired2", "size":50, "colour":"404040", "weight":200 }, "deleted" : false, } , { "id" : 22222, "visible": 1, "dashboardID":"BLCQSE", "background":"F6921E", "backgroundTransparent":0, "x":704, "y":630, "width":530, "height":90, "copy": { "text":"iSKO", "size":50, "colour":"404040", "weight":200 }, "deleted" : false, } , { "id" : 3333, "visible": 1, "dashboardID":"BEJJN7", "background":"F6921E", "backgroundTransparent":0, "x":1309, "y":630, "width":530, "height":90, "copy": { "text":"GoPro", "size":50, "colour":"404040", "weight":200 }, "deleted" : false, } , { "id" : 4444, "visible": 1, "dashboardID":"GUULPR", "background":"F6921E", "backgroundTransparent":0, "x":81, "y":815, "width":548, "height":90, "copy": { "text":"Marks &amp; Spencer", "size":50, "colour":"404040", "weight":200 }, "deleted" : false, } , { "id" : 55555, "visible": 1, "dashboardID":"BPS0AR", "background":"F6921E", "backgroundTransparent":0, "x":1309, "y":815, "width":530, "height":90, "copy": { "text":"Premier League", "size":50, "colour":"404040", "weight":200 }, "deleted" : false, } ] }};
+        // let masterConfJSON = { "AppSplash": { "version": 127, "vendorLogo":{ "url": "http://insights.buzzradar.com/uploads/splash_screen/http://insights.buzzradar.com/uploads/splash_screen/57cee103ba280.png" , "x": 675, "y": 45, "width": 700, "height": 300 }, "backImage":{ "url": "http://insights.buzzradar.com/uploads/splash_screen/http://insights.buzzradar.com/uploads/splash_screen/57ceecb31dc42.png" }, "dividers":[ { "visible": 1, "colour":"707070", "x":66, "y":530, "width":1784, "height":2 } , { "visible": 1, "colour":"707070", "x":66, "y":450, "width":1784, "height":2 } ], "copy":[ { "visible": 1, "colour":"5c5c5c", "x":0, "y":440, "width":1920, "size":70, "weight":400, "copy":"This is some copy I have created through BYO. Great!" } ], "buttons":[ { "visible": 1, "dashboardID":"WUDTZM", "background":"ff00ff", "backgroundTransparent":0, "x":704, "y":815, "width":548, "height":90, "copy": { "text":"1Button Label", "size":50, "colour":"404040", "weight":200 } } , { "visible": 1, "dashboardID":"CZFC4C", "background":"e8277b", "backgroundTransparent":0, "x":1309, "y":815, "width":548, "height":90, "copy": { "text":"Button pink", "size":50, "colour":"ffffff", "weight":200 } } , { "visible": 1, "dashboardID":"C5WV3J", "background":"7bc5e3", "backgroundTransparent":0, "x":81, "y":630, "width":548, "height":90, "copy": { "text":"Button Label", "size":50, "colour":"404040", "weight":200 } } , { "visible": 1, "dashboardID":"CJEMVU", "background":"e61717", "backgroundTransparent":0, "x":81, "y":815, "width":530, "height":90, "copy": { "text":"Button Label Test", "size":40, "colour":"FFFFFF", "weight":50 } } ] }};
         // console.log ("%c -> REMOVE THIS ONCE BYO WORKS. This is just for Juan => ", "background:#FF0000;", masterConfJSON);
         // DisplayGlobals_SRV.setPreviewRef( new Preview_CTRL(masterConfJSON, thumbPreview) );
 

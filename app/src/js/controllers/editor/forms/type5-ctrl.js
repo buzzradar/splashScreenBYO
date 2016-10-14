@@ -14,6 +14,7 @@ const HBTemplates = require('../../../services/HBTemplates-srv');
 const ButtonItem_CTRL = require('./buttonItem-ctrl');
 const ButtonFormItem_CTRL = require('./buttonFormItem-ctrl');
 const APICalls_SRV = require('../../../services/APICalls-srv');
+const Utils_SRV = require('../../../services/Utils-srv');
 
 
 
@@ -93,6 +94,7 @@ function _addMoreButtons() {
                     "deleted" : false,
 					"visible": 1,
                     "dashboardID": false,
+                    "dashboardRef": false,
                     "background":"ff00ff",
                     "backgroundTransparent":0,
                     "x":100,
@@ -144,6 +146,10 @@ function _loadButtonArray(onInit) {
 
 
         $.each( this.buttonsArray, function( key, item ) {
+            item.id = Utils_SRV.getJsonVal(0, item.id, "STRING");
+            item['dashboardID'] = Utils_SRV.getJsonVal('false', item.dashboardID, "STRING");
+            item['dashboardRef'] = Utils_SRV.getJsonVal('false', item.dashboardRef, "STRING");
+            item.deleted = Utils_SRV.getJsonVal('false', item.deleted, "BOOLEAN");
             if (item.deleted === false) {
         	    item.copy.text = _.unescape(item.copy.text);
                 item['index'] = key;
@@ -219,8 +225,7 @@ function _getButtonMO(id) {
 
     let ret = false;
     $.each( this.buttonsArray, function( key, item ) {
-        console.log(id, item.id);
-        if (item.id === id) {
+        if (item.id === String(id)) {
             ret = item;
         }
     }.bind(this));

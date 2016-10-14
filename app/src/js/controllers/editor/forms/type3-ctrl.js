@@ -12,6 +12,7 @@
 const DisplayGlobals_SRV = require('../../../services/A01_DisplayGlobals-srv'); 
 const HBTemplates = require('../../../services/HBTemplates-srv');
 const CopyItem_CTRL = require('./copyItem-ctrl');
+const Utils_SRV = require('../../../services/Utils-srv');
 
 
 
@@ -115,7 +116,8 @@ function _loadCopyArray(onInit) {
 	if ( _anyVisibleCopy.call(this) ) {
 
         $.each( this.copyArray, function( key, item ) {
-            // this.copyCtrlArray.push(new CopyItem_CTRL(key, item) );
+            item.id = Utils_SRV.getJsonVal(0, item.id, "STRING");
+            item.deleted = Utils_SRV.getJsonVal('false', item.deleted, "BOOLEAN");
             if (item.deleted === false) {
                 item['index'] = key;
                 this.copyCtrlArray.push(new CopyItem_CTRL(item) );
@@ -185,8 +187,7 @@ function _getCopyMO(id) {
 
     let ret = false;
     $.each( this.copyArray, function( key, item ) {
-        console.log(id, item.id);
-        if (item.id === id) {
+        if (item.id === String(id)) {
             ret = item;
         }
     }.bind(this));

@@ -2,24 +2,24 @@
 
 echo 'jsonCallback({"arrayIds" : [
 	{
-		id : "GO5RJV",
-		name : "viz GO5RJV",
+		id : "524",
+		ref : "CJEMVU",
 	},
 	{
-		id : "BLCQSE",
-		name : "viz BLCQSE",
+		id : "22222",
+		ref : "BLCQSE",
 	},
 	{
-		id : "BEJJN7",
-		name : "viz BEJJN7",
+		id : "33333",
+		ref : "BEJJN7",
 	},
 	{
-		id : "GUULPR",
-		name : "viz GUULPR",
+		id : "44444",
+		ref : "GUULPR",
 	},
 	{
-		id : "BPS0AR",
-		name : "viz BPS0AR",
+		id : "55555",
+		ref : "BPS0AR",
 	},
 ]})';
 

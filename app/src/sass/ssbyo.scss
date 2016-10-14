@@ -86,8 +86,11 @@ $orange-color: #f6921e;
 }
 
 
-
-
+.upload-btn-class {
+    background:#3598dc;
+    color:white;
+    @include border-radius(4px);
+}
 
 /* --------------------------------------- */
 /* MEDIA QUERIES                           */

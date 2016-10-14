@@ -58,7 +58,6 @@ ApiCalls.prototype.setURLFromArguments = function () {
 ApiCalls.prototype.call = function (type, urlCall, dataObj, callBack, label,  delay) {
 
 
-	console.log ("%c -> ", "background:#87eb9d;", "APICalls.ajaxCall() URL ->" , this.URLs[urlCall], dataObj);
 	urlCall = this.URLs[urlCall]
 
 	//If delay not set, should be 0
@@ -105,6 +104,10 @@ function _fatalCall(type, urlCall, dataObj, callBack, label, delay) {
 		//GET
 		//-------------
 
+
+		console.log ("%c -> ", "background:#87eb9d;", "APICalls-> GET : URL =>" , urlCall, dataObj);
+
+
 		$.ajax({
 			type: 'GET',
 			url: urlCall,
@@ -125,6 +128,8 @@ function _fatalCall(type, urlCall, dataObj, callBack, label, delay) {
 		//-------------
 		//POST
 		//-------------
+
+		console.log ("%c -> ", "background:#c5f442;", "APICalls-> POST : URL =>" , urlCall, dataObj);
 
 
 		$.post(urlCall, dataObj)

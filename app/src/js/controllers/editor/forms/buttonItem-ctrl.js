@@ -50,8 +50,7 @@ function _renderView() {
     this.btnListDOM = HBTemplates.getTemplate('button_item', this.buttonMO);
     this.parentDOM.append(this.btnListDOM);
 
-
-    if (this.buttonMO.dashboardID === false) {
+    if (this.buttonMO.dashboardID.includes('false')) {
         this.btnListDOM.addClass('no-dashboard');
     }else{
         this.btnListDOM.removeClass('no-dashboard');

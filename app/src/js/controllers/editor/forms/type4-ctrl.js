@@ -12,6 +12,7 @@
 const DisplayGlobals_SRV = require('../../../services/A01_DisplayGlobals-srv'); 
 const HBTemplates = require('../../../services/HBTemplates-srv');
 const DividerItem_CTRL = require('./dividerItem-ctrl');
+const Utils_SRV = require('../../../services/Utils-srv');
 
 
 
@@ -126,6 +127,8 @@ function _loadDividerArray(onInit) {
     if ( _anyVisibleDividers.call(this) ) {
 
         $.each( this.dividersArray, function( key, item ) {
+            item.id = Utils_SRV.getJsonVal(0, item.id, "STRING");
+            item.deleted = Utils_SRV.getJsonVal('false', item.deleted, "BOOLEAN");
             if (item.deleted === false) {
                 item['index'] = key;
                 this.dividerCtrlArray.push(new DividerItem_CTRL(item) );
@@ -176,8 +179,7 @@ function _getDividerMO(id) {
 
     let ret = false;
     $.each( this.dividersArray, function( key, item ) {
-        console.log(id, item.id);
-        if (item.id === id) {
+        if (item.id === String(id)) {
             ret = item;
         }
     }.bind(this));

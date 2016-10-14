@@ -55,8 +55,12 @@ FormType1_Ctrl.prototype.load = function () {
 	this.parentDOM.find('.form-body').html(this.settingsDom);
 
 	_addSwitchButton.call(this);
-	_onFileUploadEvent.call(this);
 	_onFocusOut.call(this);
+
+
+	_setupUploadify.call(this);
+
+
 
 }
 
@@ -92,25 +96,12 @@ function _onFocusOut() {
 
 
 
+function _setupUploadify() {
 
-function _onFileUploadEvent() {
-
-	$('#bg_file').change(function(){
-
-		if (this.files && this.files[0]) {
-			var reader = new FileReader();
-			reader.onload = function (e) {
-
-				DisplayGlobals_SRV.getPreviewRef().updateBgImage(e.target.result);
-
-			};
-			reader.readAsDataURL(this.files[0]);	//do not delete
-		}
-
-	});
-
+	$('#cf_backgroundImageUpload').uploadifive( _getUploadifySettings("UNIQUEID"+Date.now(), 3000, 'UPLOAD IMAGE') );
 
 }
+
 
 
 
@@ -128,6 +119,33 @@ function _addSwitchButton() {
 	});
 
 }
+
+
+
+
+function _getUploadifySettings (imageID, fileSizeLimit, buttonText) {
+
+	return {
+		'auto'             : true,
+		'multi'            : false,
+		'height'           : 30,
+		'width'            : 120,
+		'buttonClass'  	   : 'upload-btn-class',
+		'removeCompleted'  : true, // removes the upload progress view once done
+		'uploadLimit'      : 0,
+		'queueSizeLimit'   : 0,
+		'fileSizeLimit'    : 3000,
+		'buttonText'       : buttonText,
+		'checkScript'      : DisplayGlobals_SRV.getArguments().phppath+'check-exists.php',
+		'queueID'          : 'queue1',
+		'uploadScript'     : DisplayGlobals_SRV.getArguments().phppath+'uploadifive-image-only.php',
+		'formData'         : { 'imageType' : imageID },
+		'onUploadComplete' : function(file, data) { console.log("onUploadComplete Success!!!!!!!"); }
+	};
+
+}
+    
+
 
 
 

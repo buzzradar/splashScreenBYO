@@ -3,7 +3,7 @@
 
 const _ = require("lodash");
 const DisplayGlobals_SRV = require('../../services/A01_DisplayGlobals-srv'); 
-const d3 = require("d3");
+const Utils_SRV = require('../../services/Utils-srv');
 
 
 
@@ -44,7 +44,9 @@ function _createGroup() {
 function _loadDividers() {
 
   $.each( this.linesArrayMO, function( key, item ) {
-    
+
+    item.deleted = Utils_SRV.getJsonVal(false, item.deleted, "BOOLEAN");
+
     if (!item.deleted) {
 
       this.allDividersGroup.append("line")
