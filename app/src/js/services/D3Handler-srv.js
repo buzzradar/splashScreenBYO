@@ -79,7 +79,7 @@ D3Handler_CTRL.prototype.updateBGImage = function (imgObject) {
   this.bg
     .attr("xlink:href", imgObject);
 
-}
+};
 
 
 

@@ -56,13 +56,9 @@ FormType1_Ctrl.prototype.load = function () {
 
 	_addSwitchButton.call(this);
 	_onFocusOut.call(this);
-
-
 	_setupUploadify.call(this);
 
-
-
-}
+};
 
 
 
@@ -98,7 +94,7 @@ function _onFocusOut() {
 
 function _setupUploadify() {
 
-	$('#cf_backgroundImageUpload').uploadifive( _getUploadifySettings("UNIQUEID"+Date.now(), 3000, 'UPLOAD BG IMAGE') );
+	$('#cf_backgroundImageUpload').uploadifive( _getUploadifySettings("BG_"+Date.now(), 3000, 'UPLOAD BG IMAGE') );
 
 }
 
@@ -140,13 +136,19 @@ function _getUploadifySettings (imageID, fileSizeLimit, buttonText) {
 		'queueID'          : 'queue1',
 		'uploadScript'     : DisplayGlobals_SRV.getArguments().phppath+'uploadifive-image-only.php',
 		'formData'         : { 'imageType' : imageID },
-		'onUploadComplete' : function(file, data) { console.log("onUploadComplete Background Success!!!!!!! After this load the image..."); }
+		'onUploadComplete' : function(file, data) { 
+			console.log("onUploadComplete Background Success!!!!!!! After this load the image...",data); 
+    		DisplayGlobals_SRV.getMasterConfig().AppSplash.backImage.url = DisplayGlobals_SRV.getArguments().uploadspath + data;
+    		DisplayGlobals_SRV.getPreviewRef().updateBgImage();
+
+    		DisplayGlobals_SRV.getPreviewRef().updateChanges();
+		}
 	};
 
 }
     
 
-
+// 'onUploadComplete' : function(file, data) { UserEditor.onNewImageFatal (BYOglobals.BYOconfigurator, file, data);}
 
 
 

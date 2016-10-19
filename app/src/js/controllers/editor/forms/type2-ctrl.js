@@ -52,14 +52,14 @@ FormType2_Ctrl.prototype.load = function () {
     _onFocusOut.call(this);
     _setupUploadify.call(this);
 
-}
+};
 
 
 
 
 function _setupUploadify() {
 
-    $('#cf_backgroundLogoVendorUpload').uploadifive( _getUploadifySettings("UNIQUEID"+Date.now(), 3000, 'UPLOAD LOGO IMAGE') );
+    $('#cf_backgroundLogoVendorUpload').uploadifive( _getUploadifySettings("LOGO_"+Date.now(), 3000, 'UPLOAD LOGO IMAGE') );
 
 }
 
@@ -143,7 +143,13 @@ function _getUploadifySettings (imageID, fileSizeLimit, buttonText) {
         'queueID'          : 'queue1',
         'uploadScript'     : DisplayGlobals_SRV.getArguments().phppath+'uploadifive-image-only.php',
         'formData'         : { 'imageType' : imageID },
-        'onUploadComplete' : function(file, data) { console.log("onUploadComplete Logo Vendor Success!!!!!!!  After this load the image..."); }
+        'onUploadComplete' : function(file, data) { 
+            console.log("onUploadComplete Logo Vendor Success!!!!!!! After this load the image...",data); 
+            DisplayGlobals_SRV.getMasterConfig().AppSplash.vendorLogo.url = DisplayGlobals_SRV.getArguments().uploadspath + data;
+            DisplayGlobals_SRV.getPreviewRef().updateLogoImage();
+
+            DisplayGlobals_SRV.getPreviewRef().updateChanges();
+        }
     };
 
 }
@@ -156,7 +162,7 @@ FormType2_Ctrl.prototype.reset = function() {
 
     _getMasterConfigValues.call(this);
 
-}
+};
 
 
 

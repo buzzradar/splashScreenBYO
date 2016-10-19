@@ -112,28 +112,28 @@ Preview_Ctrl.prototype.updateChanges = function () {
 
     },500);
 
-}
+};
 
 
-Preview_Ctrl.prototype.updateBgImage = function (imgObj) {
+Preview_Ctrl.prototype.updateBgImage = function () {
 
-	this.d3SVG_Ctrl.updateBGImage(imgObj);
+	this.d3SVG_Ctrl.updateBGImage(this.masterConfJSON.AppSplash.backImage.url);
 
-}
+};
 
-Preview_Ctrl.prototype.updateLogoImage = function (imgObj) {
+Preview_Ctrl.prototype.updateLogoImage = function () {
 
-	this.d3SVG_Ctrl.updateLogoImage(imgObj);
+	this.d3SVG_Ctrl.updateLogoImage(this.masterConfJSON.AppSplash.vendorLogo);
 
-}
+};
 
 
 Preview_Ctrl.prototype.resetChanges = function () {
 
-	console.log("PREVIEW => Reset all changes....")
+	console.log("PREVIEW => Reset all changes....");
 	this.d3SVG_Ctrl.resetChanges();
 
-}
+};
 
 
 
