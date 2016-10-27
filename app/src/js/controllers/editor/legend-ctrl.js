@@ -49,6 +49,8 @@ function _loadLegendBottom() {
 	$('.legend-btn').click(function() {
 		let id = $(this).data('id');
 		DisplayGlobals_SRV.getEditorRef().loadFormSettings(id);
+		console.log("I am here......");
+		throw "Error2";
 	});
 
 }

@@ -8,6 +8,7 @@
   padding-bottom: 56.25%;
   margin-bottom: 10px;
   position: relative;
+  overflow: hidden;
 }
 .splScr-16-9 .preview {
   top: 0px;
