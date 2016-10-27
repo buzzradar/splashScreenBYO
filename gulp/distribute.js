@@ -21,7 +21,7 @@ var rename = require('gulp-rename');
 gulp.task('distribute', function () {
 
     console.log(">>>>>>>>>>>>>> DISTRIBUTE TASK <<<<<<<<<<<<<<<<<<<");    
-    gulp.start('csstojs');
+    gulp.start('publishprod');
 
 });
 
@@ -31,7 +31,7 @@ gulp.task('distribute', function () {
 /* Turns CSS into JS file                  */                            
 /* --------------------------------------- */
 
-gulp.task('csstojs', function () {
+gulp.task('publishprod', function () {
   
   console.log("======= > CSS TO JS TASK");  
   var scriptStream = gulp.src('app/dev/ssbyo_assets/js/SplashScreenBYO.js')
@@ -39,15 +39,7 @@ gulp.task('csstojs', function () {
 		.pipe(uglify())
 		.pipe(rename({ suffix: '.min' }))
 		.pipe(sourcemaps.write())
-		.pipe(gulp.dest('app/dev/ssbyo_assets/js/'));                  /* Get the content of SplashScreenBYO.js */
-  //var styleStream = gulp.src('app/dev/ssbyo_assets/css/SplashScreenBYO.css').pipe(cssToJs());      /* Get the content fo Styles and turn it into JS */
-  //merge(scriptStream, styleStream)                                            /* Merge both files */
-
-
-		
-
-      //.pipe(concat('SplashScreenBYO_dist.js'))                                   /* Save the File as wizardembed_css.js */
-      //.pipe(gulp.dest('app/dev/js'));                                           /* Save the file into app/dev folder */
+		.pipe(gulp.dest('app/dev/ssbyo_assets/js/'));                 
 
 });
 
