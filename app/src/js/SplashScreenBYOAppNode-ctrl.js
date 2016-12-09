@@ -155,11 +155,11 @@ function _setupWindowEvents() {
 
 function _onResizeWindow() {
 
-    let width = $('div.splScr-16-9').width();
+    let width = $('div.viz-item').width();
     let new_ratio = (width/1920);
     DisplayGlobals_SRV.setScaleRatio(new_ratio);
 
-    $('div.splScr-16-9').find('.preview').css({
+    $('div.viz-item').find('.preview').css({
         'transform' : 'scale('+ new_ratio +')',
         'z-index' : '0',
     });
@@ -170,7 +170,9 @@ function _onResizeWindow() {
 
 function _loadPreviews() {
 
-    $( 'div.splScr-16-9' ).each(function( index, item ) {
+    console.log("Load Previews......");
+
+    $( 'div.viz-item' ).each(function( index, item ) {
 
         let masterConfig = $(item).data('masterconfig');
         let thumbPreview = $(item);
@@ -187,7 +189,7 @@ function _loadPreviews() {
         // DisplayGlobals_SRV.setPreviewRef( new Preview_CTRL(masterConfJSON, thumbPreview) );
 
 
-
+console.log("aaaaaa")
 
 
 

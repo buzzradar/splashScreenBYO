@@ -44,17 +44,16 @@ function _createGroup() {
 
 function _loadButtons() {
 
+
   $.each( this.buttonsArrayMO, function( key, item ) {
 
     item.deleted = Utils_SRV.getJsonVal(false, item.deleted, "BOOLEAN");
 
     if (item.deleted === false ) {
 
-
-
         let buttonGroup = this.allButtonsGroup.append("g")
-                            .attr('class', 'clickable')
                             .attr('index', key)
+        if (DisplayGlobals_SRV.getArguments().editor) buttonGroup.attr('class', 'clickable');
 
 
         let btnMO = {
@@ -94,11 +93,14 @@ function _loadButtons() {
             .attr("font-size", btnMO.copy.size)
             .attr("fill", '#'+btnMO.copy.color );
 
+
+        if (DisplayGlobals_SRV.getArguments().editor) {
           buttonGroup.on("click", function() {
             let index = $(this).attr('index');
             DisplayGlobals_SRV.getEditorRef().form_Ctrl.loadForm(5)      //Load the Buttons Form
             DisplayGlobals_SRV.getEditorRef().form_Ctrl.formArray[4].objRef.editButton(index);     //Objet to Edit buttons
           })
+        }
 
 
     }
