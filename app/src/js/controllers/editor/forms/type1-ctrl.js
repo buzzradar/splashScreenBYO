@@ -54,7 +54,7 @@ FormType1_Ctrl.prototype.load = function () {
 	this.settingsDom = HBTemplates.getTemplate('formType1', {name: DisplayGlobals_SRV.getMasterConfig().AppSplash.name, visible : _getVisible.call(this) });
 	this.parentDOM.find('.form-body').html(this.settingsDom);
 
-	_addSwitchButton.call(this);
+	// _addSwitchButton.call(this);
 	_onFocusOut.call(this);
 	_setupUploadify.call(this);
 
