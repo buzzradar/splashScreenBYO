@@ -151,7 +151,7 @@ function _loadButtonArray(onInit) {
             item['dashboardID'] = Utils_SRV.getJsonVal('false', item.dashboardID, "STRING");
             item['dashboardRef'] = Utils_SRV.getJsonVal('false', item.dashboardRef, "STRING");
             item.deleted = Utils_SRV.getJsonVal('false', item.deleted, "BOOLEAN");
-            if (item.deleted === false) {
+            if (item.deleted === false && item.copy) {
         	    item.copy.text = _.unescape(item.copy.text);
                 item['index'] = key;
                 this.buttonCtrlArray.push(new ButtonItem_CTRL(item) );

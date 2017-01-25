@@ -49,11 +49,13 @@ function _loadButtons() {
 
     item.deleted = Utils_SRV.getJsonVal(false, item.deleted, "BOOLEAN");
 
-    if (item.deleted === false ) {
+    if (item.deleted === false && item.copy) {
 
         let buttonGroup = this.allButtonsGroup.append("g")
                             .attr('index', key)
         if (DisplayGlobals_SRV.getArguments().editor) buttonGroup.attr('class', 'clickable');
+
+
 
 
         let btnMO = {
