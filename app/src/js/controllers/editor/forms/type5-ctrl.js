@@ -130,7 +130,7 @@ function _loadButtonArray(onInit) {
     // If those elements come from the DB they will have a unique ID if not id = 0.
     // When they have a unique ID and the user deletes them I need to set delete=true.
     // If the user creates a new element and then decides to delete it we do not need to set deleted=true, we just
-    // need to remove it from the Arra because Marius does not need to know about it.
+    // need to remove it from the Array because Marius does not need to know about it.
     //---------------------------------------
 
 

@@ -119,7 +119,6 @@ function _setupPublishButtons() {
 
 function _publish() {
 
-	console.log("Original Object ->", DisplayGlobals_SRV.getMasterConfig());
 	this.publishChanges();
 
 }
@@ -150,7 +149,13 @@ function _reset() {
 Editor_Ctrl.prototype.publishChanges = function () {
 
 	APICalls_SRV.call('POST','publish', DisplayGlobals_SRV.getMasterConfig(),function(ret) {
-		if (ret.status === "error") Utils_SRV.bootbox('Oops! Something went wrong while publishing. Please try again later or contact <a href="mailto:support@buzzradar.com">support.</a>');
+		ret = JSON.parse(ret);
+		if (ret.status === "error") {
+			Utils_SRV.bootbox('Oops! Something went wrong while publishing. Please try again later or contact <a href="mailto:support@buzzradar.com">support.</a>');
+		}else if(ret.status === "success"){
+    		console.log ("%c -> PUBLISH Succes! => ", "background:#ffff00;", ret);
+    		// DisplayGlobals_SRV.setMasterConfig(ret);
+		}
 	}.bind(this), 'Publishing');
 
 }

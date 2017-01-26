@@ -103,7 +103,14 @@ Preview_Ctrl.prototype.updateChanges = function () {
     this.autoSaveTimeout = setTimeout(function() {
 
 		APICalls_SRV.call('POST','save', DisplayGlobals_SRV.getMasterConfig(),function(ret) {
-			if (ret.status === "error") Utils_SRV.bootbox('Oops! Something went wrong while trying to save the changes. Please try again later or contact <a href="mailto:support@buzzradar.com">support.</a>');
+			ret = JSON.parse(ret);
+			if (ret.status === "error") {
+				Utils_SRV.bootbox('Oops! Something went wrong while trying to save the changes. Please try again later or contact <a href="mailto:support@buzzradar.com">support.</a>');
+			}else{
+	    		console.log ("%c -> SAVE Succes! => ", "background:#ffff00;", ret);
+	    		// DisplayGlobals_SRV.setMasterConfig(ret);
+			}
+
 		}.bind(this), 'Saving');
 
 		//Make publish and reset available 
