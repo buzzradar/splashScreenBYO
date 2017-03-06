@@ -179,7 +179,7 @@ function _loadPreviews() {
 
         JSONHandler_SRV.load(masterConfig, function(masterConfJSON) {
             
-            //Develper Note, to avoid having disabled Splash Screens I always force them to be enalbed
+            //Develper Note, to avoid having disabled Splash Screens I always force them to be enabled
             masterConfJSON.AppSplash.enabled = 1;
 
             //Check If there are any buttons
@@ -187,7 +187,6 @@ function _loadPreviews() {
                 masterConfJSON.AppSplash.buttons = [];
             }
 
-            
             console.log ("%c -> Master Config Succesfully Loaded => ", "background:#00ff00;", masterConfJSON);
             console.log(masterConfJSON);
             DisplayGlobals_SRV.setPreviewRef( new Preview_CTRL(masterConfJSON, thumbPreview) );
