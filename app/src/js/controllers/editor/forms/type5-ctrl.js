@@ -197,7 +197,7 @@ function _loadButtonArray(onInit) {
 
 
     }else{
-        this.dom.html('No buttons added to the Launcher, click on the button above to add more.');
+        this.dom.html('No buttons added to the Launcher. Click on the button above to add more.');
     }
 
 

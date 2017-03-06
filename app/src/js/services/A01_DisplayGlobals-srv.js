@@ -39,7 +39,7 @@ function DisplayGlobals () {
 //--------------------------------------
 
 
-let _version = "0.49";
+let _version = "0.56";
 
 DisplayGlobals.prototype.getVersion = function() {
 
@@ -269,7 +269,6 @@ let _masterConf, _masterConfReset;
 
 DisplayGlobals.prototype.setMasterConfig = function (masterConf) {
 
-  _masterConfReset = $.extend(true, {}, masterConf);
   _masterConf = masterConf
   
 };

@@ -177,23 +177,6 @@ function _loadPreviews() {
         let masterConfig = $(item).data('masterconfig');
         let thumbPreview = $(item);
 
-
-
-        // console.log ("%c -> ATTENTION!!!!!!!!!!!!!!!!!!!!!!!!", "background:#FF0000;");
-        // console.log ("%c -> ATTENTION!!!!!!!!!!!!!!!!!!!!!!!!", "background:#FF0000;");
-        // console.log ("%c -> ATTENTION!!!!!!!!!!!!!!!!!!!!!!!!", "background:#FF0000;");
-        // console.log ("%c -> ATTENTION!!!!!!!!!!!!!!!!!!!!!!!!", "background:#FF0000;");
-
-        // // let masterConfJSON = { "AppSplash": { "version": 127, "vendorLogo":{ "url": "http://insights.buzzradar.com/uploads/splash_screen/http://insights.buzzradar.com/uploads/splash_screen/57cee103ba280.png" , "x": 675, "y": 45, "width": 700, "height": 300 }, "backImage":{ "url": "http://insights.buzzradar.com/uploads/splash_screen/http://insights.buzzradar.com/uploads/splash_screen/57ceecb31dc42.png" }, "dividers":[ { "visible": 1, "colour":"707070", "x":66, "y":530, "width":1784, "height":2 } , { "visible": 1, "colour":"707070", "x":66, "y":450, "width":1784, "height":2 } ], "copy":[ { "visible": 1, "colour":"5c5c5c", "x":0, "y":440, "width":1920, "size":70, "weight":400, "copy":"This is some copy I have created through BYO. Great!" } ], "buttons":[ { "visible": 1, "dashboardID":"WUDTZM", "background":"ff00ff", "backgroundTransparent":0, "x":704, "y":815, "width":548, "height":90, "copy": { "text":"1Button Label", "size":50, "colour":"404040", "weight":200 } } , { "visible": 1, "dashboardID":"CZFC4C", "background":"e8277b", "backgroundTransparent":0, "x":1309, "y":815, "width":548, "height":90, "copy": { "text":"Button pink", "size":50, "colour":"ffffff", "weight":200 } } , { "visible": 1, "dashboardID":"C5WV3J", "background":"7bc5e3", "backgroundTransparent":0, "x":81, "y":630, "width":548, "height":90, "copy": { "text":"Button Label", "size":50, "colour":"404040", "weight":200 } } , { "visible": 1, "dashboardID":"CJEMVU", "background":"e61717", "backgroundTransparent":0, "x":81, "y":815, "width":530, "height":90, "copy": { "text":"Button Label Test", "size":40, "colour":"FFFFFF", "weight":50 } } ] }};
-        // let masterConfJSON = { "AppSplash": { "name": "Template", "enabled": 0, "vendorLogo":{ "url": "http://09f26c200eee8531f488-b2e97c13c853317d75996e012d775126.r90.cf3.rackcdn.com/splash-screen/LOGO_1481194326893-1481194334.png" , "x": 617, "y": 27, "width": 700, "height": 300 }, "backImage":{ "url": "http://09f26c200eee8531f488-b2e97c13c853317d75996e012d775126.r90.cf3.rackcdn.com/splash-screen/BG_1481194344322-1481194353.png" }, "dividers":[ { "id":26, "visible": 1, "colour":"ffffff", "x":66, "y":530, "width":1784, "height":2, "deleted":false } ], "copy":[ { "id":22, "visible": 1, "colour":"ffffff", "x":0, "y":470, "width":1920, "size":40, "weight":400, "copy":"Select from the demo dashboards below, or enter your own dashboard ID by hitting ALT + E", "deleted":false } ], "buttons":[ ] } };
-        // console.log ("%c -> REMOVE THIS ONCE BYO WORKS. This is just for Juan => ", "background:#FF0000;", masterConfJSON);
-        // DisplayGlobals_SRV.setPreviewRef( new Preview_CTRL(masterConfJSON, thumbPreview) );
-
-
-        
-
-
-
         JSONHandler_SRV.load(masterConfig, function(masterConfJSON) {
             
             //Develper Note, to avoid having disabled Splash Screens I always force them to be enalbed

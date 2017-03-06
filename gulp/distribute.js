@@ -6,7 +6,7 @@ var $ = require('gulp-load-plugins')();
 var cssToJs = require('gulp-css-to-js');
 var merge = require('gulp-merge');
 var concat = require('gulp-concat');
-var sourcemaps = require('gulp-sourcemaps');
+// var sourcemaps = require('gulp-sourcemaps');
 var uglify = require('gulp-uglify');
 var rename = require('gulp-rename');
 var plumber = require('gulp-plumber');
@@ -45,18 +45,18 @@ gulp.task('mini', function () {
 
 
 
-gulp.task('sourcemap', function () {
+// gulp.task('sourcemap', function () {
   
-  console.log("======= > SOURCE IS RUNNING!!!!");  
-  return gulp.src('app/dev/ssbyo_assets/js/SplashScreenBYO.js')
-		.pipe(sourcemaps.init()) 	
-		.pipe(plumber())	
-		.pipe(uglify())
-		.pipe(rename({ suffix: '.min' }))
-		.pipe(sourcemaps.write('maps'))
-		.pipe(gulp.dest('app/dev/ssbyo_assets/js/'));                 
+//   console.log("======= > SOURCE IS RUNNING!!!!");  
+//   return gulp.src('app/dev/ssbyo_assets/js/SplashScreenBYO.js')
+// 		.pipe(sourcemaps.init()) 	
+// 		.pipe(plumber())	
+// 		.pipe(uglify())
+// 		.pipe(rename({ suffix: '.min' }))
+// 		.pipe(sourcemaps.write('maps'))
+// 		.pipe(gulp.dest('app/dev/ssbyo_assets/js/'));                 
 
-});
+// });
 
 
 

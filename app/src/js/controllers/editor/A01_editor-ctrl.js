@@ -154,7 +154,7 @@ Editor_Ctrl.prototype.publishChanges = function () {
 			Utils_SRV.bootbox('Oops! Something went wrong while publishing. Please try again later or contact <a href="mailto:support@buzzradar.com">support.</a>');
 		}else if(ret.status === "success"){
     		console.log ("%c -> PUBLISH Succes! => ", "background:#ffff00;", ret);
-    		// DisplayGlobals_SRV.setMasterConfig(ret);
+    		DisplayGlobals_SRV.setMasterConfig(ret);
 		}
 	}.bind(this), 'Publishing');
 

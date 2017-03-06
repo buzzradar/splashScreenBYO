@@ -100,7 +100,7 @@ function _addDashboardsIDSelect() {
 
     let self = this;
     let arrayDashboards = this.arrayDashboardIDs;
-    let selectHtml = '<select name="dashboardIDSelect" class="form-control"><option data-idvalue="false" selected>Select a Dashboard ID</option>';
+    let selectHtml = '<select name="dashboardIDSelect" class="form-control"><option data-idvalue="false" selected>Select A Dashboard ID</option>';
 
     $.each( arrayDashboards, function( key, item ) {
 
