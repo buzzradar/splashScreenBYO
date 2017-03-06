@@ -24,7 +24,6 @@ gulp.task('watch',['serve'], function () {
 
     gulp.watch('app/src/sass/**/*', ['styles']);
     gulp.watch('app/src/tpl/**/*', ['templatetojs','templatetomodule']);
-    gulp.watch('app/dev/ssbyo_assets/js/SplashScreenBYO.js', ['copy-to-v3']);
 
 });
 
@@ -74,12 +73,4 @@ gulp.task('templatetomodule', function () {
 });
 
 
-/* --------------------------------------- */
-/* COPY TO V3 */
 
-/* Copy the compiled file into v3          */
-/* --------------------------------------- */
-
-gulp.task('copy-to-v3', function() {
-  console.log("VAMOS A VER!!!!!!!!!!!!");
-});
