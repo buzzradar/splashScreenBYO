@@ -81,6 +81,8 @@ FormBoss_Ctrl.prototype.loadForm = function (id) {
 		DisplayGlobals_SRV.getLogoVendorRef().dragable(false);
 	}
 
+	DisplayGlobals_SRV.getBottomLegendRef().selectLegend(id);
+
 }
 
 

@@ -62,7 +62,7 @@ function _init() {
 		{cx:150, cy:960, radius : 40, label : 'Buttons', fill : '#c0c0c0', 'metroColor' : 'blue-oleo', index : 5},
 	];
 
-	this.legend_Ctrl = new Legend_CTRL(this.d3SVG_Ctrl,buttonsArray);
+	DisplayGlobals_SRV.setBottomLegendRef(new Legend_CTRL(this.d3SVG_Ctrl,buttonsArray))
 	this.form_Ctrl = new Form_CTRL();
 	
 	_setupPublishButtons.call(this);

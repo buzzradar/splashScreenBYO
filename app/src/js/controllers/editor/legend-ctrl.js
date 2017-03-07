@@ -95,7 +95,11 @@ function _loadLegendOver() {
 
 
 
+Legend_Ctrl.prototype.selectLegend = function (id) {
 
+	_selectLegend.call(this,id);
+
+}
 
 
 

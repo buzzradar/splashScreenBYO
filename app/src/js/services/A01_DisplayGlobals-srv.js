@@ -382,6 +382,36 @@ DisplayGlobals.prototype.getLogoVendorRef = function () {
 
 
 
+//----------------------------
+// Bottom Legend
+//----------------------------
+
+let _bottomLegendCtrl;  
+
+DisplayGlobals.prototype.setBottomLegendRef = function (bottomLegendCtrl) {
+
+  _bottomLegendCtrl = bottomLegendCtrl
+  
+};
+
+
+DisplayGlobals.prototype.getBottomLegendRef = function () {
+
+  return _bottomLegendCtrl;
+  
+};
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
