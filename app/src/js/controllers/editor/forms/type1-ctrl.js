@@ -27,7 +27,7 @@ function FormType1_Ctrl () {
 
     // console.log ("%c -> Form Type 1 Constructor. DONE! ", "background:#ff0000;");
 
-    _init.call(this)
+    _init.call(this);
 
 }
 
