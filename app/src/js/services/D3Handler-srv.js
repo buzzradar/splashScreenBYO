@@ -25,6 +25,7 @@ function D3Handler_CTRL (target) {
   this.copy = null;
   this.dividers  = null;
   this.updatingGroup = null;
+  this.legendCirclesArray =[];
 
   _createSVG.call(this, target);
 
@@ -138,6 +139,7 @@ D3Handler_CTRL.prototype.loadButtons = function (buttonsArrayMO) {
 
 D3Handler_CTRL.prototype.drawLegendOnTop = function (buttonsArrayMO) {
 
+  let _this = this;
   let legendOnTop = this.svgContainer.append("g")
 
   $.each( buttonsArrayMO, function( key, button ) {
@@ -161,13 +163,34 @@ D3Handler_CTRL.prototype.drawLegendOnTop = function (buttonsArrayMO) {
         .attr("font-size", 40)
         .attr("fill", '#ffffff')
 
+    this.legendCirclesArray.push(c);
 
     circleBtnGroup.on("click", function() {
       let id = $(this).data('id');
       DisplayGlobals_SRV.getEditorRef().loadFormSettings(id);
+      _this.selectLegendItem(id);
     })
 
   }.bind(this));
+
+
+}
+
+
+
+
+
+D3Handler_CTRL.prototype.selectLegendItem = function (id) {
+
+  var legendBtn = this.legendCirclesArray[id-1];
+
+  //Change all buttons to deselect state
+  for (var i = 0; i < this.legendCirclesArray.length; i++) {
+    this.legendCirclesArray[i].style("fill", '#c0c0c0');
+  }
+
+  //Change color to selected state (blue)
+  legendBtn.style("fill", '#3598DC');
 
 }
 

@@ -26,15 +26,16 @@ function Legend_Ctrl (svg, buttonsArrayMO) {
 	this.domTarget = $('.spl-scr-legend');
 	this.buttonsArrayMO = buttonsArrayMO;
 
-
-	_loadLegendBottom.call(this);
 	_loadLegendOver.call(this);
+	_loadLegendBottom.call(this);
 
 }
 
 
 
 function _loadLegendBottom() {
+
+	let _this = this;
 
 	$.each( this.buttonsArrayMO, function( key, item ) {
 
@@ -45,11 +46,22 @@ function _loadLegendBottom() {
 	}.bind(this));
 
 	this.domTarget.append('<div class="clearfix"></div>');
+	_selectLegend.call(this,1);
 
 	$('.legend-btn').click(function() {
 		let id = $(this).data('id');
 		DisplayGlobals_SRV.getEditorRef().loadFormSettings(id);
+		_selectLegend.call(_this,id);
 	});
+
+}
+
+
+function _selectLegend(id) {
+
+	$('.legend-btn').removeClass('blue');
+	$('.legend-btn[data-id='+id+']').addClass('blue');
+	this.d3SVG_Ctrl.selectLegendItem(id);
 
 }
 
