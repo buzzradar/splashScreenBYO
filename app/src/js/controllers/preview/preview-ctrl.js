@@ -59,11 +59,11 @@ function _init() {
 	DisplayGlobals_SRV.setMasterConfig(this.masterConfJSON);
 	
 	this.d3SVG_Ctrl =  new D3Handler_CTRL(this.targetDOM.find('.preview'));
-	this.d3SVG_Ctrl.loadBGImage(this.masterConfJSON.AppSplash.backImage.url);
-	this.d3SVG_Ctrl.loadVendorLogo(this.masterConfJSON.AppSplash.vendorLogo);
-	this.d3SVG_Ctrl.loadCopy(this.masterConfJSON.AppSplash.copy);
-	this.d3SVG_Ctrl.loadLine(this.masterConfJSON.AppSplash.dividers);
-	this.d3SVG_Ctrl.loadButtons(this.masterConfJSON.AppSplash.buttons);
+	this.d3SVG_Ctrl.loadBGImage();
+	this.d3SVG_Ctrl.loadVendorLogo();
+	this.d3SVG_Ctrl.loadCopy();
+	this.d3SVG_Ctrl.loadLine();
+	this.d3SVG_Ctrl.loadButtons();
 
 	//If Editor Mode Add buttons for each element that can be edited
 	if (DisplayGlobals_SRV.getArguments().editor) {
@@ -124,13 +124,13 @@ Preview_Ctrl.prototype.updateChanges = function () {
 
 Preview_Ctrl.prototype.updateBgImage = function () {
 
-	this.d3SVG_Ctrl.updateBGImage(this.masterConfJSON.AppSplash.backImage.url);
+	this.d3SVG_Ctrl.updateBGImage();
 
 };
 
 Preview_Ctrl.prototype.updateLogoImage = function () {
 
-	this.d3SVG_Ctrl.updateLogoImage(this.masterConfJSON.AppSplash.vendorLogo);
+	this.d3SVG_Ctrl.updateLogoImage();
 
 };
 
@@ -159,6 +159,12 @@ Preview_Ctrl.prototype.hideLoader = function () {
 	this.d3SVG_Ctrl.hideLoader();
 
 }
+
+
+
+
+
+
 
 
 

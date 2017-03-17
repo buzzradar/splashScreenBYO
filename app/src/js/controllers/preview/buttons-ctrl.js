@@ -14,10 +14,9 @@ const Utils_SRV = require('../../services/Utils-srv');
 
 
 
-function Buttons_CTRL (svg, buttonsArrayMO) {
+function Buttons_CTRL (svg) {
 
 	this.svgContainer = svg;
-	this.buttonsArrayMO = buttonsArrayMO;
 
   _createGroup.call(this);
 
@@ -44,6 +43,7 @@ function _createGroup() {
 
 function _loadButtons() {
 
+  this.buttonsArrayMO = DisplayGlobals_SRV.getMasterConfig().AppSplash.buttons;
 
   $.each( this.buttonsArrayMO, function( key, item ) {
 

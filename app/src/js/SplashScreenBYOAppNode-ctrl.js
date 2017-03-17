@@ -188,8 +188,9 @@ function _loadPreviews() {
             }
 
             console.log ("%c -> Master Config Succesfully Loaded => ", "background:#00ff00;", masterConfJSON);
-            console.log(masterConfJSON);
+
             DisplayGlobals_SRV.setPreviewRef( new Preview_CTRL(masterConfJSON, thumbPreview) );
+            
         }.bind(this));
 
     });

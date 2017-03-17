@@ -45,6 +45,12 @@ function _init() {
 }
 
 
+function _getMasterConfigValues() {
+
+    this.backImage = DisplayGlobals_SRV.getMasterConfig().AppSplash.backImage;
+
+}
+
 
 
 
@@ -61,14 +67,6 @@ FormType1_Ctrl.prototype.load = function () {
 };
 
 
-
-
-
-function _getMasterConfigValues() {
-
-    this.backImage = DisplayGlobals_SRV.getMasterConfig().AppSplash.backImage;
-
-}
 
 
 function _getVisible() {

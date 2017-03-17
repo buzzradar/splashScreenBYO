@@ -31,7 +31,7 @@ function Editor_Ctrl (svgCtrl) {
 	this.legend_Ctrl = null;
 	this.form_Ctrl = null;
 
-    console.log ("%c -> EDITOR LAYER Constructor => ", "background:#ffff00;", this.d3SVG_Ctrl);
+    // console.log ("%c -> EDITOR LAYER Constructor => ", "background:#ffff00;", this.d3SVG_Ctrl);
 
 	_init.call(this);
 
@@ -154,7 +154,11 @@ Editor_Ctrl.prototype.publishChanges = function () {
 			Utils_SRV.bootbox('Oops! Something went wrong while publishing. Please try again later or contact <a href="mailto:support@buzzradar.com">support.</a>');
 		}else if(ret.status === "success"){
     		console.log ("%c -> PUBLISH Succes! => ", "background:#ffff00;", ret);
-    		DisplayGlobals_SRV.setMasterConfig(ret);
+    		
+			location.reload();
+
+    		console.log ("%c -> PUBLISH Succes! => ", "background:#ff0000;", DisplayGlobals_SRV.getMasterConfig() );
+    		
 		}
 	}.bind(this), 'Publishing');
 

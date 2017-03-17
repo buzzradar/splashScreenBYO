@@ -42,6 +42,13 @@ function _init() {
 
 
 
+function _getMasterConfigValues() {
+
+    this.vendorLogo = DisplayGlobals_SRV.getMasterConfig().AppSplash.vendorLogo;
+
+}
+
+
 FormType2_Ctrl.prototype.load = function () {
 
 	this.dom = HBTemplates.getTemplate('formType2',this.vendorLogo);
@@ -66,11 +73,7 @@ function _setupUploadify() {
 
 
 
-function _getMasterConfigValues() {
 
-    this.vendorLogo = DisplayGlobals_SRV.getMasterConfig().AppSplash.vendorLogo;
-
-}
 
 
 

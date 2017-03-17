@@ -55,10 +55,9 @@ ApiCalls.prototype.setURLFromArguments = function () {
 
 
 
-ApiCalls.prototype.call = function (type, urlCall, dataObj, callBack, label,  delay) {
+ApiCalls.prototype.call = function (type, labelCall, dataObj, callBack, label,  delay) {
 
-
-	urlCall = this.URLs[urlCall]
+	var urlCall = this.URLs[labelCall];
 
 	//If delay not set, should be 0
 	delay = (!delay) ? 0 : delay;
@@ -66,7 +65,7 @@ ApiCalls.prototype.call = function (type, urlCall, dataObj, callBack, label,  de
 	
 	setTimeout(function() {
         
-		_fatalCall(type, urlCall, dataObj, callBack, label, delay);
+		_fatalCall(type, urlCall,labelCall, dataObj, callBack, label, delay);
 
     }.bind(this),delay);
 
@@ -95,7 +94,7 @@ ApiCalls.prototype.call = function (type, urlCall, dataObj, callBack, label,  de
 
 
 
-function _fatalCall(type, urlCall, dataObj, callBack, label, delay) {
+function _fatalCall(type, urlCall,labelCall, dataObj, callBack, label, delay) {
 
 
 	if (type === 'GET') {
@@ -105,7 +104,7 @@ function _fatalCall(type, urlCall, dataObj, callBack, label, delay) {
 		//-------------
 
 
-		console.log ("%c -> ", "background:#87eb9d;", "APICalls-> GET : URL =>" , urlCall, dataObj);
+		console.log ("%c -> ", "background:#87eb9d;", "APICalls-> GET ("+labelCall+") : URL =>" , urlCall, dataObj);
 
 
 		$.ajax({
@@ -129,12 +128,12 @@ function _fatalCall(type, urlCall, dataObj, callBack, label, delay) {
 		//POST
 		//-------------
 
-		console.log ("%c -> ", "background:#c5f442;", "APICalls-> POST : URL =>" , urlCall, dataObj);
+		console.log ("%c -> ", "background:#c5f442;", "APICalls-> POST ("+labelCall+") : URL =>" , urlCall, dataObj);
 
 
 		$.post(urlCall, dataObj)
 			.done(function( data ) {
-					console.log ("%c -> ", "background:#87eb9d;", "APICalls.ajaxCall() ---> ", data);
+					// console.log ("%c -> ", "background:#87eb9d;", "APICalls.ajaxCall() ---> ", data);
 					if (label) DisplayGlobals_SRV.getPreviewRef().hideLoader();
 					if(callBack) callBack(data);
 			})
@@ -146,62 +145,6 @@ function _fatalCall(type, urlCall, dataObj, callBack, label, delay) {
 			});
 
 	}
-
-
-	
-
-
-
-
-
-
-
-
-	// $.ajax({
-	// 	type: 'POST',
-	// 	url: urlCall,
-	// 	data: dataObj,
-	// 	async: false,
-	// 	jsonpCallback: 'jsonCallback',
-	// 	contentType: "application/json",
-	// 	dataType: 'jsonp',
-	// 	timeout : 1000*120,
-	// 	success: function(retJson, status, jqXHR) {
-	// 		console.log ("%c -> ", "background:#87eb9d;", "Return ---> ajaxCall()", jqXHR.status, retJson);
-
-	// 		if (label) DisplayGlobals_SRV.getPreviewRef().hideLoader();
-
-
-	// 		switch(jqXHR.status) {
-	// 			case 200:
-	// 				//Success
-	// 				if(callBack) callBack(retJson);
-	// 			break;
-	// 			case 400:
-	// 				//Bad Request
-	// 				if(callBack) callBack({"status" : 400});
-	// 			break;
-	// 			case 500:
-	// 				//Internal Server Error
-	// 				if(callBack) callBack({"status" : 500});
-	// 			break;
-	// 		}
-
-	// 	},
-	// 	error: function(x,t,m) {
-
-	// 		if(t==="timeout") {
-	// 			console.error ("ERROR ---> ajaxCall() Timeout!!!!!" + urlCall);
-	// 			// DisplayGlobals_SRV.rollbarError("ERROR ---> ajaxCall() Timeout!!!!!" + urlCall);
-	//         } else {
-	// 			console.error ("ERROR ---> ajaxCall() " + urlCall);
-	// 			// DisplayGlobals_SRV.rollbarError("ERROR ---> ajaxCall()" + urlCall);
-	//         }
-
-	// 	}
-
-	// });
-
 
 
 

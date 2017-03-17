@@ -25,17 +25,12 @@ const Utils_SRV = require('../../../services/Utils-srv');
 function FormType3_Ctrl () {
 
 	this.parentDOM = $('#splScrEditorForm');
-	this.copyArray = [];
+	this.copyArray = DisplayGlobals_SRV.getMasterConfig().AppSplash.copy;
     this.copyCtrlArray = [];   
-    // console.log ("%c -> Form Type 3 Constructor. DONE! ", "background:#ff0000;");
 
     _init.call(this);
-
     
-
 }
-
-
 
 
 
@@ -46,20 +41,13 @@ function _init() {
 }
 
 
-
-
-
-
-
-
-
-
-
 function _getMasterConfigValues() {
 
     this.copyArray = DisplayGlobals_SRV.getMasterConfig().AppSplash.copy;
 
 }
+
+
 
 
 
@@ -89,12 +77,33 @@ function _addMoreCopyButton() {
 }
 
 
-function _emptyList() {
 
-    this.dom.html('');
-    this.copyCtrlArray = []
 
-}
+function _addMoreCopy() {
+
+    this.copyArray = DisplayGlobals_SRV.getMasterConfig().AppSplash.copy;
+
+
+    //Default model for the copy
+    let copyMO = {
+                    "id" : 0,
+                    "deleted" : false,
+                    "visible": 1,
+                    "colour":"00ff00",
+                    "x":0,
+                    "y":470,
+                    "width":1920,
+                    "size":34,
+                    "weight":400,
+                    "copy":"Select from the demo dashboards below, or enter your own dashboard ID by hitting ALT + E"
+                };
+
+    this.copyArray.push(copyMO);
+    _loadCopyArray.call(this);
+
+}   
+
+
 
 
 
@@ -157,29 +166,14 @@ function _loadCopyArray(onInit) {
 
 
 
+function _emptyList() {
+
+    this.dom.html('');
+    this.copyCtrlArray = []
+
+}
 
 
-function _addMoreCopy() {
-
-    //Default model for the copy
-	let copyMO = {
-                    "id" : 0,
-                    "deleted" : false,
-                    "visible": 1,
-                    "colour":"00ff00",
-                    "x":0,
-                    "y":470,
-                    "width":1920,
-                    "size":34,
-                    "weight":400,
-                    "copy":"Select from the demo dashboards below, or enter your own dashboard ID by hitting ALT + E"
-                };
-
-	this.copyArray.push(copyMO);
-
-	_loadCopyArray.call(this);
-
-}	
 
 
 

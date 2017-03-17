@@ -13,10 +13,9 @@ const Utils_SRV = require('../../services/Utils-srv');
 
 
 
-function Dividers_CTRL (svg, linesArrayMO) {
+function Dividers_CTRL (svg) {
 
 	this.svgContainer = svg;
-	this.linesArrayMO = linesArrayMO;
 
   _createGroup.call(this);
 
@@ -43,12 +42,12 @@ function _createGroup() {
 
 function _loadDividers() {
 
+  this.linesArrayMO = DisplayGlobals_SRV.getMasterConfig().AppSplash.dividers;
+
   $.each( this.linesArrayMO, function( key, item ) {
 
 
     item.deleted = Utils_SRV.getJsonVal(false, item.deleted, "BOOLEAN");
-
-    console.log(item);
 
 
     if (!item.deleted) {

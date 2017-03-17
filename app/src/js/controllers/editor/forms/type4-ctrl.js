@@ -25,16 +25,12 @@ const Utils_SRV = require('../../../services/Utils-srv');
 function FormType4_Ctrl () {
 
 	this.parentDOM = $('#splScrEditorForm');
-	this.dividersArray = [];
+    this.dividersArray = DisplayGlobals_SRV.getMasterConfig().AppSplash.dividers;
     this.dividerCtrlArray = [];
-    // console.log ("%c -> Form Type 4 Constructor. DONE! ", "background:#ff0000;");
 
     _init.call(this);
-
+    
 }
-
-
-
 
 
 
@@ -43,7 +39,6 @@ function _init() {
     _getMasterConfigValues.call(this);
 
 }
-
 
 
 function _getMasterConfigValues() {
@@ -56,17 +51,13 @@ function _getMasterConfigValues() {
 
 
 
-
-
 FormType4_Ctrl.prototype.load = function () {
 
 	this.dom = HBTemplates.getTemplate('formType4');
     this.parentDOM.find('.form-body').html(this.dom);
 
-	// _addPickColors.call(this);
     _addMoreDividersButton.call(this);
     _loadDividerArray.call(this, true);
-
 
 }
 
@@ -86,6 +77,9 @@ function _addMoreDividersButton() {
 
 
 function _addMoreDividers() {
+
+    this.dividersArray = DisplayGlobals_SRV.getMasterConfig().AppSplash.dividers;
+
 
     //Default model for the copy
     let dividerMO = {
@@ -125,6 +119,8 @@ function _loadDividerArray(onInit) {
     _emptyList.call(this);
 
     if ( _anyVisibleDividers.call(this) ) {
+
+        this.dividersArray = DisplayGlobals_SRV.getMasterConfig().AppSplash.dividers;
 
         $.each( this.dividersArray, function( key, item ) {
             item.id = Utils_SRV.getJsonVal(0, item.id, "STRING");

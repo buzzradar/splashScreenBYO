@@ -57,7 +57,9 @@ function _createSVG(target) {
 
 
 
-D3Handler_CTRL.prototype.loadBGImage = function (urlImage) {
+D3Handler_CTRL.prototype.loadBGImage = function () {
+
+  var urlImage = DisplayGlobals_SRV.getMasterConfig().AppSplash.backImage.url;
 
   this.bg = this.svgContainer.append("image")
     .on('load', function() {
@@ -75,7 +77,9 @@ D3Handler_CTRL.prototype.loadBGImage = function (urlImage) {
 }
 
 
-D3Handler_CTRL.prototype.updateBGImage = function (imgObject) {
+D3Handler_CTRL.prototype.updateBGImage = function () {
+
+  var imgObject = DisplayGlobals_SRV.getMasterConfig().AppSplash.backImage.url;
 
   this.bg
     .attr("xlink:href", imgObject);
@@ -88,17 +92,20 @@ D3Handler_CTRL.prototype.updateBGImage = function (imgObject) {
 
 
 
-D3Handler_CTRL.prototype.loadVendorLogo = function (logoMO, onLogoLoaded) {
+D3Handler_CTRL.prototype.loadVendorLogo = function () {
 
-  this.logoVendor = new LogoVendor_CTRL(this.svgContainer, logoMO, onLogoLoaded);
+  var logoMO = DisplayGlobals_SRV.getMasterConfig().AppSplash.vendorLogo;
+
+  this.logoVendor = new LogoVendor_CTRL(this.svgContainer, logoMO);
 
   DisplayGlobals_SRV.setLogoVendorRef(this.logoVendor);
 
 }
 
 
-D3Handler_CTRL.prototype.updateLogoImage = function (imgObject) {
+D3Handler_CTRL.prototype.updateLogoImage = function () {
 
+  var imgObject = DisplayGlobals_SRV.getMasterConfig().AppSplash.vendorLogo;
   this.logoVendor.updateLogo(imgObject);
 
 }
@@ -107,27 +114,27 @@ D3Handler_CTRL.prototype.updateLogoImage = function (imgObject) {
 
 
 
-D3Handler_CTRL.prototype.loadCopy = function (copyArrayMO) {
+D3Handler_CTRL.prototype.loadCopy = function () {
 
-  this.copy = new Copy_CTRL(this.svgContainer, copyArrayMO);
-
-}
-
-
-
-
-D3Handler_CTRL.prototype.loadLine = function (linesArrayMO) {
-
-  this.dividers = new Dividers_CTRL(this.svgContainer, linesArrayMO);
+  this.copy = new Copy_CTRL(this.svgContainer);
 
 }
 
 
 
 
-D3Handler_CTRL.prototype.loadButtons = function (buttonsArrayMO) {
+D3Handler_CTRL.prototype.loadLine = function () {
 
-  this.buttons = new Buttons_CTRL(this.svgContainer, buttonsArrayMO);
+  this.dividers = new Dividers_CTRL(this.svgContainer);
+
+}
+
+
+
+
+D3Handler_CTRL.prototype.loadButtons = function () {
+
+  this.buttons = new Buttons_CTRL(this.svgContainer);
 
 }
 

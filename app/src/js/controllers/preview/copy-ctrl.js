@@ -13,10 +13,9 @@ const Utils_SRV = require('../../services/Utils-srv');
 
 
 
-function Copy_CTRL (svg, copyArrayMO) {
+function Copy_CTRL (svg) {
 
     this.svgContainer = svg;
-    this.copyArrayMO = copyArrayMO;
     this.fontFamily = "Helvetica, Arial, sans-serif";
 
 
@@ -44,6 +43,8 @@ function _createGroup() {
 
 
 function _loadCopy() {
+
+  this.copyArrayMO = DisplayGlobals_SRV.getMasterConfig().AppSplash.copy;
 
   $.each( this.copyArrayMO, function( key, item ) {
 

@@ -28,17 +28,13 @@ const Utils_SRV = require('../../../services/Utils-srv');
 function FormType5_Ctrl () {
 
 	this.parentDOM = $('#splScrEditorForm');
-	this.buttonsArray = [];
+	this.buttonsArray = DisplayGlobals_SRV.getMasterConfig().AppSplash.buttons;
     this.buttonCtrlArray = [];
     this.dashboardsIDsArray = [];
-    // console.log ("%c -> Form Type 5 Constructor. DONE! ", "background:#ff0000;");
 
     _init.call(this);
-
+    
 }
-
-
-
 
 
 
@@ -49,13 +45,11 @@ function _init() {
 }
 
 
-
 function _getMasterConfigValues() {
 
-    this.buttonsArray = DisplayGlobals_SRV.getMasterConfig().AppSplash.buttons;
+     this.buttonsArray = DisplayGlobals_SRV.getMasterConfig().AppSplash.buttons;
 
 }
-
 
 
 
@@ -88,6 +82,13 @@ function _addMoreButtonsButton() {
 
 
 function _addMoreButtons() {
+
+    this.buttonsArray = DisplayGlobals_SRV.getMasterConfig().AppSplash.buttons;
+
+
+
+
+
 
     //Default model for the copy
     let buttonMO = {
@@ -216,6 +217,7 @@ function _emptyList() {
 
 function _editButton(i) {
 
+    this.buttonsArray = DisplayGlobals_SRV.getMasterConfig().AppSplash.buttons;
 	new ButtonFormItem_CTRL(this.buttonsArray[i], DisplayGlobals_SRV.getArrayIds() )
 
 }
