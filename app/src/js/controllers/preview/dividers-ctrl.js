@@ -52,13 +52,21 @@ function _loadDividers() {
 
     if (!item.deleted) {
 
-      this.allDividersGroup.append("line")
-        .attr("x1", Utils_SRV.getJsonVal(0,item.x,"NUMBER") )
-        .attr("y1", Utils_SRV.getJsonVal(550,item.y,"NUMBER") )
-        .attr("x2", Utils_SRV.getJsonVal(1920,Number(item.x) + Number(item.width),"NUMBER") )
-        .attr("y2", Utils_SRV.getJsonVal(1920,Number(item.y) + Number(item.height),"NUMBER") )
-        .attr("stroke-width", Utils_SRV.getJsonVal(5,item.height,"NUMBER") )
-        .attr("stroke", '#'+item.colour);
+      // this.allDividersGroup.append("line")
+      //   .attr("x1", Utils_SRV.getJsonVal(0,item.x,"NUMBER") )
+      //   .attr("y1", Utils_SRV.getJsonVal(550,item.y,"NUMBER") )
+      //   .attr("x2", Utils_SRV.getJsonVal(1920,Number(item.x) + Number(item.width),"NUMBER") )
+      //   .attr("y2", Utils_SRV.getJsonVal(1920,Number(item.y) + Number(item.height),"NUMBER") )
+      //   .attr("stroke-width", Utils_SRV.getJsonVal(5,item.height,"NUMBER") )
+      //   .attr("stroke", '#'+item.colour);
+
+
+      this.allDividersGroup.append("rect")
+        .attr("x", Utils_SRV.getJsonVal(0,item.x,"NUMBER") )
+        .attr("y", Utils_SRV.getJsonVal(550,item.y,"NUMBER") )
+        .attr("width", Utils_SRV.getJsonVal(1920, Number(item.width),"NUMBER") )
+        .attr("height", Utils_SRV.getJsonVal(2, Number(item.height),"NUMBER") )
+        .attr("fill", '#'+item.colour);
 
     }
 

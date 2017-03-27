@@ -70,7 +70,7 @@ FormType5_Ctrl.prototype.load = function () {
 
 function _addMoreButtonsButton() {
 
-    let btn = $('<a href="javascript:;" class="btn blue"><i class="fa fa-plus"></i> Add New Buttons </a>');
+    let btn = $('<a href="javascript:;" class="btn blue"><i class="fa fa-plus"></i> Add New Button </a>');
     this.parentDOM.find('.actions').html(btn);
 
     btn.click(_addMoreButtons.bind(this));
@@ -83,12 +83,8 @@ function _addMoreButtonsButton() {
 
 function _addMoreButtons() {
 
+
     this.buttonsArray = DisplayGlobals_SRV.getMasterConfig().AppSplash.buttons;
-
-
-
-
-
 
     //Default model for the copy
     let buttonMO = {
@@ -163,10 +159,6 @@ function _loadButtonArray(onInit) {
         let self = this;
         this.dom.find('i.fa-close').click( function() {
 
-
-
-
-
             let id = $(this).closest('a.list-group-item').data('id');
             let index = $(this).closest('a.list-group-item').data('index');
 
@@ -183,10 +175,7 @@ function _loadButtonArray(onInit) {
 
             _loadButtonArray.call(self);
 
-
-            
-
-
+        
 
         });
 
@@ -202,6 +191,7 @@ function _loadButtonArray(onInit) {
     }
 
 
+    DisplayGlobals_SRV.onResizeWindow();
 
 }
 

@@ -160,6 +160,8 @@ function _loadCopyArray(onInit) {
 		this.dom.html('It seems there is no text, click on the button above to Add New Copy.')
 	}
 
+    DisplayGlobals_SRV.onResizeWindow();
+    
 }
 
 

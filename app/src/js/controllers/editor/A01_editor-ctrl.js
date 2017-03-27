@@ -57,8 +57,8 @@ function _init() {
 	let buttonsArray = [
 		{cx:211, cy:245, radius : 40, label : 'General', fill : '#c0c0c0', 'metroColor' : 'blue-oleo', index : 1},
 		{cx:1471, cy:150,radius : 40, label : 'Logo', fill : '#c0c0c0', 'metroColor' : 'blue-oleo', index : 2},
-		{cx:922, cy:570, radius : 40, label : 'Copy', fill : '#c0c0c0', 'metroColor' : 'blue-oleo', index : 3},
-		{cx:922, cy:410, radius : 40, label : 'Divider', fill : '#c0c0c0', 'metroColor' : 'blue-oleo', index : 4},
+		{cx:800, cy:450, radius : 40, label : 'Copy', fill : '#c0c0c0', 'metroColor' : 'blue-oleo', index : 3},
+		{cx:1100, cy:450, radius : 40, label : 'Divider', fill : '#c0c0c0', 'metroColor' : 'blue-oleo', index : 4},
 		{cx:150, cy:960, radius : 40, label : 'Buttons', fill : '#c0c0c0', 'metroColor' : 'blue-oleo', index : 5},
 	];
 
@@ -99,8 +99,7 @@ function _setupPublishButtons() {
 	  btnOkClass : 'btn-sm green-jungle',
 	  btnCancelClass : 'btn-sm default',
 	});
-	$('a.btn-publish').addClass('disabled');
-
+	
 	//RESET
 	$('a.btn-reset-changes').confirmation({
 	  singleton: true,
@@ -110,10 +109,17 @@ function _setupPublishButtons() {
 	  btnOkClass : 'btn-sm green-jungle',
 	  btnCancelClass : 'btn-sm default',
 	});
-	$('a.btn-reset-changes').addClass('disabled');
-	
 
+	_disablePublishResetButtons.call(this);
 	
+}
+
+
+function _disablePublishResetButtons() {
+
+	$('a.btn-publish').addClass('disabled');
+	$('a.btn-reset-changes').addClass('disabled');
+
 }
 
 
@@ -136,6 +142,9 @@ function _reset() {
 		    DisplayGlobals_SRV.getPreviewRef().resetChanges();
 		    //Update the form on the left hand side
 		    this.form_Ctrl.reset();
+
+			_disablePublishResetButtons.call(this);
+
 		}
 	}.bind(this));
 
@@ -143,24 +152,58 @@ function _reset() {
 
 
 
+function _isButtonsArrayEmpty() {
+
+	let isEmpty = true;
+	let btnsArray = DisplayGlobals_SRV.getMasterConfig().AppSplash.buttons;
+	$.each( btnsArray, function( key, item ) {
+
+		if (!item.deleted) isEmpty = false;
+
+	});
+
+	return isEmpty;
+
+}
+
+
 
 
 
 Editor_Ctrl.prototype.publishChanges = function () {
 
-	APICalls_SRV.call('POST','publish', DisplayGlobals_SRV.getMasterConfig(),function(ret) {
-		ret = JSON.parse(ret);
-		if (ret.status === "error") {
-			Utils_SRV.bootbox('Oops! Something went wrong while publishing. Please try again later or contact <a href="mailto:support@buzzradar.com">support.</a>');
-		}else if(ret.status === "success"){
-    		console.log ("%c -> PUBLISH Succes! => ", "background:#ffff00;", ret);
-    		
-			location.reload();
 
-    		console.log ("%c -> PUBLISH Succes! => ", "background:#ff0000;", DisplayGlobals_SRV.getMasterConfig() );
-    		
-		}
-	}.bind(this), 'Publishing');
+	if ( !_isButtonsArrayEmpty() ) {
+
+		APICalls_SRV.call('POST','publish', DisplayGlobals_SRV.getMasterConfig(),function(ret) {
+			ret = JSON.parse(ret);
+			if (ret.status === "error") {
+				Utils_SRV.bootbox('Oops! Something went wrong while publishing. Please try again later or contact <a href="mailto:support@buzzradar.com">support.</a>');
+			}else if(ret.status === "success"){
+	    		console.log ("%c -> PUBLISH Succes! => ", "background:#eb78e1;", ret);
+	    		
+
+	    		// DEVELOPER NOTE:
+	    		// In previous versions to avoid having an issue when getting a new versions
+	    		// back from the server when It was published I use to reload the page that make
+	    		// the trick
+				// location.reload();
+
+
+				DisplayGlobals_SRV.setMasterConfig(ret);
+			   	//Update the Preview
+			    DisplayGlobals_SRV.getPreviewRef().resetChanges();
+			    //Update the form on the left hand side
+			    this.form_Ctrl.reset();
+				_disablePublishResetButtons.call(this);
+
+			}
+		}.bind(this), 'Publishing');
+
+
+	}else{
+	    console.log ("%c -> Buttons Array is Empty! ", "background:#ff0000;", "Cannot be published because the array of buttons is empty. Add a button please." );
+	}
 
 }
 

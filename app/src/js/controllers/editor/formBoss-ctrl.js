@@ -99,7 +99,7 @@ FormBoss_Ctrl.prototype.updateLogoPosition = function (x,y) {
 
 FormBoss_Ctrl.prototype.reset = function () {
 
-	console.log("FORM => form reset.....", this.formId)
+	// console.log("FORM => form reset.....", this.formId)
 
 	$.each( this.formArray, function( key, item ) {
 		item.objRef.reset();

@@ -116,7 +116,7 @@ function _getDashboardsIDs() {
 
     APICalls_SRV.call('GET','arrayids', {},function(ret) {
         
-        console.log("The Array of IDs I get from Marius--->", ret.arrayIds)
+        // console.log("The Array of IDs I get from Marius--->", ret.arrayIds)
         DisplayGlobals_SRV.setArrayIds(ret.arrayIds);
         _startSplashScreenBYO();
       
@@ -144,9 +144,9 @@ function _startSplashScreenBYO() {
 function _setupWindowEvents() {
 
     $(window).resize(function() {
-        _onResizeWindow();
+        DisplayGlobals_SRV.onResizeWindow();
     });
-    _onResizeWindow();
+    DisplayGlobals_SRV.onResizeWindow();
 
 }
 
@@ -155,14 +155,14 @@ function _setupWindowEvents() {
 
 function _onResizeWindow() {
 
-    let width = $('div.viz-item').width();
-    let new_ratio = (width/1920);
-    DisplayGlobals_SRV.setScaleRatio(new_ratio);
+    // let width = $('div.viz-item').width();
+    // let new_ratio = (width/1920);
+    // DisplayGlobals_SRV.setScaleRatio(new_ratio);
 
-    $('div.viz-item').find('.preview').css({
-        'transform' : 'scale('+ new_ratio +')',
-        'z-index' : '0',
-    });
+    // $('div.viz-item').find('.preview').css({
+    //     'transform' : 'scale('+ new_ratio +')',
+    //     'z-index' : '0',
+    // });
 
 }
 

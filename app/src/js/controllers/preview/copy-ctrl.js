@@ -44,6 +44,8 @@ function _createGroup() {
 
 function _loadCopy() {
 
+  var _self = this;
+
   this.copyArrayMO = DisplayGlobals_SRV.getMasterConfig().AppSplash.copy;
 
   $.each( this.copyArrayMO, function( key, item ) {
@@ -52,20 +54,61 @@ function _loadCopy() {
 
     if (!item.deleted) {
 
-      this.allCopyGroup.append("text")
-        .attr("text-anchor", "middle")
-        .attr("x", 1920/2)
-        .attr("y", Number(item.y) + Number(item.size) ) 
-        .text( item.copy)
-        .attr("font-family", this.fontFamily )
+      var copyText = [item.copy];
+
+      console.log(item.copy);
+
+      this.allCopyGroup.selectAll("text").data(copyText).enter().append("text")
+        .attr('x', Number(item.x))
+        .attr('y', function(d, i){ return Number(item.y)+(30 + i * 90); })
         .attr("font-size", Number(item.size) )
-        .attr("fill", '#'+item.colour);
+        .attr("fill", '#'+item.colour)
+        .text(function(d){ return d; })
+        //We use this function to wrap the text within the given width.
+        .call(_wrapCopyWidth, Number(item.width));
 
     }
 
   }.bind(this));
 
 }
+
+
+
+
+function _wrapCopyWidth(text, width) {
+
+  text.each(function() {
+
+    var text = d3.select(this),
+      words = text.text().split(/\s+/).reverse(),
+      word,
+      line = [],
+      lineNumber = 0,
+      lineHeight = 1.3, // ems
+      x = text.attr("x"),
+      y = text.attr("y"),
+      dy = text.attr("dy") ? text.attr("dy") : 0,
+      tspan = text.text(null).append("tspan").attr("x", x).attr("y", y).attr("dy", dy + "em");
+  
+      while (word = words.pop()) {
+        line.push(word);
+        tspan.text(line.join(" "));
+        if (tspan.node().getComputedTextLength() > width) {
+          line.pop();
+          tspan.text(line.join(" "));
+          line = [word];
+          tspan = text.append("tspan").attr("x", x).attr("y", y).attr("dy", ++lineNumber * lineHeight + dy + "em").text(word);
+        }
+      }
+
+  });
+}
+
+
+
+
+
 
 
 Copy_CTRL.prototype.update = function() {

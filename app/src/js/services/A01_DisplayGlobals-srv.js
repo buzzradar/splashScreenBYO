@@ -39,7 +39,7 @@ function DisplayGlobals () {
 //--------------------------------------
 
 
-let _version = "0.61";
+let _version = "0.64";
 
 DisplayGlobals.prototype.getVersion = function() {
 
@@ -451,6 +451,28 @@ DisplayGlobals.prototype.getArrayIds = function () {
 
 
 
+
+
+
+
+//----------------------------
+//Resize Window
+//----------------------------
+
+DisplayGlobals.prototype.onResizeWindow = function () {
+
+    let width = $('div.viz-item').width();
+    let new_ratio = (width/1920);
+    this.setScaleRatio(new_ratio);
+
+    // console.log("Resize!!!!!!!!!!!!!!!!")
+
+    $('div.viz-item').find('.preview').css({
+        'transform' : 'scale('+ new_ratio +')',
+        'z-index' : '0',
+    });
+  
+};
 
 
 

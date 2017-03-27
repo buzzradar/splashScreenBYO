@@ -65,7 +65,7 @@ FormType4_Ctrl.prototype.load = function () {
 
 function _addMoreDividersButton() {
 
-    let btn = $('<a href="javascript:;" class="btn blue"><i class="fa fa-plus"></i> Add New Dividers </a>');
+    let btn = $('<a href="javascript:;" class="btn blue"><i class="fa fa-plus"></i> Add New Divider </a>');
     this.parentDOM.find('.actions').html(btn);
 
     btn.click(_addMoreDividers.bind(this));
@@ -159,6 +159,9 @@ function _loadDividerArray(onInit) {
     }else{
         this.dom.html('No dividers for this Launcher, please click on the button above to add more.')
     }
+
+    DisplayGlobals_SRV.onResizeWindow();
+    
 
 }
 
