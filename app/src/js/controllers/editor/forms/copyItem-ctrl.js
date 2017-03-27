@@ -132,7 +132,15 @@ function _validateSize() {
 
 
 
+CopyItem_Ctrl.prototype.updateCopyPosition = function (x,y) {
 
+    this.copyDOM.find('input[name=pos_x]').val(x);
+    this.copyDOM.find('input[name=pos_y]').val(y);
+
+    this.copyMO.x = x;
+    this.copyMO.y = y;
+
+}
 
 
 

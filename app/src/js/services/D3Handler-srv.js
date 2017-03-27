@@ -117,6 +117,7 @@ D3Handler_CTRL.prototype.updateLogoImage = function () {
 D3Handler_CTRL.prototype.loadCopy = function () {
 
   this.copy = new Copy_CTRL(this.svgContainer);
+  DisplayGlobals_SRV.setCopyRef(this.copy);
 
 }
 

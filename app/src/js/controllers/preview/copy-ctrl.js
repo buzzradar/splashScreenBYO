@@ -16,6 +16,7 @@ const Utils_SRV = require('../../services/Utils-srv');
 function Copy_CTRL (svg) {
 
     this.svgContainer = svg;
+    this.isDragable = false;
     this.fontFamily = "Helvetica, Arial, sans-serif";
 
 
@@ -33,6 +34,7 @@ function Copy_CTRL (svg) {
 function _createGroup() {
 
   this.allCopyGroup = this.svgContainer.append("g");
+  this.allCopyGroup.attr('class','all-copy-group')
 
   _loadCopy.call(this);
 
@@ -44,7 +46,7 @@ function _createGroup() {
 
 function _loadCopy() {
 
-  var _self = this;
+  var self = this;
 
   this.copyArrayMO = DisplayGlobals_SRV.getMasterConfig().AppSplash.copy;
 
@@ -54,24 +56,68 @@ function _loadCopy() {
 
     if (!item.deleted) {
 
-      var copyText = [item.copy];
+      var groupText = this.allCopyGroup.append("g");
+      groupText.attr('class', 'copy-group');
 
-      console.log(item.copy);
-
-      this.allCopyGroup.selectAll("text").data(copyText).enter().append("text")
+      groupText.selectAll("text").data([ {"x":0, "y":0, initX: Number(item.x), initY:Number(item.y), "copy" : item.copy, svg:this.svgContainer} ]).enter().append("text")
         .attr('x', Number(item.x))
         .attr('y', function(d, i){ return Number(item.y)+(30 + i * 90); })
         .attr("font-size", Number(item.size) )
         .attr("fill", '#'+item.colour)
-        .text(function(d){ return d; })
+        .text(function(d){ return d.copy; })
         //We use this function to wrap the text within the given width.
-        .call(_wrapCopyWidth, Number(item.width));
+        .call(_wrapCopyWidth, Number(item.width))
+        .call(d3.drag()
 
+          .on("drag", function(d,i) {
+
+            if (self.isDragable) {
+
+              d.x += d3.event.dx
+              d.y += d3.event.dy
+
+              let newX = Math.round( DisplayGlobals_SRV.scaleRatio(d.x) + d.initX );
+              let newY = Math.round( DisplayGlobals_SRV.scaleRatio(d.y) + d.initY );
+
+              DisplayGlobals_SRV.getEditorRef().updateCopyPosition(newX,newY,key);
+              DisplayGlobals_SRV.getPreviewRef().updateChanges(true);
+
+              d3.select(this).attr("transform", function(d,i){
+                  return "translate(" + [ DisplayGlobals_SRV.scaleRatio(d.x) ,DisplayGlobals_SRV.scaleRatio(d.y) ] + ")"  
+              })
+
+            }
+              
+          }));
     }
 
   }.bind(this));
 
+   _isDragable.call(this);
+
+
 }
+
+
+
+
+
+
+function _isDragable() {
+
+  if (!this.isDragable) {
+      $(".copy-group").each(function( index ) {
+        $( this ).removeClass('draggable');
+      });
+
+   }else{
+      $(".copy-group").each(function( index ) {
+        $( this ).addClass('draggable');
+      });
+   }
+
+}
+
 
 
 
@@ -126,7 +172,12 @@ Copy_CTRL.prototype.reset = function() {
 
 }
 
+Copy_CTRL.prototype.dragable = function (isDragable) {
 
+   this.isDragable = isDragable;
+   _isDragable.call(this);
+
+}
 
 
 

@@ -63,8 +63,7 @@ function _loadLogoVendor() {
                 let newY = Math.round( DisplayGlobals_SRV.scaleRatio(d.y) + d.initY );
 
                 DisplayGlobals_SRV.getEditorRef().updateLogoPosition(newX,newY);
-
-                DisplayGlobals_SRV.getPreviewRef().updateChanges();
+                DisplayGlobals_SRV.getPreviewRef().updateChanges(true);
 
                 d3.select(this).attr("transform", function(d,i){
                     return "translate(" + [ DisplayGlobals_SRV.scaleRatio(d.x) ,DisplayGlobals_SRV.scaleRatio(d.y) ] + ")"

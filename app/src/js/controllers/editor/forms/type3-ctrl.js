@@ -221,7 +221,11 @@ FormType3_Ctrl.prototype.reset = function() {
 
 
 
+FormType3_Ctrl.prototype.updateCopyPosition = function (x,y,index) {
 
+    this.copyCtrlArray[index].updateCopyPosition(x,y);
+
+}
 
 
 

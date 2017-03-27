@@ -382,6 +382,34 @@ DisplayGlobals.prototype.getLogoVendorRef = function () {
 
 
 
+//----------------------------
+// Copy Reference
+// we use this to make sure we only drag the text when the copy section 
+// is selected.
+//----------------------------
+
+let _CopyCtrl;  
+
+DisplayGlobals.prototype.setCopyRef = function (CopyCtrl) {
+
+  _CopyCtrl = CopyCtrl
+  
+};
+
+
+DisplayGlobals.prototype.getCopyRef = function () {
+
+  return _CopyCtrl;
+  
+};
+
+
+
+
+
+
+
+
 
 
 

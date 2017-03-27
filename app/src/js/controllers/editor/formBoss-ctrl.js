@@ -80,6 +80,11 @@ FormBoss_Ctrl.prototype.loadForm = function (id) {
 	}else{
 		DisplayGlobals_SRV.getLogoVendorRef().dragable(false);
 	}
+	if (id===3) {
+		DisplayGlobals_SRV.getCopyRef().dragable(true);
+	}else{
+		DisplayGlobals_SRV.getCopyRef().dragable(false);
+	}
 
 	DisplayGlobals_SRV.getBottomLegendRef().selectLegend(id);
 
@@ -91,6 +96,13 @@ FormBoss_Ctrl.prototype.loadForm = function (id) {
 FormBoss_Ctrl.prototype.updateLogoPosition = function (x,y) {
 
 	this.formArray[1].objRef.updateLogoPosition(x,y);
+
+}
+
+
+FormBoss_Ctrl.prototype.updateCopyPosition = function (x,y,index) {
+
+	this.formArray[2].objRef.updateCopyPosition(x,y,index);
 
 }
 

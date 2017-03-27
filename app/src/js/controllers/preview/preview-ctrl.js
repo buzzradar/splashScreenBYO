@@ -92,11 +92,13 @@ function _onPreviewReady() {
 
 
 
-Preview_Ctrl.prototype.updateChanges = function () {
+Preview_Ctrl.prototype.updateChanges = function (d3AlreadyUpdated) {
 
-	// console.log(DisplayGlobals_SRV.getMasterConfig().AppSplash)
-
-	this.d3SVG_Ctrl.updateChanges();
+	//If the D3 SVG is already updated no need to do it again
+	//Like for instance the Logo or the copy when the user draggs
+	//it.
+	if (d3AlreadyUpdated === undefined) d3AlreadyUpdated = false;
+	if(!d3AlreadyUpdated)this.d3SVG_Ctrl.updateChanges();
 
     clearTimeout(this.autoSaveTimeout);
 

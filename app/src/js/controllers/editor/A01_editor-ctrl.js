@@ -219,6 +219,13 @@ Editor_Ctrl.prototype.updateLogoPosition = function (x,y) {
 }
 
 
+Editor_Ctrl.prototype.updateCopyPosition = function (x,y,index) {
+
+	this.form_Ctrl.updateCopyPosition(x,y,index);
+
+}
+
+
 
 
 
