@@ -102,11 +102,11 @@ function _loadLogoVendor() {
 function _isDragable() {
 
   if (!this.isDragable) {
-      this.dottedRect.style("stroke", 'transparent');
+      // this.dottedRect.style("stroke", 'transparent');
       this.logoGroup.attr('class', '');
 
    }else{
-      this.dottedRect.style("stroke", '#ffffff');
+      // this.dottedRect.style("stroke", '#ffffff');
       this.logoGroup.attr('class', 'draggable');
    }
 
