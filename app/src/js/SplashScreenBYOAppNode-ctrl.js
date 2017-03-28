@@ -153,20 +153,6 @@ function _setupWindowEvents() {
 
 
 
-function _onResizeWindow() {
-
-    // let width = $('div.viz-item').width();
-    // let new_ratio = (width/1920);
-    // DisplayGlobals_SRV.setScaleRatio(new_ratio);
-
-    // $('div.viz-item').find('.preview').css({
-    //     'transform' : 'scale('+ new_ratio +')',
-    //     'z-index' : '0',
-    // });
-
-}
-
-
 
 function _loadPreviews() {
 
