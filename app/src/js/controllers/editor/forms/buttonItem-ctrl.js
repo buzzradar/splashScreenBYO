@@ -60,7 +60,22 @@ function _renderView() {
 }
 
 
+ButtonItem_Ctrl.prototype.updateButtonPosition = function (x,y) {
 
+    this.btnListDOM.find('input[name=pos_x]').val(x);
+    this.btnListDOM.find('input[name=pos_y]').val(y);
+
+    this.buttonMO.x = x;
+    this.buttonMO.y = y;
+
+}
+
+
+ButtonItem_Ctrl.prototype.getIndexID = function () {
+
+    return this.buttonMO.index;
+
+}
 
 
 

@@ -136,6 +136,7 @@ D3Handler_CTRL.prototype.loadLine = function () {
 D3Handler_CTRL.prototype.loadButtons = function () {
 
   this.buttons = new Buttons_CTRL(this.svgContainer);
+  DisplayGlobals_SRV.setButtonsRef(this.buttons);
 
 }
 

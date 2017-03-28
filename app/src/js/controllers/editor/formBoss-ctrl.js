@@ -75,15 +75,17 @@ FormBoss_Ctrl.prototype.loadForm = function (id) {
 	//Load the form from the object reference
 	this.formArray[this.formId-1].objRef.load();
 
+	//To make dragabble items (only available for copy, buttons and logo vendor)
 	if (id===2) {
 		DisplayGlobals_SRV.getLogoVendorRef().dragable(true);
+	}else if(id===3){
+		DisplayGlobals_SRV.getCopyRef().dragable(true);
+	}else if(id===5){
+		DisplayGlobals_SRV.getButtonsRef().dragable(true);
 	}else{
 		DisplayGlobals_SRV.getLogoVendorRef().dragable(false);
-	}
-	if (id===3) {
-		DisplayGlobals_SRV.getCopyRef().dragable(true);
-	}else{
 		DisplayGlobals_SRV.getCopyRef().dragable(false);
+		DisplayGlobals_SRV.getButtonsRef().dragable(false);
 	}
 
 	DisplayGlobals_SRV.getBottomLegendRef().selectLegend(id);
@@ -103,6 +105,13 @@ FormBoss_Ctrl.prototype.updateLogoPosition = function (x,y) {
 FormBoss_Ctrl.prototype.updateCopyPosition = function (x,y,index) {
 
 	this.formArray[2].objRef.updateCopyPosition(x,y,index);
+
+}
+
+
+FormBoss_Ctrl.prototype.updateButtonPosition = function (x,y,index) {
+
+	this.formArray[4].objRef.updateButtonPosition(x,y,index);
 
 }
 

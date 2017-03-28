@@ -225,6 +225,12 @@ Editor_Ctrl.prototype.updateCopyPosition = function (x,y,index) {
 
 }
 
+Editor_Ctrl.prototype.updateButtonPosition = function (x,y,index) {
+
+	this.form_Ctrl.updateButtonPosition(x,y,index);
+
+}
+
 
 
 

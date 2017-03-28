@@ -17,6 +17,7 @@ const Utils_SRV = require('../../services/Utils-srv');
 function Buttons_CTRL (svg) {
 
 	this.svgContainer = svg;
+  this.isDragable = false;
 
   _createGroup.call(this);
 
@@ -32,6 +33,8 @@ function Buttons_CTRL (svg) {
 function _createGroup() {
 
   this.allButtonsGroup = this.svgContainer.append("g");
+  this.allButtonsGroup.attr('class','all-buttons-group');
+
 
   _loadButtons.call(this);
 
@@ -43,6 +46,8 @@ function _createGroup() {
 
 function _loadButtons() {
 
+  var self = this;
+
   this.buttonsArrayMO = DisplayGlobals_SRV.getMasterConfig().AppSplash.buttons;
 
   $.each( this.buttonsArrayMO, function( key, item ) {
@@ -51,18 +56,20 @@ function _loadButtons() {
 
     if (item.deleted === false && item.copy) {
 
-        let buttonGroup = this.allButtonsGroup.append("g")
-                            .attr('index', key)
-        if (DisplayGlobals_SRV.getArguments().editor) buttonGroup.attr('class', 'clickable');
+        let buttonGroup = this.allButtonsGroup.append("g").attr('index', key);
+        buttonGroup.attr('class', 'btn-group');
 
+        
 
-
+        if (DisplayGlobals_SRV.getArguments().editor) buttonGroup.attr('class', 'btn-group clickable');
 
         let btnMO = {
-          x : Utils_SRV.getJsonVal(0, item.x, "NUMBER"),
-          y : Utils_SRV.getJsonVal(0, item.y, "NUMBER"),
+          x : 0,
+          y : 0,
           width : Utils_SRV.getJsonVal(300, item.width, "NUMBER"),
           height : Utils_SRV.getJsonVal(300, item.height, "NUMBER"),
+          initX : Utils_SRV.getJsonVal(0, item.x, "NUMBER"),
+          initY : Utils_SRV.getJsonVal(0, item.y, "NUMBER"),
           background : '#'+item.background,
           radius : 7,
           copy : {
@@ -78,8 +85,8 @@ function _loadButtons() {
         }
 
         buttonGroup.append("rect")
-            .attr("x", btnMO.x)
-            .attr("y", btnMO.y)
+            .attr("x", btnMO.initX)
+            .attr("y", btnMO.initY)
             .attr("width", btnMO.width)
             .attr("height", btnMO.height)
             .attr("fill", btnMO.background)
@@ -96,12 +103,42 @@ function _loadButtons() {
             .attr("fill", '#'+btnMO.copy.color );
 
 
+        buttonGroup.call(d3.drag()
+          .on("drag", function(d,i) {
+
+            if (self.isDragable) {
+            
+              btnMO.x += d3.event.dx;
+              btnMO.y += d3.event.dy;
+
+              let newX = Math.round( DisplayGlobals_SRV.scaleRatio(btnMO.x) + btnMO.initX );
+              let newY = Math.round( DisplayGlobals_SRV.scaleRatio(btnMO.y) + btnMO.initY );
+
+              d3.select(this).attr("transform", function(d,i){
+                  return "translate(" + [ DisplayGlobals_SRV.scaleRatio(btnMO.x) ,DisplayGlobals_SRV.scaleRatio(btnMO.y) ] + ")"  
+              })
+
+              //When user drags a button, must be visible in the editor section on the right hand side
+              if (DisplayGlobals_SRV.getArguments().editor) {
+                  let index = Number($(this).attr('index'));
+                  DisplayGlobals_SRV.getEditorRef().form_Ctrl.loadForm(5)      //Load the Buttons Form
+                  DisplayGlobals_SRV.getEditorRef().form_Ctrl.formArray[4].objRef.editButton(index);     //Objet to Edit buttons
+              }
+
+              DisplayGlobals_SRV.getEditorRef().updateButtonPosition(newX,newY, Number($(this).attr('index')) );
+              DisplayGlobals_SRV.getPreviewRef().updateChanges(true);
+
+            }
+ 
+          }));
+
+        //When user clicks a button, must be visible in the editor section on the right hand side
         if (DisplayGlobals_SRV.getArguments().editor) {
-          buttonGroup.on("click", function() {
-            let index = $(this).attr('index');
-            DisplayGlobals_SRV.getEditorRef().form_Ctrl.loadForm(5)      //Load the Buttons Form
-            DisplayGlobals_SRV.getEditorRef().form_Ctrl.formArray[4].objRef.editButton(index);     //Objet to Edit buttons
-          })
+            buttonGroup.on("click", function() {
+              let index = $(this).attr('index');
+              DisplayGlobals_SRV.getEditorRef().form_Ctrl.loadForm(5)      //Load the Buttons Form
+              DisplayGlobals_SRV.getEditorRef().form_Ctrl.formArray[4].objRef.editButton(index);     //Objet to Edit buttons
+            })
         }
 
 
@@ -111,8 +148,28 @@ function _loadButtons() {
 
   }.bind(this));
 
+   _isDragable.call(this);
 
 }
+
+
+
+function _isDragable() {
+
+  if (!this.isDragable) {
+      $(".btn-group").each(function( index ) {
+        $( this ).removeClass('draggable');
+      });
+
+   }else{
+      $(".btn-group").each(function( index ) {
+        $( this ).addClass('draggable');
+      });
+   }
+
+}
+
+
 
 
 Buttons_CTRL.prototype.update = function() {
@@ -132,6 +189,12 @@ Buttons_CTRL.prototype.reset = function() {
 }
 
 
+Buttons_CTRL.prototype.dragable = function (isDragable) {
+
+   this.isDragable = isDragable;
+   _isDragable.call(this);
+
+}
 
 
 

@@ -323,7 +323,4 @@ function _addBothPickColors() {
 
 
 
-
-
-
 module.exports = ButtonFormItem_Ctrl;

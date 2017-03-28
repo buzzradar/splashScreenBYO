@@ -144,7 +144,11 @@ CopyItem_Ctrl.prototype.updateCopyPosition = function (x,y) {
 
 
 
+CopyItem_Ctrl.prototype.getIndexID = function () {
 
+    return this.copyMO.index;
+
+}
 
 
 

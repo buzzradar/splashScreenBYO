@@ -198,7 +198,7 @@ function _loadButtonArray(onInit) {
 
 function _emptyList() {
 
-    this.dom.empty();
+    $('.list-button-items').empty();
     this.buttonCtrlArray = [];
 
 }
@@ -260,6 +260,15 @@ FormType5_Ctrl.prototype.editButton = function(i) {
 
 
 
+FormType5_Ctrl.prototype.updateButtonPosition = function (x,y,indexId) {
+
+    $.each( this.buttonCtrlArray, function( key, item ) {
+        if( item.getIndexID() === indexId ) {
+            item.updateButtonPosition(x,y);
+        };
+    });
+
+}
 
 
 

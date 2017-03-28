@@ -34,7 +34,7 @@ function Copy_CTRL (svg) {
 function _createGroup() {
 
   this.allCopyGroup = this.svgContainer.append("g");
-  this.allCopyGroup.attr('class','all-copy-group')
+  this.allCopyGroup.attr('class','all-copy-group');
 
   _loadCopy.call(this);
 
@@ -64,6 +64,7 @@ function _loadCopy() {
         .attr('y', function(d, i){ return Number(item.y)+(30 + i * 90); })
         .attr("font-size", Number(item.size) )
         .attr("fill", '#'+item.colour)
+        .attr('index', key)
         .text(function(d){ return d.copy; })
         //We use this function to wrap the text within the given width.
         .call(_wrapCopyWidth, Number(item.width))
@@ -79,7 +80,7 @@ function _loadCopy() {
               let newX = Math.round( DisplayGlobals_SRV.scaleRatio(d.x) + d.initX );
               let newY = Math.round( DisplayGlobals_SRV.scaleRatio(d.y) + d.initY );
 
-              DisplayGlobals_SRV.getEditorRef().updateCopyPosition(newX,newY,key);
+              DisplayGlobals_SRV.getEditorRef().updateCopyPosition(newX,newY,Number($(this).attr('index')));
               DisplayGlobals_SRV.getPreviewRef().updateChanges(true);
 
               d3.select(this).attr("transform", function(d,i){

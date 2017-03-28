@@ -225,9 +225,13 @@ FormType3_Ctrl.prototype.reset = function() {
 
 
 
-FormType3_Ctrl.prototype.updateCopyPosition = function (x,y,index) {
+FormType3_Ctrl.prototype.updateCopyPosition = function (x,y,indexId) {
 
-    this.copyCtrlArray[index].updateCopyPosition(x,y);
+    $.each( this.copyCtrlArray, function( key, item ) {
+        if( item.getIndexID() === indexId ) {
+            item.updateCopyPosition(x,y);
+        };
+    });
 
 }
 

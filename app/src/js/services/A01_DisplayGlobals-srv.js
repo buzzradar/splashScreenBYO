@@ -384,8 +384,8 @@ DisplayGlobals.prototype.getLogoVendorRef = function () {
 
 //----------------------------
 // Copy Reference
-// we use this to make sure we only drag the text when the copy section 
-// is selected.
+// we use this to make sure we only drag the text when the 
+// copy section is selected.
 //----------------------------
 
 let _CopyCtrl;  
@@ -400,6 +400,35 @@ DisplayGlobals.prototype.setCopyRef = function (CopyCtrl) {
 DisplayGlobals.prototype.getCopyRef = function () {
 
   return _CopyCtrl;
+  
+};
+
+
+
+
+
+
+
+
+
+//----------------------------
+// Buttons Reference
+// we use this to make sure we only drag the buttons when 
+// the buttons section is selected.
+//----------------------------
+
+let _ButtonsCtrl;  
+
+DisplayGlobals.prototype.setButtonsRef = function (ButtonsCtrl) {
+
+  _ButtonsCtrl = ButtonsCtrl
+  
+};
+
+
+DisplayGlobals.prototype.getButtonsRef = function () {
+
+  return _ButtonsCtrl;
   
 };
 
