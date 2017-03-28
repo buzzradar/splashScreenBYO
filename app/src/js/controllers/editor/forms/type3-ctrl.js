@@ -58,6 +58,10 @@ function _getMasterConfigValues() {
 FormType3_Ctrl.prototype.load = function () {
 
     this.dom = HBTemplates.getTemplate('formType3');
+
+console.log("vamos a ver.....", this.dom)
+
+
 	this.parentDOM.find('.form-body').html(this.dom);
 
 	_addMoreCopyButton.call(this);
@@ -170,7 +174,7 @@ function _loadCopyArray(onInit) {
 
 function _emptyList() {
 
-    this.dom.html('');
+    $('.list-copy-items').html('');
     this.copyCtrlArray = []
 
 }
