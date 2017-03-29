@@ -21,7 +21,15 @@ let _HBTemplates;
 
 function HBTemplates () {
 
-  _HBTemplates = this;
+    _HBTemplates = this;
+
+    Handlebars.registerHelper("if", function(conditional, options) {
+        if (conditional == options.hash.equals) {
+            return options.fn(this);
+        } else {
+            return options.inverse(this);
+        }
+    });
 
 }
 

@@ -56,13 +56,13 @@ function _loadCopy() {
 
     if (!item.deleted) {
 
-      var groupText = this.allCopyGroup.append("g");
+      let groupText = this.allCopyGroup.append("g");
       groupText.attr('class', 'copy-group');
 
-      groupText.selectAll("text").data([ {"x":0, "y":0, initX: Number(item.x), initY:Number(item.y), "copy" : item.copy, svg:this.svgContainer} ]).enter().append("text")
-        .attr('x', _getXpos(item) )
+      let txtNode = groupText.selectAll("text").data([ {"x":0, "y":0, initX: Number(item.x), initY:Number(item.y), "copy" : item.copy, svg:this.svgContainer} ]).enter().append("text")
+        .attr('x', 0 )   //I will change the x coordinate later on when I find out how much is the width of the text. Line 97
         .attr('y', function(d, i){ return Number(item.y)+(30 + i * 90); })
-        .attr('text-anchor', _getTextAnchor(item))
+        .attr('text-anchor', "start")
         .attr("font-size", Number(item.size) )
         .attr("fill", '#'+item.colour)
         .attr('index', key)
@@ -81,8 +81,6 @@ function _loadCopy() {
               let newX = Math.round( DisplayGlobals_SRV.scaleRatio(d.x) + d.initX );
               let newY = Math.round( DisplayGlobals_SRV.scaleRatio(d.y) + d.initY );
 
-
-
               DisplayGlobals_SRV.getEditorRef().updateCopyPosition(newX,newY,Number($(this).attr('index')));
               DisplayGlobals_SRV.getPreviewRef().updateChanges(true);
 
@@ -94,11 +92,9 @@ function _loadCopy() {
               
           }));
 
-
-
-
-
-
+        //Get width of the text and then change the X coordinate.
+        let txtWidth = txtNode.node().getBBox().width;
+        txtNode.attr("transform", "translate("+_getXpos(item,txtWidth)+",0)");
 
     }
 
@@ -112,13 +108,14 @@ function _loadCopy() {
 
 
 
-function _getXpos(copyMO) {
+function _getXpos(copyMO, txtWidth) {
 
   if(!copyMO.align) copyMO.align = "center";
   let x = Number(copyMO.x);
   if ( copyMO.align.toLowerCase() === "center" ) {
-    x = Number(copyMO.width)/2;
+    x = Number(copyMO.width)/2 - txtWidth/2;
   }
+
   return x;
 
 }
@@ -149,12 +146,9 @@ function _isDragable() {
       });
 
    }else{
-      console.log("Adding draggable to the group......");
-      $(".copy-group").addClass("draggable");
-      // $(".copy-group").each(function( index ) {
-      //   console.log("adding class dragable for Copy........", $(this) );
-      //   $( this ).addClass('draggable');
-      // });
+      $(".copy-group").each(function( index ) {
+        $( this ).addClass('draggable');
+      });
    }
 
 }

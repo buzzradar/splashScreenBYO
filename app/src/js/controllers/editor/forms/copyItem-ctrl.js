@@ -38,7 +38,6 @@ function CopyItem_Ctrl (copyMO) {
 
 function _init() {
 
-    // console.log("Copy Item--->", this.copyMO);
     _renderView.call(this);
 
 }
@@ -50,9 +49,17 @@ function _renderView() {
 
     this.copyDOM = HBTemplates.getTemplate('copy_item', this.copyMO);
     this.parentDOM.append(this.copyDOM);
+    _updateCheckboxForAlignment.call(this);
 
     Utils_SRV.addPickColors('colour', this.copyMO);
     _onFocusOut.call(this);
+
+}
+
+
+function _updateCheckboxForAlignment() {
+
+    if (this.copyMO.align === "left") this.copyDOM.find('input[name=align]').prop('checked', true);
 
 }
 
@@ -74,6 +81,7 @@ CopyItem_Ctrl.prototype.validate =  function() {
     _validateDimensions.call(this);
     _validatePositions.call(this);
     _validateSize.call(this);
+    _validateAlignment.call(this);
 
     DisplayGlobals_SRV.getPreviewRef().updateChanges();
     
@@ -127,6 +135,15 @@ function _validateSize() {
         this.error = true;
         this.copyDOM.find('input[name=size]').closest('.form-group').addClass('has-error');
     }
+
+}
+
+
+
+function _validateAlignment() {
+
+    let leftAlignSelected = this.copyDOM.find('input[name=align]').prop('checked');
+    this.copyMO.align = (leftAlignSelected == true) ? "left" : "center";
 
 }
 
