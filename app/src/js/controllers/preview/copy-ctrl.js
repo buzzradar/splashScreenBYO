@@ -60,8 +60,9 @@ function _loadCopy() {
       groupText.attr('class', 'copy-group');
 
       groupText.selectAll("text").data([ {"x":0, "y":0, initX: Number(item.x), initY:Number(item.y), "copy" : item.copy, svg:this.svgContainer} ]).enter().append("text")
-        .attr('x', Number(item.x))
+        .attr('x', _getXpos(item) )
         .attr('y', function(d, i){ return Number(item.y)+(30 + i * 90); })
+        .attr('text-anchor', _getTextAnchor(item))
         .attr("font-size", Number(item.size) )
         .attr("fill", '#'+item.colour)
         .attr('index', key)
@@ -80,6 +81,8 @@ function _loadCopy() {
               let newX = Math.round( DisplayGlobals_SRV.scaleRatio(d.x) + d.initX );
               let newY = Math.round( DisplayGlobals_SRV.scaleRatio(d.y) + d.initY );
 
+
+
               DisplayGlobals_SRV.getEditorRef().updateCopyPosition(newX,newY,Number($(this).attr('index')));
               DisplayGlobals_SRV.getPreviewRef().updateChanges(true);
 
@@ -90,6 +93,13 @@ function _loadCopy() {
             }
               
           }));
+
+
+
+
+
+
+
     }
 
   }.bind(this));
@@ -99,6 +109,33 @@ function _loadCopy() {
 
 }
 
+
+
+
+function _getXpos(copyMO) {
+
+  if(!copyMO.align) copyMO.align = "center";
+  let x = Number(copyMO.x);
+  if ( copyMO.align.toLowerCase() === "center" ) {
+    x = Number(copyMO.width)/2;
+  }
+  return x;
+
+}
+
+
+
+
+function _getTextAnchor(copyMO) {
+
+  if(!copyMO.align) copyMO.align = "center";
+  let anchor = "start";
+  if ( copyMO.align.toLowerCase() === "center" ) {
+    anchor = "middle";
+  }
+  return anchor;
+
+}
 
 
 
@@ -112,9 +149,12 @@ function _isDragable() {
       });
 
    }else{
-      $(".copy-group").each(function( index ) {
-        $( this ).addClass('draggable');
-      });
+      console.log("Adding draggable to the group......");
+      $(".copy-group").addClass("draggable");
+      // $(".copy-group").each(function( index ) {
+      //   console.log("adding class dragable for Copy........", $(this) );
+      //   $( this ).addClass('draggable');
+      // });
    }
 
 }

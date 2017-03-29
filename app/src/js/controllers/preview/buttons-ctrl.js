@@ -61,7 +61,7 @@ function _loadButtons() {
 
         
 
-        if (DisplayGlobals_SRV.getArguments().editor) buttonGroup.attr('class', 'btn-group clickable');
+        // if (DisplayGlobals_SRV.getArguments().editor) buttonGroup.attr('class', 'btn-group clickable');
 
         let btnMO = {
           x : 0,

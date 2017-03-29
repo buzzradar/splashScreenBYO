@@ -58,10 +58,6 @@ function _getMasterConfigValues() {
 FormType3_Ctrl.prototype.load = function () {
 
     this.dom = HBTemplates.getTemplate('formType3');
-
-console.log("vamos a ver.....", this.dom)
-
-
 	this.parentDOM.find('.form-body').html(this.dom);
 
 	_addMoreCopyButton.call(this);
@@ -99,6 +95,7 @@ function _addMoreCopy() {
                     "width":1920,
                     "size":34,
                     "weight":400,
+                    "align":"center",
                     "copy":"Select from the demo dashboards below, or enter your own dashboard ID by hitting ALT + E"
                 };
 
