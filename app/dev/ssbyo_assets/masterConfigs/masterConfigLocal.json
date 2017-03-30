@@ -17,13 +17,13 @@
       {
         "id": 128,
         "visible": 1,
-        "colour": "ffff00",
+        "colour": "000000",
         "x": 0,
-        "y": 560,
+        "y": 470,
         "width": 1920,
         "size": 40,
         "weight": 400,
-        "copy": "Select from the demo dashboards below, or enter your own dashboard ID by hitting ALT + E",
+        "copy": "Select from the demo dashboards below.",
         "deleted": false,
         "align": "center"
       }
