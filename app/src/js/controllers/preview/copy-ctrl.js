@@ -65,7 +65,7 @@ function _loadCopy() {
                   .attr("x", 0)
                   .attr("y", 0)
                   .attr("width", Number(item.width))
-                  .attr("height", 45)
+                  .attr("height", Number(item.size))
                   .style("stroke", 'transparent')
                   .style("fill", "none")
                   .style("stroke-width", 7)
