@@ -5,7 +5,7 @@
   "browser": "app/src/index.js",
   "scripts": {
     "build": "browserify app/src/index.js | uglifyjs --screw-ie8 -m -c dead_code,sequences,conditionals,booleans,unused,if_return,join_vars,drop_debugger > app/dev/ssbyo_assets/js/SplashScreenBYO_min.js && gulp distribute",
-    "watch": "watchify app/src/index.js -d -v -o app/dev/ssbyo_assets/js/SplashScreenBYO.js & ",
+    "watch": "watchify app/src/index.js -v -o app/dev/ssbyo_assets/js/SplashScreenBYO.js & ",
     "start": "npm run build && serve --compress app/dev/ -p 1619",
     "dev": "npm run watch && gulp watch",
     "test": "npm run lint -s && npm run build",

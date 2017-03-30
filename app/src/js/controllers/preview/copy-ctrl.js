@@ -42,8 +42,6 @@ function _createGroup() {
 
 
 
-
-
 function _loadCopy() {
 
   var self = this;

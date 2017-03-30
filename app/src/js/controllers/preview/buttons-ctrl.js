@@ -128,8 +128,6 @@ function _loadButtons() {
               let newX = Math.round( coordinates[0] + DisplayGlobals_SRV.scaleRatio(d3.event.dx) );
               let newY = Math.round( coordinates[1] + DisplayGlobals_SRV.scaleRatio(d3.event.dy) );
 
-              console.log($(this).attr('index'))
-
               DisplayGlobals_SRV.getEditorRef().updateButtonPosition(newX,newY, Number($(this).attr('index')) );
               DisplayGlobals_SRV.getPreviewRef().updateChanges(true);
 
