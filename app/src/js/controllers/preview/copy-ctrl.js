@@ -56,29 +56,29 @@ function _loadCopy() {
 
     if (!item.deleted) {
 
-      let groupText = this.allCopyGroup.append("g");
+      let groupText = this.allCopyGroup.append("g").attr('index', key);
       groupText.attr('class', 'copy-group');
 
 
-      //Rectangle
-      this.dottedRect = groupText.append("rect")
+      //Dotted Rectangle
+      groupText.append("rect")
                   .attr("x", 0)
                   .attr("y", 0)
                   .attr("width", Number(item.width))
                   .attr("height", 45)
-                  .style("stroke", '#ffffff')
+                  .style("stroke", 'transparent')
                   .style("fill", "none")
-                  .style("stroke-width", 5)
+                  .style("stroke-width", 7)
                   .style("stroke-dasharray", ("20, 20"))
+                  .attr('class', 'dotted-rect');
 
       //text
       let txtNode = groupText.append("text")
-                  .attr("dx", 0)
-                  .attr("dy", 0)
+                  .attr("x", 0)
+                  .attr("y", 0)
                   .attr('text-anchor', "start")
                   .attr("font-size", Number(item.size) )
                   .attr("fill", '#'+item.colour)
-                  .attr('index', key)
                   .attr('alignment-baseline', 'hanging')
                   .text(item.copy)
 
@@ -94,22 +94,16 @@ function _loadCopy() {
 
         if (self.isDragable) {
 
-          let coordinates = _getTransformValues(d3.select(this));
-          console.log(coordinates);
-          console.log(d3.event.x);
-          console.log(d3.event.y);
+          let coordinates = Utils_SRV.getTransformValues(d3.select(this));
 
-          let newX = d3.event.x;
-          let newY = d3.event.y;
+          let newX = Math.round( coordinates[0] + DisplayGlobals_SRV.scaleRatio(d3.event.dx) );
+          let newY = Math.round( coordinates[1] + DisplayGlobals_SRV.scaleRatio(d3.event.dy) );
 
-          // let newX = Math.round( DisplayGlobals_SRV.scaleRatio(dx) + 0);
-          // let newY = Math.round( DisplayGlobals_SRV.scaleRatio(dy) + 0);
-
-          // DisplayGlobals_SRV.getEditorRef().updateCopyPosition(newX,newY,Number($(this).attr('index')));
-          // DisplayGlobals_SRV.getPreviewRef().updateChanges(true);
+          DisplayGlobals_SRV.getEditorRef().updateCopyPosition(newX,newY,Number($(this).attr('index')));
+          DisplayGlobals_SRV.getPreviewRef().updateChanges(true);
 
           d3.select(this).attr("transform", function(d,i){
-              return "translate(" + [ DisplayGlobals_SRV.scaleRatio(newX) ,DisplayGlobals_SRV.scaleRatio(newY) ] + ")"  
+              return "translate(" + [ newX ,newY ] + ")"  
           })
 
         }
@@ -117,48 +111,6 @@ function _loadCopy() {
       }));
 
 
-
-
-
-
-
-      // let txtNode = groupText.selectAll("text").data([ {"x":0, "y":0, initX: Number(item.x), initY:Number(item.y), "copy" : item.copy, svg:this.svgContainer} ]).enter().append("text")
-      //   .attr('x', 0 )   //I will change the x coordinate later on when I find out how much is the width of the text. Line 97
-      //   .attr('y', function(d, i){ return Number(item.y)+(30 + i * 90); })
-      //   .attr('text-anchor', "start")
-      //   .attr("font-size", Number(item.size) )
-      //   .attr("fill", '#'+item.colour)
-      //   .attr('index', key)
-      //   .text(function(d){ return d.copy; })
-      //   //We use this function to wrap the text within the given width.
-      //   .call(_wrapCopyWidth, Number(item.width))
-      //   .call(d3.drag()
-
-      //     .on("drag", function(d,i) {
-
-      //       if (self.isDragable) {
-
-      //         d.x += d3.event.dx
-      //         d.y += d3.event.dy
-
-      //         let newX = Math.round( DisplayGlobals_SRV.scaleRatio(d.x) + d.initX);
-      //         let newY = Math.round( DisplayGlobals_SRV.scaleRatio(d.y) + d.initY);
-
-      //         DisplayGlobals_SRV.getEditorRef().updateCopyPosition(newX,newY,Number($(this).attr('index')));
-      //         DisplayGlobals_SRV.getPreviewRef().updateChanges(true);
-
-      //         d3.select(this).attr("transform", function(d,i){
-      //             return "translate(" + [ DisplayGlobals_SRV.scaleRatio(d.x) ,DisplayGlobals_SRV.scaleRatio(d.y) ] + ")"  
-      //         })
-
-      //       }
-              
-      //     }));
-
-      //   //Get width of the text and then change the X coordinate.
-      //   let txtWidth = txtNode.node().getBBox().width;
-      //   console.log(txtWidth)
-      //   txtNode.attr("transform", "translate("+_getXpos(item,txtWidth)+",0)");
 
     }
 
@@ -172,25 +124,11 @@ function _loadCopy() {
 
 
 
-function _getTransformValues(d3Elem) {
-
-  let translateString = d3Elem.attr('transform');
-  translateString = translateString.replace("translate(", "");
-  translateString = translateString.replace(")", "");
-  let arrayCoordinates = translateString.split(",");
-  arrayCoordinates[0] = Number(arrayCoordinates[0]);
-  arrayCoordinates[1] = Number(arrayCoordinates[1]);
-  return arrayCoordinates;
-
-}
-
-
-
 
 function _getXpos(copyMO, txtWidth) {
 
   if(!copyMO.align) copyMO.align = "center";
-  let x = Number(copyMO.x);
+  let x = 0;
   if ( copyMO.align.toLowerCase() === "center" ) {
     x = Number(copyMO.width)/2 - txtWidth/2;
   }
@@ -202,31 +140,18 @@ function _getXpos(copyMO, txtWidth) {
 
 
 
-function _getTextAnchor(copyMO) {
-
-  if(!copyMO.align) copyMO.align = "center";
-  let anchor = "start";
-  if ( copyMO.align.toLowerCase() === "center" ) {
-    anchor = "middle";
-  }
-  return anchor;
-
-}
-
-
-
-
-
 function _isDragable() {
 
   if (!this.isDragable) {
       $(".copy-group").each(function( index ) {
         $( this ).removeClass('draggable');
+        d3.select(this).select('.dotted-rect').style("stroke", 'transparent');
       });
 
    }else{
       $(".copy-group").each(function( index ) {
         $( this ).addClass('draggable');
+        d3.select(this).select('.dotted-rect').style("stroke", '#ffffff');
       });
    }
 

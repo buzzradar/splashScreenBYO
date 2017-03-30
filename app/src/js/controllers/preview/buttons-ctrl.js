@@ -59,8 +59,6 @@ function _loadButtons() {
         let buttonGroup = this.allButtonsGroup.append("g").attr('index', key);
         buttonGroup.attr('class', 'btn-group');
 
-        
-
         // if (DisplayGlobals_SRV.getArguments().editor) buttonGroup.attr('class', 'btn-group clickable');
 
         let btnMO = {
@@ -84,38 +82,59 @@ function _loadButtons() {
           }
         }
 
+        //Rectangle for the button
         buttonGroup.append("rect")
-            .attr("x", btnMO.initX)
-            .attr("y", btnMO.initY)
+            .attr("x", 0)
+            .attr("y", 0)
             .attr("width", btnMO.width)
             .attr("height", btnMO.height)
             .attr("fill", btnMO.background)
             .attr("rx", btnMO.radius)         // set the x corner curve radius
             .attr("ry", btnMO.radius);        // set the y corner curve radius
 
+        //Label of the button
         buttonGroup.append("text")
             .attr("text-anchor", "middle")
-            .attr("x", btnMO.copy.cx)
-            .attr("y", btnMO.copy.cy)
+            .attr('alignment-baseline', 'hanging')
+            .attr("x", btnMO.width/2)
+            .attr("y", DisplayGlobals_SRV.scaleRatio(10))
             .text( btnMO.copy.copy )
             .attr("font-family", this.fontFamily)
             .attr("font-size", btnMO.copy.size)
             .attr("fill", '#'+btnMO.copy.color );
 
+        //Dotted Rectangle
+        buttonGroup.append("rect")
+            .attr("x", 0)
+            .attr("y", 0)
+            .attr("width", btnMO.width)
+            .attr("height", btnMO.height)
+            .style("stroke", '#ffffff')
+            .style("fill", "none")
+            .style("stroke-width", 7)
+            .style("stroke-dasharray", ("20, 20"))
+            .attr('class', 'dotted-rect');
 
+        //Coordinates of the button applied to the group
+        buttonGroup.attr("transform", "translate("+Number(btnMO.initX)+","+Number(btnMO.initY)+")");
+      
+        //On Drag 
         buttonGroup.call(d3.drag()
           .on("drag", function(d,i) {
 
             if (self.isDragable) {
             
-              btnMO.x += d3.event.dx;
-              btnMO.y += d3.event.dy;
+              let coordinates = Utils_SRV.getTransformValues(d3.select(this));
+              let newX = Math.round( coordinates[0] + DisplayGlobals_SRV.scaleRatio(d3.event.dx) );
+              let newY = Math.round( coordinates[1] + DisplayGlobals_SRV.scaleRatio(d3.event.dy) );
 
-              let newX = Math.round( DisplayGlobals_SRV.scaleRatio(btnMO.x) + btnMO.initX );
-              let newY = Math.round( DisplayGlobals_SRV.scaleRatio(btnMO.y) + btnMO.initY );
+              console.log($(this).attr('index'))
+
+              DisplayGlobals_SRV.getEditorRef().updateButtonPosition(newX,newY, Number($(this).attr('index')) );
+              DisplayGlobals_SRV.getPreviewRef().updateChanges(true);
 
               d3.select(this).attr("transform", function(d,i){
-                  return "translate(" + [ DisplayGlobals_SRV.scaleRatio(btnMO.x) ,DisplayGlobals_SRV.scaleRatio(btnMO.y) ] + ")"  
+                  return "translate(" + [ newX , newY ] + ")"  
               })
 
               //When user drags a button, must be visible in the editor section on the right hand side
@@ -125,12 +144,10 @@ function _loadButtons() {
                   DisplayGlobals_SRV.getEditorRef().form_Ctrl.formArray[4].objRef.editButton(index);     //Objet to Edit buttons
               }
 
-              DisplayGlobals_SRV.getEditorRef().updateButtonPosition(newX,newY, Number($(this).attr('index')) );
-              DisplayGlobals_SRV.getPreviewRef().updateChanges(true);
-
             }
  
           }));
+
 
         //When user clicks a button, must be visible in the editor section on the right hand side
         if (DisplayGlobals_SRV.getArguments().editor) {
@@ -154,16 +171,20 @@ function _loadButtons() {
 
 
 
+
+
 function _isDragable() {
 
   if (!this.isDragable) {
       $(".btn-group").each(function( index ) {
         $( this ).removeClass('draggable');
+        d3.select(this).select('.dotted-rect').style("stroke", 'transparent');
       });
 
    }else{
       $(".btn-group").each(function( index ) {
         $( this ).addClass('draggable');
+        d3.select(this).select('.dotted-rect').style("stroke", '#ffffff');
       });
    }
 

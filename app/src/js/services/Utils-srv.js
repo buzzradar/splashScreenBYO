@@ -338,9 +338,24 @@ Utils_SRV.prototype.getJsonVal = function (defaultVal, jsonVal, convertTo) {
 
 
 
+//----------------------------
+// Get Transform values from a D3 element
+// Developer NOTE: It is important that the element has previously been placed in a diffeent position
+// using transform. Otherwise It will not work.
+//----------------------------
+Utils_SRV.prototype.getTransformValues = function (d3Elem) {
 
+  let translateString = d3Elem.attr('transform');
+  translateString = translateString.replace("translate(", "");
+  translateString = translateString.replace(")", "");
+  let arrayCoordinates = translateString.split(",");
+  arrayCoordinates[0] = Number(arrayCoordinates[0]);
+  arrayCoordinates[1] = Number(arrayCoordinates[1]);
 
+  // console.log("coordinates->", arrayCoordinates);
+  return arrayCoordinates;
 
+}
 
 
 

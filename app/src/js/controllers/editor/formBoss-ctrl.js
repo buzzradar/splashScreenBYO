@@ -78,15 +78,21 @@ FormBoss_Ctrl.prototype.loadForm = function (id) {
 	//To make dragabble items (only available for copy, buttons and logo vendor)
 	if (id===2) {
 		DisplayGlobals_SRV.getLogoVendorRef().dragable(true);
-	}else if(id===3){
-		DisplayGlobals_SRV.getCopyRef().dragable(true);
-	}else if(id===5){
-		DisplayGlobals_SRV.getButtonsRef().dragable(true);
 	}else{
 		DisplayGlobals_SRV.getLogoVendorRef().dragable(false);
+	} 
+
+	if (id===3) {
+		DisplayGlobals_SRV.getCopyRef().dragable(true);
+	}else{
 		DisplayGlobals_SRV.getCopyRef().dragable(false);
+	} 
+
+	if (id===5) {
+		DisplayGlobals_SRV.getButtonsRef().dragable(true);
+	}else{
 		DisplayGlobals_SRV.getButtonsRef().dragable(false);
-	}
+	} 
 
 	DisplayGlobals_SRV.getBottomLegendRef().selectLegend(id);
 
