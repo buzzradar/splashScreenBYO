@@ -89,22 +89,6 @@ function _loadLogoVendor() {
                 return "translate(" + [ newX ,newY ] + ")"  
             })
 
-
-            // d.x += d3.event.dx
-            // d.y += d3.event.dy
-
-            // // console.log(DisplayGlobals_SRV.scaleRatio(d.x) + 510, DisplayGlobals_SRV.scaleRatio(d.y) + 60 )
-
-            // let newX = Math.round( DisplayGlobals_SRV.scaleRatio(d.x) + d.initX );
-            // let newY = Math.round( DisplayGlobals_SRV.scaleRatio(d.y) + d.initY );
-
-            // DisplayGlobals_SRV.getEditorRef().updateLogoPosition(newX,newY);
-            // DisplayGlobals_SRV.getPreviewRef().updateChanges(true);
-
-            // d3.select(this).attr("transform", function(d,i){
-            //     return "translate(" + [ DisplayGlobals_SRV.scaleRatio(d.x) ,DisplayGlobals_SRV.scaleRatio(d.y) ] + ")"
-            // })
-
         }
 
     }));
