@@ -95,9 +95,9 @@ function _loadButtons() {
         //Label of the button
         buttonGroup.append("text")
             .attr("text-anchor", "middle")
-            .attr('alignment-baseline', 'hanging')
+            .attr('alignment-baseline', 'central')
             .attr("x", btnMO.width/2)
-            .attr("y", DisplayGlobals_SRV.scaleRatio(10))
+            .attr("y", btnMO.height/2)
             .text( btnMO.copy.copy )
             .attr("font-family", this.fontFamily)
             .attr("font-size", btnMO.copy.size)

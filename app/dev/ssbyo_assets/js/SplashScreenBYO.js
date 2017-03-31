@@ -1885,7 +1885,7 @@ function _loadButtons() {
       .attr("ry", btnMO.radius); // set the y corner curve radius
 
       //Label of the button
-      buttonGroup.append("text").attr("text-anchor", "middle").attr('alignment-baseline', 'hanging').attr("x", btnMO.width / 2).attr("y", DisplayGlobals_SRV.scaleRatio(10)).text(btnMO.copy.copy).attr("font-family", this.fontFamily).attr("font-size", btnMO.copy.size).attr("fill", '#' + btnMO.copy.color);
+      buttonGroup.append("text").attr("text-anchor", "middle").attr('alignment-baseline', 'central').attr("x", btnMO.width / 2).attr("y", btnMO.height / 2).text(btnMO.copy.copy).attr("font-family", this.fontFamily).attr("font-size", btnMO.copy.size).attr("fill", '#' + btnMO.copy.color);
 
       //Dotted Rectangle
       buttonGroup.append("rect").attr("x", 0).attr("y", 0).attr("width", btnMO.width).attr("height", btnMO.height).style("stroke", '#ffffff').style("fill", "none").style("stroke-width", 7).style("stroke-dasharray", "20, 20").attr('class', 'dotted-rect');
