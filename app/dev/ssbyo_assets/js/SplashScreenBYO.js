@@ -2439,7 +2439,7 @@ function DisplayGlobals() {
 // version
 //--------------------------------------
 
-var _version = "0.67";
+var _version = "0.68";
 
 DisplayGlobals.prototype.getVersion = function () {
 
