@@ -53,6 +53,7 @@ function _renderView() {
 
     Utils_SRV.addPickColors('colour', this.copyMO);
     _onFocusOut.call(this);
+    _setAlignDropDown.call(this);
 
 }
 
@@ -140,11 +141,30 @@ function _validateSize() {
 
 
 
+function _setAlignDropDown() {
+
+    let self = this;
+    this.copyDOM.find('select.align option').each(function() {
+        if ( self.copyMO.align == $(this).text().toLowerCase() ) {
+            $(this).attr("selected","selected");
+        }
+    });  
+
+    //on Selecte Change
+    this.copyDOM.find('select.align').change(function() {
+        self.validate();
+    });
+
+
+
+    
+}
+
 function _validateAlignment() {
 
-    let leftAlignSelected = this.copyDOM.find('input[name=align]').prop('checked');
-    this.copyMO.align = (leftAlignSelected == true) ? "left" : "center";
-
+    this.copyMO.align = this.copyDOM.find('select.align').find(":selected").text().toLowerCase();
+    console.log("Validate alignment---->", this.copyMO.align);
+    
 }
 
 

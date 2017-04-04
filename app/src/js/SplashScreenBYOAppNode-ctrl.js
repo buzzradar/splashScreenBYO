@@ -19,8 +19,6 @@ const JSONHandler_SRV = require('./services/JSONHandler-srv');
 
 
 
-
-
 //----------------------------
 //  Constructor
 //----------------------------
@@ -29,7 +27,7 @@ function SplashScreenBYOApp_NODE () {
 
     console.log ("%c -> -------------------------------------- ", "background:#eee;", '');
     console.log ("%c -> -------------------------------------- ", "background:#eee;", '');
-    console.log ("%c -> VERSION : ", "background:#eee;", DisplayGlobals_SRV.getVersion() );
+    console.log ("%c -> VERSION:", "background:#eee;", DisplayGlobals_SRV.getVersion() );
     console.log ("%c -> -------------------------------------- ", "background:#eee;", '');
     console.log ("%c -> -------------------------------------- ", "background:#eee;", '');
 

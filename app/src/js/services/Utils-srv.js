@@ -74,7 +74,7 @@ Utils_SRV.prototype.validatePositions = function (formDOM, objMO) {
     let pos_x = Number($.trim(formDOM.find('input[name=pos_x]').val()));
     let pos_y = Number($.trim(formDOM.find('input[name=pos_y]').val()));
 
-    if ( (pos_x >=0 && pos_x <= 1920 ) &&  (pos_y >=0 && pos_y <= 1080) )  {
+    if ( pos_x <= 1920  &&  pos_y <= 1080 )  {
         formDOM.find('input[name=pos_x]').closest('.form-group').removeClass('has-error');
 
         objMO.x = pos_x;
