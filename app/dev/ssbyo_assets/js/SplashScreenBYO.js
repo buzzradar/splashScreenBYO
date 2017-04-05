@@ -408,6 +408,10 @@ FormBoss_Ctrl.prototype.loadForm = function (id) {
 	}
 
 	DisplayGlobals_SRV.getBottomLegendRef().selectLegend(id);
+
+	$("input[type='text']").on("click", function () {
+		$(this).select();
+	});
 };
 
 FormBoss_Ctrl.prototype.updateLogoPosition = function (x, y) {
