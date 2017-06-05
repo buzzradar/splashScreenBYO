@@ -59,6 +59,7 @@ function _renderView() {
 
     _addBackButton.call(this);
     _addSwitch.call(this);
+    _addPlaylistSwitch.call(this);
     _addBothPickColors.call(this);
     _addDashboardsIDSelect.call(this);
     _onFocusOut.call(this);
@@ -91,6 +92,29 @@ function _addSwitch() {
     let self = this;
     this.btnFormDOM.find("input[name='btn-switch']").on("switchChange.bootstrapSwitch", function(event, state) {
         self.buttonMO.visible = state;
+    });
+
+}
+
+
+function _addPlaylistSwitch() {
+
+    this.btnFormDOM.find("input[name='btn-playlist-switch']").prop( "checked", this.buttonMO.autoplay.enabled );
+    this.btnFormDOM.find("input[name='btn-playlist-switch']").bootstrapSwitch();
+
+    if (this.buttonMO.autoplay.enabled === 0) {
+        $('.playlist-properties').hide();
+    }
+
+    let self = this;
+    this.btnFormDOM.find("input[name='btn-playlist-switch']").on("switchChange.bootstrapSwitch", function(event, state) {
+        self.buttonMO.autoplay.enabled = state;
+
+        if (state == false) {
+            $('.playlist-properties').hide();
+        }else{
+            $('.playlist-properties').show();
+        }
     });
 
 }
@@ -152,6 +176,7 @@ ButtonFormItem_Ctrl.prototype.validate =  function() {
     _validateCopySize.call(this);
     _validateCopyWeight.call(this);
     _validateCopy.call(this);
+    _validatePlaylist.call(this);
 
     DisplayGlobals_SRV.getPreviewRef().updateChanges();
 
@@ -226,6 +251,38 @@ function _validateCopy() {
     }else{
         this.error = true;
         this.btnFormDOM.find('input[name=copy]').closest('.form-group').addClass('has-error');
+    }
+
+}
+
+
+
+function _validatePlaylist() {
+
+    if (this.buttonMO.autoplay.enabled) {
+
+        //Position
+        let playlistPos = Number($.trim(this.btnFormDOM.find('input[name=playlist-pos]').val()));
+        if ( playlistPos >=0 && playlistPos <= 200  )  {
+            this.btnFormDOM.find('input[name=playlist-pos]').closest('.form-group').removeClass('has-error');
+            this.buttonMO.autoplay.playpos = Number(playlistPos);
+            this.btnFormDOM.find('input[name=playlist-pos]').val(this.buttonMO.autoplay.playpos);
+        }else{
+            this.error = true;
+            this.btnFormDOM.find('input[name=playlist-pos]').closest('.form-group').addClass('has-error');
+        }
+
+        //Minutes
+        let playlistMinutes = Number($.trim(this.btnFormDOM.find('input[name=playlist-mins]').val()));
+        if ( playlistMinutes >=0 && playlistMinutes <= 60  )  {
+            this.btnFormDOM.find('input[name=playlist-mins]').closest('.form-group').removeClass('has-error');
+            this.buttonMO.autoplay.minutes = Number(playlistMinutes);
+            this.btnFormDOM.find('input[name=playlist-mins]').val(this.buttonMO.autoplay.minutes);
+        }else{
+            this.error = true;
+            this.btnFormDOM.find('input[name=playlist-mins]').closest('.form-group').addClass('has-error');
+        }
+
     }
 
 }
