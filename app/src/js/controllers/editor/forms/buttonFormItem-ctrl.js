@@ -99,6 +99,14 @@ function _addSwitch() {
 
 function _addPlaylistSwitch() {
 
+    if(!this.buttonMO.hasOwnProperty('autoplay')){
+        this.buttonMO['autoplay'] = {
+            "enabled" : 0,
+            "playpos" : 1,
+            "minutes" : 2
+        };
+    }
+
     this.btnFormDOM.find("input[name='btn-playlist-switch']").prop( "checked", this.buttonMO.autoplay.enabled );
     this.btnFormDOM.find("input[name='btn-playlist-switch']").bootstrapSwitch();
 
