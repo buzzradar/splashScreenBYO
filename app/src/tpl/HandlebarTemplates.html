@@ -45,22 +45,26 @@
 
 
         <div class="form-group">
-            <label class="col-xs-3 control-label">Name</label>
+            <label class="col-xs-4 control-label">Name</label>
             <div class="col-xs-8">
                 <input type="text" name="launcherName" class="form-control" placeholder="Enter the name of the Launcher" value="{{name}}">
             </div>
         </div>
 
         <div class="form-group control-group"> 
-            <label class="col-xs-3 control-label" for="bg_file">Image</label> 
+            <label class="col-xs-4 control-label" for="bg_file">Image</label> 
             <div class="col-xs-8 controls sonata-ba-field sonata-ba-field-standard-natural "> 
-
                 <form>
                     <div id="queue1"></div>
                     <input id="cf_backgroundImageUpload" name="cf_backgroundImageUpload" type="file" multiple="false">
                 </form>
+            </div>
+        </div>
 
-                
+        <div class="form-group">
+            <label class="col-xs-4 control-label">Playlist Enabled</label>
+            <div class="col-xs-2">
+                <input type="checkbox" name="playlist-enabled-switch" class="make-switch" data-size="small" checked data-on-color="success" >
             </div>
         </div>
 
@@ -484,9 +488,9 @@
             </div>
 
             <div class="form-group">
-                <label class="col-xs-4 control-label">Playlist Minutes</label>
+                <label class="col-xs-4 control-label">Playlist Seconds</label>
                 <div class="col-xs-8">
-                    <input type="text" name="playlist-mins" class="form-control inlinesmall" placeholder="5" value="{{autoplay.minutes}}">
+                    <input type="text" name="playlist-mins" class="form-control inlinesmall" placeholder="5" value="{{autoplay.seconds}}">
                 </div>
             </div>
         </div>

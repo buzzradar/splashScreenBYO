@@ -99,13 +99,7 @@ function _addSwitch() {
 
 function _addPlaylistSwitch() {
 
-    if(!this.buttonMO.hasOwnProperty('autoplay')){
-        this.buttonMO['autoplay'] = {
-            "enabled" : 0,
-            "playpos" : 1,
-            "minutes" : 2
-        };
-    }
+
 
     this.btnFormDOM.find("input[name='btn-playlist-switch']").prop( "checked", this.buttonMO.autoplay.enabled );
     this.btnFormDOM.find("input[name='btn-playlist-switch']").bootstrapSwitch();
@@ -117,6 +111,8 @@ function _addPlaylistSwitch() {
     let self = this;
     this.btnFormDOM.find("input[name='btn-playlist-switch']").on("switchChange.bootstrapSwitch", function(event, state) {
         self.buttonMO.autoplay.enabled = state;
+
+        self.validate();
 
         if (state == false) {
             $('.playlist-properties').hide();
@@ -280,12 +276,12 @@ function _validatePlaylist() {
             this.btnFormDOM.find('input[name=playlist-pos]').closest('.form-group').addClass('has-error');
         }
 
-        //Minutes
-        let playlistMinutes = Number($.trim(this.btnFormDOM.find('input[name=playlist-mins]').val()));
-        if ( playlistMinutes >=0 && playlistMinutes <= 60  )  {
+        //Seconds
+        let playlistSeconds = Number($.trim(this.btnFormDOM.find('input[name=playlist-mins]').val()));
+        if ( playlistSeconds >=0 && playlistSeconds <= 60  )  {
             this.btnFormDOM.find('input[name=playlist-mins]').closest('.form-group').removeClass('has-error');
-            this.buttonMO.autoplay.minutes = Number(playlistMinutes);
-            this.btnFormDOM.find('input[name=playlist-mins]').val(this.buttonMO.autoplay.minutes);
+            this.buttonMO.autoplay.seconds = Number(playlistSeconds);
+            this.btnFormDOM.find('input[name=playlist-mins]').val(this.buttonMO.autoplay.seconds);
         }else{
             this.error = true;
             this.btnFormDOM.find('input[name=playlist-mins]').closest('.form-group').addClass('has-error');

@@ -54,6 +54,15 @@ function _loadButtons() {
 
     item.deleted = Utils_SRV.getJsonVal(false, item.deleted, "BOOLEAN");
 
+    //If buttons do not have autoplay I add it, just in 
+    if(!item.hasOwnProperty('autoplay')){
+        item['autoplay'] = {
+            "enabled" : 1,
+            "playpos" : 1,
+            "seconds" : 10
+        };
+    }
+
     if (item.deleted === false && item.copy) {
 
         let buttonGroup = this.allButtonsGroup.append("g").attr('index', key);

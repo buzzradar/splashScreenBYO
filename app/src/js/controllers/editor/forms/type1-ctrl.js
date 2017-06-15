@@ -24,6 +24,7 @@ function FormType1_Ctrl () {
 
 	this.parentDOM = $('#splScrEditorForm');
 	this.backImage = null;
+	this.autoplay = null;
 
     // console.log ("%c -> Form Type 1 Constructor. DONE! ", "background:#ff0000;");
 
@@ -54,6 +55,29 @@ function _getMasterConfigValues() {
 
 
 
+function _addPlaylistSwitch() {
+
+
+	var masterConfig = DisplayGlobals_SRV.getMasterConfig().AppSplash;
+    this.autoplay = DisplayGlobals_SRV.getMasterConfig().AppSplash;
+
+    if(!masterConfig.hasOwnProperty('autoplay')){
+        masterConfig['autoplay'] = false;
+    }
+
+    this.settingsDom.find("input[name='playlist-enabled-switch']").prop( "checked", masterConfig.autoplay );
+    this.settingsDom.find("input[name='playlist-enabled-switch']").bootstrapSwitch();
+
+    let self = this;
+    this.settingsDom.find("input[name='playlist-enabled-switch']").on("switchChange.bootstrapSwitch", function(event, state) {
+        masterConfig.autoplay = state;
+     	DisplayGlobals_SRV.getPreviewRef().updateChanges();
+    });
+
+}
+
+
+
 
 FormType1_Ctrl.prototype.load = function () {
 
@@ -63,6 +87,7 @@ FormType1_Ctrl.prototype.load = function () {
 	// _addSwitchButton.call(this);
 	_onFocusOut.call(this);
 	_setupUploadify.call(this);
+	_addPlaylistSwitch.call(this);
 
 };
 
