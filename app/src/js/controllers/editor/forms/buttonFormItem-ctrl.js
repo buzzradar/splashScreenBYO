@@ -99,8 +99,6 @@ function _addSwitch() {
 
 function _addPlaylistSwitch() {
 
-
-
     this.btnFormDOM.find("input[name='btn-playlist-switch']").prop( "checked", this.buttonMO.autoplay.enabled );
     this.btnFormDOM.find("input[name='btn-playlist-switch']").bootstrapSwitch();
 
@@ -110,8 +108,7 @@ function _addPlaylistSwitch() {
 
     let self = this;
     this.btnFormDOM.find("input[name='btn-playlist-switch']").on("switchChange.bootstrapSwitch", function(event, state) {
-        self.buttonMO.autoplay.enabled = state;
-
+        self.buttonMO.autoplay.enabled = Number(state);
         self.validate();
 
         if (state == false) {
