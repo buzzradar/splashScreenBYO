@@ -1071,15 +1071,18 @@ function _addPlaylistSwitch() {
 	this.autoplay = DisplayGlobals_SRV.getMasterConfig().AppSplash;
 
 	if (!masterConfig.hasOwnProperty('autoplay')) {
-		masterConfig['autoplay'] = false;
+		masterConfig['autoplay'] = 0;
 	}
+	masterConfig.autoplay = Number(masterConfig.autoplay);
 
-	this.settingsDom.find("input[name='playlist-enabled-switch']").prop("checked", masterConfig.autoplay);
+	console.log("masterConfig.autoplay (before setting the switch) => ", masterConfig.autoplay, Boolean(masterConfig.autoplay));
+
+	this.settingsDom.find("input[name='playlist-enabled-switch']").prop("checked", Boolean(masterConfig.autoplay));
 	this.settingsDom.find("input[name='playlist-enabled-switch']").bootstrapSwitch();
 
 	var self = this;
 	this.settingsDom.find("input[name='playlist-enabled-switch']").on("switchChange.bootstrapSwitch", function (event, state) {
-		masterConfig.autoplay = state;
+		masterConfig.autoplay = Number(state);
 		DisplayGlobals_SRV.getPreviewRef().updateChanges();
 	});
 }
@@ -2541,7 +2544,7 @@ function DisplayGlobals() {
 // version
 //--------------------------------------
 
-var _version = "0.80";
+var _version = "0.84";
 
 DisplayGlobals.prototype.getVersion = function () {
 
