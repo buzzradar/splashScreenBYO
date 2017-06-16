@@ -91,7 +91,7 @@ function _addSwitch() {
 
     let self = this;
     this.btnFormDOM.find("input[name='btn-switch']").on("switchChange.bootstrapSwitch", function(event, state) {
-        self.buttonMO.visible = state;
+        self.buttonMO.visible = Number(state);
     });
 
 }

@@ -508,7 +508,7 @@ function _addSwitch() {
 
     var self = this;
     this.btnFormDOM.find("input[name='btn-switch']").on("switchChange.bootstrapSwitch", function (event, state) {
-        self.buttonMO.visible = state;
+        self.buttonMO.visible = Number(state);
     });
 }
 
@@ -968,7 +968,7 @@ function _addSwitch() {
 
     var self = this;
     this.dividerDOM.find("input[name='divider-switch']").on("switchChange.bootstrapSwitch", function (event, state) {
-        self.dividerMO.visible = state;
+        self.dividerMO.visible = Number(state);
     });
 }
 
@@ -2544,7 +2544,7 @@ function DisplayGlobals() {
 // version
 //--------------------------------------
 
-var _version = "0.84";
+var _version = "0.85";
 
 DisplayGlobals.prototype.getVersion = function () {
 
