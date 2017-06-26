@@ -2457,8 +2457,23 @@ function _init() {
 		DisplayGlobals_SRV.setEditorRef(new Editor_CTRL(this.d3SVG_Ctrl));
 	}
 
+	_checkIfPlaylistAvailable.call(this);
 	_onPreviewReady.call(this);
 };
+
+function _checkIfPlaylistAvailable() {
+
+	if (this.masterConfJSON.hasOwnProperty('autoplay')) {
+		if (Number(this.masterConfJSON.autoplay) != 1) _hideButtonLaunchPlaylist.call(this);
+	} else {
+		_hideButtonLaunchPlaylist.call(this);
+	}
+}
+
+function _hideButtonLaunchPlaylist() {
+	console.log("Hiding the button (LAUNCH AS PLAYLIST)...");
+	this.targetDOM.find('.launch-playlist').remove();
+}
 
 function _onPreviewReady() {
 
@@ -2544,7 +2559,7 @@ function DisplayGlobals() {
 // version
 //--------------------------------------
 
-var _version = "0.85";
+var _version = "0.86";
 
 DisplayGlobals.prototype.getVersion = function () {
 
