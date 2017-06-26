@@ -81,17 +81,15 @@ function _init() {
 function _checkIfPlaylistAvailable() {
 
 	if (this.masterConfJSON.hasOwnProperty('autoplay')) {
-        if ( Number(this.masterConfJSON.autoplay) != 1 ) _hideButtonLaunchPlaylist.call(this);
-    }else{
-    	_hideButtonLaunchPlaylist.call(this);
+        if ( Number(this.masterConfJSON.autoplay) == 1 ) _showButtonLaunchPlaylist.call(this);
     }
 
 }
 
 
-function _hideButtonLaunchPlaylist () {
-	console.log("Hiding the button (LAUNCH AS PLAYLIST)...");
-	this.targetDOM.find('.launch-playlist').remove();
+function _showButtonLaunchPlaylist () {
+	console.log("Showing the button (LAUNCH AS PLAYLIST)...");
+	this.targetDOM.find('.launch-playlist').show();
 }
 
 
