@@ -661,7 +661,7 @@ function _validatePlaylist() {
 
         //Seconds
         var playlistSeconds = Number($.trim(this.btnFormDOM.find('input[name=playlist-mins]').val()));
-        if (playlistSeconds >= 0 && playlistSeconds <= 60) {
+        if (playlistSeconds >= 0 && playlistSeconds <= 600) {
             this.btnFormDOM.find('input[name=playlist-mins]').closest('.form-group').removeClass('has-error');
             this.buttonMO.autoplay.seconds = Number(playlistSeconds);
             this.btnFormDOM.find('input[name=playlist-mins]').val(this.buttonMO.autoplay.seconds);
@@ -2463,8 +2463,8 @@ function _init() {
 
 function _checkIfPlaylistAvailable() {
 
-	if (this.masterConfJSON.hasOwnProperty('autoplay')) {
-		if (Number(this.masterConfJSON.autoplay) == 1) _showButtonLaunchPlaylist.call(this);
+	if (this.masterConfJSON.AppSplash.hasOwnProperty('autoplay')) {
+		if (Number(this.masterConfJSON.AppSplash.autoplay) == 1) _showButtonLaunchPlaylist.call(this);
 	}
 }
 
@@ -2557,7 +2557,7 @@ function DisplayGlobals() {
 // version
 //--------------------------------------
 
-var _version = "0.87";
+var _version = "0.88";
 
 DisplayGlobals.prototype.getVersion = function () {
 

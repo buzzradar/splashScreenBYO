@@ -80,8 +80,8 @@ function _init() {
 
 function _checkIfPlaylistAvailable() {
 
-	if (this.masterConfJSON.hasOwnProperty('autoplay')) {
-        if ( Number(this.masterConfJSON.autoplay) == 1 ) _showButtonLaunchPlaylist.call(this);
+	if (this.masterConfJSON.AppSplash.hasOwnProperty('autoplay')) {
+        if ( Number(this.masterConfJSON.AppSplash.autoplay) == 1 ) _showButtonLaunchPlaylist.call(this);
     }
 
 }
