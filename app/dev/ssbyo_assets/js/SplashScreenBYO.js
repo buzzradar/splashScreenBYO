@@ -661,7 +661,7 @@ function _validatePlaylist() {
 
         //Seconds
         var playlistSeconds = Number($.trim(this.btnFormDOM.find('input[name=playlist-mins]').val()));
-        if (playlistSeconds >= 0 && playlistSeconds <= 600) {
+        if (playlistSeconds >= 0 && playlistSeconds <= 1200) {
             this.btnFormDOM.find('input[name=playlist-mins]').closest('.form-group').removeClass('has-error');
             this.buttonMO.autoplay.seconds = Number(playlistSeconds);
             this.btnFormDOM.find('input[name=playlist-mins]').val(this.buttonMO.autoplay.seconds);
@@ -2557,7 +2557,7 @@ function DisplayGlobals() {
 // version
 //--------------------------------------
 
-var _version = "0.88";
+var _version = "0.89";
 
 DisplayGlobals.prototype.getVersion = function () {
 
