@@ -78,9 +78,6 @@ function _loadDividers() {
 
 Dividers_CTRL.prototype.update = function() {
 
-  console.clear();
-  console.log("updating the divider.....", this.linesArrayMO);
-
   this.allDividersGroup.selectAll("*").remove();
   _loadDividers.call(this);
 

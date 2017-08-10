@@ -970,6 +970,11 @@ function _addSwitch() {
     this.dividerDOM.find("input[name='divider-switch']").on("switchChange.bootstrapSwitch", function (event, state) {
         self.dividerMO.visible = Number(state);
         self.validate();
+        if (!state) {
+            self.dividerDOM.find('.divider-settings').hide();
+        } else {
+            self.dividerDOM.find('.divider-settings').show();
+        }
     });
 }
 
@@ -2287,9 +2292,6 @@ function _loadDividers() {
 }
 
 Dividers_CTRL.prototype.update = function () {
-
-  console.clear();
-  console.log("updating the divider.....", this.linesArrayMO);
 
   this.allDividersGroup.selectAll("*").remove();
   _loadDividers.call(this);
