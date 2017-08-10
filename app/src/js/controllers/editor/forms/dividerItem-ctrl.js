@@ -65,6 +65,7 @@ function _addSwitch() {
     let self = this;
     this.dividerDOM.find("input[name='divider-switch']").on("switchChange.bootstrapSwitch", function(event, state) {
         self.dividerMO.visible = Number(state);
+        self.validate();
     });
 
 }
@@ -73,7 +74,6 @@ function _addSwitch() {
 function _onFocusOut() {
 
     this.dividerDOM.find('input').focusout(function() {
-        console.log("on focus out")
         this.validate();
     }.bind(this));
 

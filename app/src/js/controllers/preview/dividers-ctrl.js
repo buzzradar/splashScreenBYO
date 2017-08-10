@@ -50,7 +50,7 @@ function _loadDividers() {
     item.deleted = Utils_SRV.getJsonVal(false, item.deleted, "BOOLEAN");
 
 
-    if (!item.deleted) {
+    if (!item.deleted && item.visible) {
 
       // this.allDividersGroup.append("line")
       //   .attr("x1", Utils_SRV.getJsonVal(0,item.x,"NUMBER") )
@@ -77,6 +77,9 @@ function _loadDividers() {
 
 
 Dividers_CTRL.prototype.update = function() {
+
+  console.clear();
+  console.log("updating the divider.....", this.linesArrayMO);
 
   this.allDividersGroup.selectAll("*").remove();
   _loadDividers.call(this);
