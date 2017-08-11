@@ -200,6 +200,12 @@ D3Handler_CTRL.prototype.drawLegendOnTop = function (buttonsArrayMO) {
 
 
 D3Handler_CTRL.prototype.selectLegendItem = function (id) {
+   
+  if (id > 1) {
+    this.hidePreloaderPlaylist();
+  }else{
+    this.showPreloaderPlaylist();
+  }
 
   var legendBtn = this.legendCirclesArray[id-1];
 
@@ -304,7 +310,7 @@ D3Handler_CTRL.prototype.hidePreloaderPlaylist = function () {
 
 D3Handler_CTRL.prototype.showPreloaderPlaylist = function () {
 
-  this.preloader.update();
+  if (typeof this.preloader !== 'undefined') this.preloader.update();
 
 }
 
