@@ -18,7 +18,7 @@ function _initApp() {
 	DisplayGlobals_SRV.setAppNodeRef(new SplashScreenBYOApp_NODE());
 }
 
-},{"./js/SplashScreenBYOAppNode-ctrl":2,"./js/services/A01_DisplayGlobals-srv":20}],2:[function(require,module,exports){
+},{"./js/SplashScreenBYOAppNode-ctrl":2,"./js/services/A01_DisplayGlobals-srv":21}],2:[function(require,module,exports){
 /*jslint node: true, unused: true, esnext: true */
 
 //----------------------------
@@ -166,7 +166,7 @@ function _loadPreviews() {
 
 module.exports = SplashScreenBYOApp_NODE;
 
-},{"./controllers/preview/preview-ctrl":19,"./services/A01_DisplayGlobals-srv":20,"./services/APICalls-srv":21,"./services/JSONHandler-srv":24,"./services/rollbar.umd.nojson.min":26}],3:[function(require,module,exports){
+},{"./controllers/preview/preview-ctrl":20,"./services/A01_DisplayGlobals-srv":21,"./services/APICalls-srv":22,"./services/JSONHandler-srv":25,"./services/rollbar.umd.nojson.min":27}],3:[function(require,module,exports){
 /*jslint node: true, unused: true, esnext: true */
 
 'use strict';
@@ -331,7 +331,7 @@ Editor_Ctrl.prototype.updateButtonPosition = function (x, y, index) {
 
 module.exports = Editor_Ctrl;
 
-},{"../../controllers/editor/formBoss-ctrl":4,"../../controllers/editor/legend-ctrl":14,"../../services/A01_DisplayGlobals-srv":20,"../../services/APICalls-srv":21,"../../services/HBTemplates-srv":23,"../../services/Utils-srv":25,"lodash":72}],4:[function(require,module,exports){
+},{"../../controllers/editor/formBoss-ctrl":4,"../../controllers/editor/legend-ctrl":14,"../../services/A01_DisplayGlobals-srv":21,"../../services/APICalls-srv":22,"../../services/HBTemplates-srv":24,"../../services/Utils-srv":26,"lodash":73}],4:[function(require,module,exports){
 /*jslint node: true, unused: true, esnext: true */
 
 //----------------------------
@@ -441,7 +441,7 @@ FormBoss_Ctrl.prototype.reset = function () {
 
 module.exports = FormBoss_Ctrl;
 
-},{"../../services/A01_DisplayGlobals-srv":20,"../../services/HBTemplates-srv":23,"./forms/type1-ctrl":9,"./forms/type2-ctrl":10,"./forms/type3-ctrl":11,"./forms/type4-ctrl":12,"./forms/type5-ctrl":13}],5:[function(require,module,exports){
+},{"../../services/A01_DisplayGlobals-srv":21,"../../services/HBTemplates-srv":24,"./forms/type1-ctrl":9,"./forms/type2-ctrl":10,"./forms/type3-ctrl":11,"./forms/type4-ctrl":12,"./forms/type5-ctrl":13}],5:[function(require,module,exports){
 /*jslint node: true, unused: true, esnext: true */
 
 //----------------------------
@@ -721,7 +721,7 @@ function _addBothPickColors() {
 
 module.exports = ButtonFormItem_Ctrl;
 
-},{"../../../services/A01_DisplayGlobals-srv":20,"../../../services/APICalls-srv":21,"../../../services/HBTemplates-srv":23,"../../../services/Utils-srv":25}],6:[function(require,module,exports){
+},{"../../../services/A01_DisplayGlobals-srv":21,"../../../services/APICalls-srv":22,"../../../services/HBTemplates-srv":24,"../../../services/Utils-srv":26}],6:[function(require,module,exports){
 /*jslint node: true, unused: true, esnext: true */
 
 //----------------------------
@@ -780,7 +780,7 @@ ButtonItem_Ctrl.prototype.getIndexID = function () {
 
 module.exports = ButtonItem_Ctrl;
 
-},{"../../../services/A01_DisplayGlobals-srv":20,"../../../services/HBTemplates-srv":23}],7:[function(require,module,exports){
+},{"../../../services/A01_DisplayGlobals-srv":21,"../../../services/HBTemplates-srv":24}],7:[function(require,module,exports){
 /*jslint node: true, unused: true, esnext: true */
 
 //----------------------------
@@ -920,7 +920,7 @@ CopyItem_Ctrl.prototype.getIndexID = function () {
 
 module.exports = CopyItem_Ctrl;
 
-},{"../../../services/A01_DisplayGlobals-srv":20,"../../../services/HBTemplates-srv":23,"../../../services/Utils-srv":25}],8:[function(require,module,exports){
+},{"../../../services/A01_DisplayGlobals-srv":21,"../../../services/HBTemplates-srv":24,"../../../services/Utils-srv":26}],8:[function(require,module,exports){
 /*jslint node: true, unused: true, esnext: true */
 
 //----------------------------
@@ -1033,7 +1033,7 @@ function _addPickColors() {
 
 module.exports = DividerItem_Ctrl;
 
-},{"../../../services/A01_DisplayGlobals-srv":20,"../../../services/HBTemplates-srv":23,"../../../services/Utils-srv":25}],9:[function(require,module,exports){
+},{"../../../services/A01_DisplayGlobals-srv":21,"../../../services/HBTemplates-srv":24,"../../../services/Utils-srv":26}],9:[function(require,module,exports){
 /*jslint node: true, unused: true, esnext: true */
 
 //----------------------------
@@ -1044,6 +1044,7 @@ module.exports = DividerItem_Ctrl;
 
 var DisplayGlobals_SRV = require('../../../services/A01_DisplayGlobals-srv');
 var HBTemplates = require('../../../services/HBTemplates-srv');
+var Utils_SRV = require('../../../services/Utils-srv');
 
 // ------------------------------------
 // Constructor
@@ -1051,127 +1052,226 @@ var HBTemplates = require('../../../services/HBTemplates-srv');
 
 function FormType1_Ctrl() {
 
-	this.parentDOM = $('#splScrEditorForm');
-	this.backImage = null;
-	this.autoplay = null;
+  this.parentDOM = $('#splScrEditorForm');
+  this.backImage = null;
+  this.preloaderViewFlag = true;
 
-	// console.log ("%c -> Form Type 1 Constructor. DONE! ", "background:#ff0000;");
-
-	_init.call(this);
+  _init.call(this);
 }
 
 function _init() {
 
-	_getMasterConfigValues.call(this);
+  _getMasterConfigValues.call(this);
 }
 
 function _getMasterConfigValues() {
 
-	this.backImage = DisplayGlobals_SRV.getMasterConfig().AppSplash.backImage;
+  this.backImage = DisplayGlobals_SRV.getMasterConfig().AppSplash.backImage;
 }
 
 function _addPlaylistSwitch() {
 
-	var masterConfig = DisplayGlobals_SRV.getMasterConfig().AppSplash;
-	this.autoplay = DisplayGlobals_SRV.getMasterConfig().AppSplash;
+  _addPreloaderViewCheckbox.call(this);
 
-	if (!masterConfig.hasOwnProperty('autoplay')) {
-		masterConfig['autoplay'] = 0;
-	}
-	masterConfig.autoplay = Number(masterConfig.autoplay);
+  var masterConfig = DisplayGlobals_SRV.getMasterConfig().AppSplash;
+  if (!masterConfig.hasOwnProperty('autoplay')) {
+    masterConfig['autoplay'] = 0;
+  }
+  masterConfig.autoplay = Number(masterConfig.autoplay);
 
-	console.log("masterConfig.autoplay (before setting the switch) => ", masterConfig.autoplay, Boolean(masterConfig.autoplay));
+  this.settingsDom.find("input[name='playlist-enabled-switch']").prop("checked", Boolean(masterConfig.autoplay));
+  this.settingsDom.find("input[name='playlist-enabled-switch']").bootstrapSwitch();
 
-	this.settingsDom.find("input[name='playlist-enabled-switch']").prop("checked", Boolean(masterConfig.autoplay));
-	this.settingsDom.find("input[name='playlist-enabled-switch']").bootstrapSwitch();
+  if (!masterConfig.autoplay) {
+    this.parentDOM.find('.launch-playlist-settings').hide();
+  } else {
+    this.parentDOM.find('.launch-playlist-settings').show();
+  }
 
-	var self = this;
-	this.settingsDom.find("input[name='playlist-enabled-switch']").on("switchChange.bootstrapSwitch", function (event, state) {
-		masterConfig.autoplay = Number(state);
-		DisplayGlobals_SRV.getPreviewRef().updateChanges();
-	});
+  var self = this;
+  this.settingsDom.find("input[name='playlist-enabled-switch']").on("switchChange.bootstrapSwitch", function (event, state) {
+    masterConfig.autoplay = Number(state);
+    DisplayGlobals_SRV.getPreviewRef().updateChanges();
+
+    _showLaunchAsPlaylistSettings.call(self, state);
+  });
+}
+
+function _addPreloaderViewCheckbox() {
+
+  var self = this;
+  this.settingsDom.find("input.icheck").iCheck({ checkboxClass: 'icheckbox_minimal-grey' });
+  if (DisplayGlobals_SRV.getPreloaderFlag()) this.settingsDom.find("input.icheck").iCheck('check');
+  this.settingsDom.find("input.icheck").on('ifChecked', function (event) {
+    DisplayGlobals_SRV.setPreloaderFlag(true);
+    DisplayGlobals_SRV.getPreviewRef().showPreloaderPlaylist();
+  }).on('ifUnchecked', function (event) {
+    DisplayGlobals_SRV.setPreloaderFlag(false);
+    DisplayGlobals_SRV.getPreviewRef().hidePreloaderPlaylist();
+  });
+}
+
+function _showLaunchAsPlaylistSettings(show) {
+
+  if (!show) {
+    this.parentDOM.find('.launch-playlist-settings').hide();
+    DisplayGlobals_SRV.getPreviewRef().hidePreloaderPlaylist();
+  } else {
+    this.parentDOM.find('.launch-playlist-settings').show();
+    DisplayGlobals_SRV.getPreviewRef().showPreloaderPlaylist();
+  }
 }
 
 FormType1_Ctrl.prototype.load = function () {
 
-	this.settingsDom = HBTemplates.getTemplate('formType1', { name: DisplayGlobals_SRV.getMasterConfig().AppSplash.name, visible: _getVisible.call(this) });
-	this.parentDOM.find('.form-body').html(this.settingsDom);
+  var objToTemplate = {
+    name: DisplayGlobals_SRV.getMasterConfig().AppSplash.name,
+    visible: _getVisible.call(this),
+    scale: DisplayGlobals_SRV.getMasterConfig().AppSplash.autoplaySettings.loader.scale,
+    yoffset: DisplayGlobals_SRV.getMasterConfig().AppSplash.autoplaySettings.loader.yOffset,
+    bgcolour: DisplayGlobals_SRV.getMasterConfig().AppSplash.autoplaySettings.loader.background.colour,
+    bgopacity: DisplayGlobals_SRV.getMasterConfig().AppSplash.autoplaySettings.loader.background.transparent,
+    fgcolour: DisplayGlobals_SRV.getMasterConfig().AppSplash.autoplaySettings.loader.foreground.colour,
+    fgopacity: DisplayGlobals_SRV.getMasterConfig().AppSplash.autoplaySettings.loader.foreground.transparent
+  };
 
-	// _addSwitchButton.call(this);
-	_onFocusOut.call(this);
-	_setupUploadify.call(this);
-	_addPlaylistSwitch.call(this);
+  this.settingsDom = HBTemplates.getTemplate('formType1', objToTemplate);
+  this.parentDOM.find('.form-body').html(this.settingsDom);
+
+  // _addSwitchButton.call(this);
+  _onFocusOut.call(this, objToTemplate);
+  _setupUploadify.call(this);
+  _addPlaylistSwitch.call(this);
+  _addPickColors.call(this);
 };
 
 function _getVisible() {
 
-	var vis = DisplayGlobals_SRV.getMasterConfig().AppSplash.enabled === 1 ? 'checked' : '';
-	return vis;
+  var vis = DisplayGlobals_SRV.getMasterConfig().AppSplash.enabled === 1 ? 'checked' : '';
+  return vis;
 }
 
-function _onFocusOut() {
+function _onFocusOut(objToTemplate) {
 
-	this.settingsDom.find('input').focusout((function () {
-		DisplayGlobals_SRV.getMasterConfig().AppSplash.name = $('input[name=launcherName]').val();
-		DisplayGlobals_SRV.getPreviewRef().updateChanges();
-	}).bind(this));
+  var self = this;
+  this.settingsDom.find('input').focusout(function (event) {
+
+    console.log("On focus out ->", $(this).val(), $(this).attr('name'));
+
+    var inputName = $(this).attr('name');
+    var inputVal = $(this).val();
+    var masterConfig = DisplayGlobals_SRV.getMasterConfig();
+    var error = undefined;
+
+    switch (inputName) {
+      case 'launcherName':
+        masterConfig.AppSplash.name = inputVal;
+        break;
+      case 'scale':
+        error = Utils_SRV.validateScale(self.settingsDom, objToTemplate, "scale");
+        if (!error) masterConfig.AppSplash.autoplaySettings.loader.scale = inputVal;
+        break;
+      case 'yoffset':
+        masterConfig.AppSplash.autoplaySettings.loader.yOffset = inputVal;
+        break;
+      case 'bgopacity':
+        error = Utils_SRV.validateTransparency(self.settingsDom, objToTemplate, "bgopacity");
+        if (!error) masterConfig.AppSplash.autoplaySettings.loader.background.transparent = inputVal;
+        break;
+    }
+
+    DisplayGlobals_SRV.getPreviewRef().updateChanges();
+  });
 }
 
-function _setupUploadify() {
+function _addPickColors() {
 
-	$('#cf_backgroundImageUpload').uploadifive(_getUploadifySettings("BG_" + Date.now(), 3000, 'UPLOAD BG IMAGE'));
+  var self = this;
+  var masterConfig = DisplayGlobals_SRV.getMasterConfig();
+  $('input.color-picker').each(function () {
+
+    $(this).minicolors({
+      control: $(this).attr('data-control') || 'hue',
+      defaultValue: $(this).attr('data-defaultValue') || '',
+      inline: $(this).attr('data-inline') === 'true',
+      letterCase: $(this).attr('data-letterCase') || 'lowercase',
+      opacity: $(this).attr('data-opacity'),
+      position: $(this).attr('data-position') || 'bottom left',
+      change: function change(hex, opacity) {
+        if (!hex) return;
+        if (opacity) hex += ', ' + opacity;
+        if (typeof console === 'object') {
+          var inputName = $(this).attr('name');
+
+          //Background color
+          if (inputName === "bgcolor") {
+            masterConfig.AppSplash.autoplaySettings.loader.background.colour = hex.substring(1, 7);
+          } else {
+            masterConfig.AppSplash.autoplaySettings.loader.foreground.colour = hex.substring(1, 7);
+          }
+          DisplayGlobals_SRV.getPreviewRef().updateChanges();
+        }
+      },
+      theme: 'bootstrap'
+    });
+  });
 }
 
 function _addSwitchButton() {
 
-	$("[name='bg-switch']").bootstrapSwitch();
+  $("[name='bg-switch']").bootstrapSwitch();
 
-	$('input[name="bg-switch"]').on('switchChange.bootstrapSwitch', function (event, state) {
-		// console.log(this); // DOM element
-		// console.log(event); // jQuery event
-		// console.log(state); // true | false
-		DisplayGlobals_SRV.getMasterConfig().AppSplash.enabled = Number(state);
-		DisplayGlobals_SRV.getPreviewRef().updateChanges();
-	});
+  $('input[name="bg-switch"]').on('switchChange.bootstrapSwitch', function (event, state) {
+    // console.log(this); // DOM element
+    // console.log(event); // jQuery event
+    // console.log(state); // true | false
+    DisplayGlobals_SRV.getMasterConfig().AppSplash.enabled = Number(state);
+    DisplayGlobals_SRV.getPreviewRef().updateChanges();
+  });
+}
+
+function _setupUploadify() {
+
+  $('#cf_backgroundImageUpload').uploadifive(_getUploadifySettings("BG_" + Date.now(), 3000, 'UPLOAD BG IMAGE'));
 }
 
 function _getUploadifySettings(imageID, fileSizeLimit, buttonText) {
 
-	return {
-		'auto': true,
-		'multi': false,
-		'height': 30,
-		'width': 120,
-		'buttonClass': 'upload-btn-class',
-		'removeCompleted': true, // removes the upload progress view once done
-		'uploadLimit': 0,
-		'queueSizeLimit': 0,
-		'fileSizeLimit': 3000,
-		'buttonText': buttonText,
-		'checkScript': DisplayGlobals_SRV.getArguments().phppath + 'check-exists.php',
-		'queueID': 'queue1',
-		'uploadScript': DisplayGlobals_SRV.getArguments().phppath + 'uploadifive-image-only.php',
-		'formData': { 'imageType': imageID },
-		'onUploadComplete': function onUploadComplete(file, data) {
-			console.log("onUploadComplete Background Success!!!!!!! After this load the image...", data);
-			DisplayGlobals_SRV.getMasterConfig().AppSplash.backImage.url = DisplayGlobals_SRV.getArguments().uploadspath + data;
-			DisplayGlobals_SRV.getPreviewRef().updateBgImage();
+  return {
+    'auto': true,
+    'multi': false,
+    'height': 30,
+    'width': 120,
+    'buttonClass': 'upload-btn-class',
+    'removeCompleted': true, // removes the upload progress view once done
+    'uploadLimit': 0,
+    'queueSizeLimit': 0,
+    'fileSizeLimit': 3000,
+    'buttonText': buttonText,
+    'checkScript': DisplayGlobals_SRV.getArguments().phppath + 'check-exists.php',
+    'queueID': 'queue1',
+    'uploadScript': DisplayGlobals_SRV.getArguments().phppath + 'uploadifive-image-only.php',
+    'formData': { 'imageType': imageID },
+    'onUploadComplete': function onUploadComplete(file, data) {
+      console.log("onUploadComplete Background Success!!!!!!! After this load the image...", data);
+      DisplayGlobals_SRV.getMasterConfig().AppSplash.backImage.url = DisplayGlobals_SRV.getArguments().uploadspath + data;
+      DisplayGlobals_SRV.getPreviewRef().updateBgImage();
 
-			DisplayGlobals_SRV.getPreviewRef().updateChanges();
-		}
-	};
+      DisplayGlobals_SRV.getPreviewRef().updateChanges();
+    }
+  };
 }
 
 // 'onUploadComplete' : function(file, data) { UserEditor.onNewImageFatal (BYOglobals.BYOconfigurator, file, data);}
 
 FormType1_Ctrl.prototype.reset = function () {
 
-	_getMasterConfigValues.call(this);
+  _getMasterConfigValues.call(this);
 };
 
 module.exports = FormType1_Ctrl;
 
-},{"../../../services/A01_DisplayGlobals-srv":20,"../../../services/HBTemplates-srv":23}],10:[function(require,module,exports){
+},{"../../../services/A01_DisplayGlobals-srv":21,"../../../services/HBTemplates-srv":24,"../../../services/Utils-srv":26}],10:[function(require,module,exports){
 /*jslint node: true, unused: true, esnext: true */
 
 //----------------------------
@@ -1290,7 +1390,7 @@ FormType2_Ctrl.prototype.reset = function () {
 
 module.exports = FormType2_Ctrl;
 
-},{"../../../services/A01_DisplayGlobals-srv":20,"../../../services/HBTemplates-srv":23,"../../../services/Utils-srv":25}],11:[function(require,module,exports){
+},{"../../../services/A01_DisplayGlobals-srv":21,"../../../services/HBTemplates-srv":24,"../../../services/Utils-srv":26}],11:[function(require,module,exports){
 /*jslint node: true, unused: true, esnext: true */
 
 //----------------------------
@@ -1469,7 +1569,7 @@ FormType3_Ctrl.prototype.updateCopyPosition = function (x, y, indexId) {
 
 module.exports = FormType3_Ctrl;
 
-},{"../../../services/A01_DisplayGlobals-srv":20,"../../../services/HBTemplates-srv":23,"../../../services/Utils-srv":25,"./copyItem-ctrl":7}],12:[function(require,module,exports){
+},{"../../../services/A01_DisplayGlobals-srv":21,"../../../services/HBTemplates-srv":24,"../../../services/Utils-srv":26,"./copyItem-ctrl":7}],12:[function(require,module,exports){
 /*jslint node: true, unused: true, esnext: true */
 
 //----------------------------
@@ -1637,7 +1737,7 @@ FormType4_Ctrl.prototype.reset = function () {
 
 module.exports = FormType4_Ctrl;
 
-},{"../../../services/A01_DisplayGlobals-srv":20,"../../../services/HBTemplates-srv":23,"../../../services/Utils-srv":25,"./dividerItem-ctrl":8}],13:[function(require,module,exports){
+},{"../../../services/A01_DisplayGlobals-srv":21,"../../../services/HBTemplates-srv":24,"../../../services/Utils-srv":26,"./dividerItem-ctrl":8}],13:[function(require,module,exports){
 /*jslint node: true, unused: true, esnext: true */
 
 'use strict';
@@ -1848,7 +1948,7 @@ FormType5_Ctrl.prototype.updateButtonPosition = function (x, y, indexId) {
 
 module.exports = FormType5_Ctrl;
 
-},{"../../../services/A01_DisplayGlobals-srv":20,"../../../services/APICalls-srv":21,"../../../services/HBTemplates-srv":23,"../../../services/Utils-srv":25,"./buttonFormItem-ctrl":5,"./buttonItem-ctrl":6,"lodash":72}],14:[function(require,module,exports){
+},{"../../../services/A01_DisplayGlobals-srv":21,"../../../services/APICalls-srv":22,"../../../services/HBTemplates-srv":24,"../../../services/Utils-srv":26,"./buttonFormItem-ctrl":5,"./buttonItem-ctrl":6,"lodash":73}],14:[function(require,module,exports){
 /*jslint node: true, unused: true, esnext: true */
 
 //----------------------------
@@ -1914,7 +2014,7 @@ Legend_Ctrl.prototype.selectLegend = function (id) {
 
 module.exports = Legend_Ctrl;
 
-},{"../../services/A01_DisplayGlobals-srv":20,"../../services/HBTemplates-srv":23}],15:[function(require,module,exports){
+},{"../../services/A01_DisplayGlobals-srv":21,"../../services/HBTemplates-srv":24}],15:[function(require,module,exports){
 /*jslint node: true, unused: true, esnext: true */
 
 'use strict';
@@ -2081,7 +2181,7 @@ Buttons_CTRL.prototype.dragable = function (isDragable) {
 
 module.exports = Buttons_CTRL;
 
-},{"../../services/A01_DisplayGlobals-srv":20,"../../services/Utils-srv":25,"lodash":72}],16:[function(require,module,exports){
+},{"../../services/A01_DisplayGlobals-srv":21,"../../services/Utils-srv":26,"lodash":73}],16:[function(require,module,exports){
 /*jslint node: true, unused: true, esnext: true */
 
 'use strict';
@@ -2241,7 +2341,7 @@ Copy_CTRL.prototype.dragable = function (isDragable) {
 
 module.exports = Copy_CTRL;
 
-},{"../../services/A01_DisplayGlobals-srv":20,"../../services/Utils-srv":25,"lodash":72}],17:[function(require,module,exports){
+},{"../../services/A01_DisplayGlobals-srv":21,"../../services/Utils-srv":26,"lodash":73}],17:[function(require,module,exports){
 /*jslint node: true, unused: true, esnext: true */
 
 'use strict';
@@ -2278,14 +2378,6 @@ function _loadDividers() {
 
     if (!item.deleted && item.visible) {
 
-      // this.allDividersGroup.append("line")
-      //   .attr("x1", Utils_SRV.getJsonVal(0,item.x,"NUMBER") )
-      //   .attr("y1", Utils_SRV.getJsonVal(550,item.y,"NUMBER") )
-      //   .attr("x2", Utils_SRV.getJsonVal(1920,Number(item.x) + Number(item.width),"NUMBER") )
-      //   .attr("y2", Utils_SRV.getJsonVal(1920,Number(item.y) + Number(item.height),"NUMBER") )
-      //   .attr("stroke-width", Utils_SRV.getJsonVal(5,item.height,"NUMBER") )
-      //   .attr("stroke", '#'+item.colour);
-
       this.allDividersGroup.append("rect").attr("x", Utils_SRV.getJsonVal(0, item.x, "NUMBER")).attr("y", Utils_SRV.getJsonVal(550, item.y, "NUMBER")).attr("width", Utils_SRV.getJsonVal(1920, Number(item.width), "NUMBER")).attr("height", Utils_SRV.getJsonVal(2, Number(item.height), "NUMBER")).attr("fill", '#' + item.colour);
     }
   }).bind(this));
@@ -2305,7 +2397,7 @@ Dividers_CTRL.prototype.reset = function () {
 
 module.exports = Dividers_CTRL;
 
-},{"../../services/A01_DisplayGlobals-srv":20,"../../services/Utils-srv":25,"lodash":72}],18:[function(require,module,exports){
+},{"../../services/A01_DisplayGlobals-srv":21,"../../services/Utils-srv":26,"lodash":73}],18:[function(require,module,exports){
 /*jslint node: true, unused: true, esnext: true */
 
 'use strict';
@@ -2409,7 +2501,108 @@ LogoVendor_CTRL.prototype.reset = function () {
 
 module.exports = LogoVendor_CTRL;
 
-},{"../../services/A01_DisplayGlobals-srv":20,"../../services/Utils-srv":25,"lodash":72}],19:[function(require,module,exports){
+},{"../../services/A01_DisplayGlobals-srv":21,"../../services/Utils-srv":26,"lodash":73}],19:[function(require,module,exports){
+/*jslint node: true, unused: true, esnext: true */
+
+'use strict';
+
+var _ = require("lodash");
+var DisplayGlobals_SRV = require('../../services/A01_DisplayGlobals-srv');
+var Utils_SRV = require('../../services/Utils-srv');
+
+//--------------------------------------
+// CONSTRUCTOR
+//--------------------------------------
+
+function Preloader_CTRL(svg) {
+
+  this.svgContainer = svg;
+
+  this.width = 200;
+  this.height = 200;
+  this.arcWidth = this.width * 0.1;
+
+  _loadPreloader.call(this);
+}
+
+function _loadPreloader() {
+
+  if (DisplayGlobals_SRV.getMasterConfig().AppSplash.autoplay) {
+
+    _addBackgroundSolidColor.call(this);
+    _addPreloaderGuide.call(this);
+    _loadForegroundArc.call(this);
+    _loadBackgroundArc.call(this);
+    _movePreloaderYOffset.call(this);
+  }
+}
+
+function _addBackgroundSolidColor() {
+
+  this.bgGroup = this.svgContainer.append("g");
+  this.bgGroup.append("rect").attr("x", 0).attr("y", 0).attr("width", 1920).attr("height", 1080).attr("fill", "#dbdbdb").attr("opacity", 1);
+
+  //Label of the button
+  this.bgGroup.append("text").attr("text-anchor", "middle").attr('alignment-baseline', 'central').attr("x", 1920 / 2).attr("y", 200).text("Adjust the preloader using the settings on the right. →").attr("font-family", "Helvetica, Arial, sans-serif").attr("font-size", 40).attr("fill", '#444444');
+
+  //Label of the button
+  this.bgGroup.append("text").attr("text-anchor", "middle").attr('alignment-baseline', 'central').attr("x", 1920 / 2).attr("y", 260).text("This feature is only available for 'Launch as Playlist'.").attr("font-family", "Helvetica, Arial, sans-serif").attr("font-size", 40).attr("fill", '#444444');
+}
+
+function _addPreloaderGuide() {
+
+  this.preloaderGroup = this.svgContainer.append("g");
+  this.preloaderGroup.append("rect").attr("x", 0).attr("y", 0).attr("width", this.width).attr("height", this.height).attr("fill", "transparent");
+}
+
+function _loadForegroundArc() {
+
+  var foregroundArc = d3.arc().innerRadius(this.width / 2 - this.arcWidth).outerRadius(this.width / 2).startAngle(0).endAngle(Math.PI);
+
+  this.foregroundPath = this.preloaderGroup.append("path").attr("class", "arc").attr("d", foregroundArc).style("fill", DisplayGlobals_SRV.getMasterConfig().AppSplash.autoplaySettings.loader.background.colour);
+
+  this.foregroundPath.attr("transform", "translate(" + this.width / 2 + "," + this.height / 2 + ")");
+}
+
+function _loadBackgroundArc() {
+
+  var backgroundArc = d3.arc().innerRadius(this.width / 2 - this.arcWidth).outerRadius(this.width / 2).startAngle(Math.PI).endAngle(2 * Math.PI);
+
+  this.backgroundPath = this.preloaderGroup.append("path").attr("class", "arc").attr("d", backgroundArc).style("fill", DisplayGlobals_SRV.getMasterConfig().AppSplash.autoplaySettings.loader.foreground.colour);
+
+  this.backgroundPath.attr("transform", "translate(" + this.width / 2 + "," + this.height / 2 + ")");
+}
+
+function _movePreloaderYOffset() {
+
+  var yOffset = Number(DisplayGlobals_SRV.getMasterConfig().AppSplash.autoplaySettings.loader.yOffset);
+  var x = 1920 / 2 - this.width / 2;
+  var y = 1080 / 2 - this.height / 2 + yOffset;
+  this.preloaderGroup.attr("transform", "translate(" + x + "," + y + ")");
+}
+
+Preloader_CTRL.prototype.update = function () {
+
+  if (typeof this.preloaderGroup !== 'undefined') {
+    this.preloaderGroup.selectAll("*").remove();
+    this.bgGroup.selectAll("*").remove();
+  }
+  //Developer Note: We check if the Flag for Preloader View is true
+  //that is activated in the checkbox in Type1 
+  if (DisplayGlobals_SRV.getPreloaderFlag()) _loadPreloader.call(this);
+};
+
+Preloader_CTRL.prototype.reset = function () {};
+
+Preloader_CTRL.prototype.remove = function () {
+
+  this.preloaderGroup.selectAll("*").remove();
+  this.bgGroup.selectAll("*").remove();
+};
+
+module.exports = Preloader_CTRL;
+
+},{"../../services/A01_DisplayGlobals-srv":21,"../../services/Utils-srv":26,"lodash":73}],20:[function(require,module,exports){
 /*jslint node: true, unused: true, esnext: true */
 
 'use strict';
@@ -2456,11 +2649,11 @@ function _init() {
 	this.d3SVG_Ctrl.loadCopy();
 	this.d3SVG_Ctrl.loadLine();
 	this.d3SVG_Ctrl.loadButtons();
-
 	//If Editor Mode Add buttons for each element that can be edited
 	if (DisplayGlobals_SRV.getArguments().editor) {
 		DisplayGlobals_SRV.setEditorRef(new Editor_CTRL(this.d3SVG_Ctrl));
 	}
+	this.d3SVG_Ctrl.loadPreloader();
 
 	_checkIfPlaylistAvailable.call(this);
 	_onPreviewReady.call(this);
@@ -2538,9 +2731,19 @@ Preview_Ctrl.prototype.hideLoader = function () {
 	this.d3SVG_Ctrl.hideLoader();
 };
 
+Preview_Ctrl.prototype.hidePreloaderPlaylist = function () {
+
+	this.d3SVG_Ctrl.hidePreloaderPlaylist();
+};
+
+Preview_Ctrl.prototype.showPreloaderPlaylist = function () {
+
+	this.d3SVG_Ctrl.showPreloaderPlaylist();
+};
+
 module.exports = Preview_Ctrl;
 
-},{"../../controllers/editor/A01_editor-ctrl":3,"../../services/A01_DisplayGlobals-srv":20,"../../services/APICalls-srv":21,"../../services/D3Handler-srv":22,"../../services/HBTemplates-srv":23,"../../services/JSONHandler-srv":24,"../../services/Utils-srv":25,"lodash":72}],20:[function(require,module,exports){
+},{"../../controllers/editor/A01_editor-ctrl":3,"../../services/A01_DisplayGlobals-srv":21,"../../services/APICalls-srv":22,"../../services/D3Handler-srv":23,"../../services/HBTemplates-srv":24,"../../services/JSONHandler-srv":25,"../../services/Utils-srv":26,"lodash":73}],21:[function(require,module,exports){
 /*jslint node: true, unused: true, esnext: true */
 
 "use strict";
@@ -2784,6 +2987,42 @@ DisplayGlobals.prototype.getButtonsRef = function () {
 };
 
 //----------------------------
+// Preloader Reference
+// We use this to emulate the preloader and change the settings
+// like scale, yOffset, foreground and background color
+//----------------------------
+
+var _PreloaderCtrl = undefined;
+
+DisplayGlobals.prototype.setPreloaderRef = function (PreloaderCtrl) {
+
+  _PreloaderCtrl = PreloaderCtrl;
+};
+
+DisplayGlobals.prototype.getPreloaderRef = function () {
+
+  return _PreloaderCtrl;
+};
+
+//----------------------------
+// Preloader Flag
+// We use this flag to show/hide the Preloader on the D3 Preview.
+// It is activated from a checkbox in Type1
+//----------------------------
+
+var _PreloaderFlag = true;
+
+DisplayGlobals.prototype.setPreloaderFlag = function (PreloaderFlag) {
+
+  _PreloaderFlag = PreloaderFlag;
+};
+
+DisplayGlobals.prototype.getPreloaderFlag = function () {
+
+  return _PreloaderFlag;
+};
+
+//----------------------------
 // Bottom Legend
 //----------------------------
 
@@ -2833,7 +3072,7 @@ DisplayGlobals.prototype.onResizeWindow = function () {
 
 module.exports = new DisplayGlobals();
 
-},{"lodash":72}],21:[function(require,module,exports){
+},{"lodash":73}],22:[function(require,module,exports){
 /*jslint node: true, unused: true, esnext: true */
 
 "use strict";
@@ -2930,7 +3169,7 @@ ApiCalls.prototype.getURL = function (idUrl) {
 
 module.exports = new ApiCalls();
 
-},{"./A01_DisplayGlobals-srv":20,"lodash":72}],22:[function(require,module,exports){
+},{"./A01_DisplayGlobals-srv":21,"lodash":73}],23:[function(require,module,exports){
 /*jslint node: true, unused: true, esnext: true */
 
 'use strict';
@@ -2941,6 +3180,7 @@ var LogoVendor_CTRL = require('../controllers/preview/logoVendor-ctrl');
 var Buttons_CTRL = require('../controllers/preview/buttons-ctrl');
 var Dividers_CTRL = require('../controllers/preview/dividers-ctrl');
 var Copy_CTRL = require('../controllers/preview/copy-ctrl');
+var Preloader_CTRL = require('../controllers/preview/preloader-ctrl');
 
 //--------------------------------------
 // CONSTRUCTOR
@@ -3018,6 +3258,12 @@ D3Handler_CTRL.prototype.loadButtons = function () {
   DisplayGlobals_SRV.setButtonsRef(this.buttons);
 };
 
+D3Handler_CTRL.prototype.loadPreloader = function () {
+
+  this.preloader = new Preloader_CTRL(this.svgContainer);
+  DisplayGlobals_SRV.setPreloaderRef(this.preloader);
+};
+
 D3Handler_CTRL.prototype.drawLegendOnTop = function (buttonsArrayMO) {
 
   var _this = this;
@@ -3084,12 +3330,13 @@ D3Handler_CTRL.prototype.hideLoader = function () {
 
 D3Handler_CTRL.prototype.updateChanges = function () {
 
-  // console.log("D3: update changes....");
+  console.log("D3: update changes....", DisplayGlobals_SRV.getPreloaderFlag());
 
   this.buttons.update();
   this.dividers.update();
   this.copy.update();
   this.logoVendor.update();
+  this.preloader.update();
 };
 
 D3Handler_CTRL.prototype.resetChanges = function () {
@@ -3098,14 +3345,25 @@ D3Handler_CTRL.prototype.resetChanges = function () {
   this.dividers.reset();
   this.copy.reset();
   this.logoVendor.reset();
+  this.preloader.reset();
+};
+
+D3Handler_CTRL.prototype.hidePreloaderPlaylist = function () {
+
+  this.preloader.remove();
+};
+
+D3Handler_CTRL.prototype.showPreloaderPlaylist = function () {
+
+  this.preloader.update();
 };
 
 module.exports = D3Handler_CTRL;
 
-},{"../controllers/preview/buttons-ctrl":15,"../controllers/preview/copy-ctrl":16,"../controllers/preview/dividers-ctrl":17,"../controllers/preview/logoVendor-ctrl":18,"./A01_DisplayGlobals-srv":20,"lodash":72}],23:[function(require,module,exports){
+},{"../controllers/preview/buttons-ctrl":15,"../controllers/preview/copy-ctrl":16,"../controllers/preview/dividers-ctrl":17,"../controllers/preview/logoVendor-ctrl":18,"../controllers/preview/preloader-ctrl":19,"./A01_DisplayGlobals-srv":21,"lodash":73}],24:[function(require,module,exports){
 "use strict";
 
-var templates = { "formLayout": "                <div class=\"portlet light bordered\">            <div class=\"portlet-title\">                <div class=\"caption\">                    <span class=\"caption-subject font-dark bold uppercase\">Form Section Name Goes here</span>                </div>                <div class=\"actions\">                                   </div>            </div>            <div class=\"portlet-body form\">                <form class=\"form-horizontal\" role=\"form\">                    <div class=\"form-body\">                        <!-- This will be filled dynamically -->                    </div><!--                     <div class=\"form-actions text-right\">                        <button type=\"submit\" class=\"btn green-jungle\">Update</button>                    </div> -->                </form>            </div>                    </div>    ", "formType1": "        <div class=\"form-group\">            <label class=\"col-xs-4 control-label\">Name</label>            <div class=\"col-xs-8\">                <input type=\"text\" name=\"launcherName\" class=\"form-control\" placeholder=\"Enter the name of the Launcher\" value=\"{{name}}\">            </div>        </div>        <div class=\"form-group control-group\">             <label class=\"col-xs-4 control-label\" for=\"bg_file\">Image</label>             <div class=\"col-xs-8 controls sonata-ba-field sonata-ba-field-standard-natural \">                 <form>                    <div id=\"queue1\"></div>                    <input id=\"cf_backgroundImageUpload\" name=\"cf_backgroundImageUpload\" type=\"file\" multiple=\"false\">                </form>            </div>        </div>        <div class=\"form-group\">            <label class=\"col-xs-4 control-label\">Playlist Enabled</label>            <div class=\"col-xs-2\">                <input type=\"checkbox\" name=\"playlist-enabled-switch\" class=\"make-switch\" data-size=\"small\" checked data-on-color=\"success\">            </div>        </div><!--         <div class=\"form-group\">            <label class=\"col-xs-3 control-label\">Visible</label>            <div class=\"col-xs-2\">                <input type=\"checkbox\" name=\"bg-switch\" class=\"make-switch\" data-size=\"small\" {{visible}} data-on-color=\"success\">                            </div>        </div> -->", "formType2": "        <!-- <div class=\"form-group\">            <label class=\"col-xs-3 control-label\">Enabled</label>            <div class=\"col-xs-2\">                <input type=\"checkbox\" name=\"logo-switch\" class=\"make-switch\" data-size=\"small\" checked data-on-color=\"success\" >                            </div>        </div> -->        <div class=\"form-group control-group\">             <label class=\"col-xs-3 control-label\" for=\"logoVendor_file\">Logo</label>             <div class=\"col-xs-8 controls sonata-ba-field sonata-ba-field-standard-natural \">                 <form>                    <div id=\"queue1\"></div>                    <input id=\"cf_backgroundLogoVendorUpload\" name=\"cf_backgroundLogoVendorUpload\" type=\"file\" multiple=\"false\">                </form>            </div>        </div>        <div class=\"form-group\">            <label class=\"col-xs-3 control-label\">Dimension (w,h)</label>            <div class=\"col-xs-9\">                <input type=\"text\" name=\"dim_w\" class=\"form-control inlinesmall\" placeholder=\"w\" value=\"{{width}}\">                <input type=\"text\" name=\"dim_h\" class=\"form-control inlinesmall\" placeholder=\"h\" value=\"{{height}}\">            </div>        </div>        <div class=\"form-group\">            <label class=\"col-xs-3 control-label\">Position (x,y)</label>            <div class=\"col-xs-9\">                <input type=\"text\" name=\"pos_x\" class=\"form-control inlinesmall\" placeholder=\"x\" value=\"{{x}}\">                <input type=\"text\" name=\"pos_y\" class=\"form-control inlinesmall\" placeholder=\"y\" value=\"{{y}}\">            </div>        </div>            ", "formType3": "        <div class=\"list-group list-copy-items\">                    </div>    ", "copy_item": "        <a href=\"javascript:;\" class=\"list-group-item\" data-id=\"{{id}}\" data-index=\"{{index}}\">            <h4 class=\"list-group-item-heading margin-bottom-20\">                <!-- <strong>Copy To Be Added To The Launcher</strong> -->                <i class=\"fa fa-close pull-right\"></i>            </h4>            <p class=\"list-group-item-text\">                               <div class=\"form-group\">                    <label class=\"col-xs-3 control-label\">Copy</label>                    <div class=\"col-xs-8\">                        <input type=\"text\" name=\"copy\" class=\"form-control\" placeholder=\"This is the copy that will get displayed\" value=\"{{copy}}\">                    </div>                </div>                                <div class=\"form-group\">                    <label class=\"col-xs-3 control-label\">Width</label>                    <div class=\"col-xs-9\">                        <input type=\"text\" name=\"dim_w\" class=\"form-control inlinesmall\" placeholder=\"W\" value=\"{{width}}\">                    </div>                </div>                <div class=\"form-group\">                    <label class=\"col-xs-3 control-label\">Position (x,y)</label>                    <div class=\"col-xs-9\">                        <input type=\"text\" name=\"pos_x\" class=\"form-control inlinesmall\" placeholder=\"X\" value=\"{{x}}\">                        <input type=\"text\" name=\"pos_y\" class=\"form-control inlinesmall\" placeholder=\"Y\" value=\"{{y}}\">                    </div>                </div>                <div class=\"form-group\">                    <label class=\"col-xs-3 control-label\">Font Size</label>                    <div class=\"col-md-2 col-sm-4 col-xs-3\">                        <input type=\"text\" name=\"size\" class=\"form-control inlinesmall\" placeholder=\"Size\" value=\"{{size}}\">                    </div>                </div>                <div class=\"form-group\">                    <label class=\"col-md-3 control-label\">Colour</label>                    <div class=\"col-sm-12 col-md-3\">                        <input type=\"text\" class=\"form-control color-picker\" data-control=\"hue\" value=\"#{{colour}}\">                    </div>                </div>                <div class=\"form-group\">                    <label class=\"col-md-3 control-label\">Align</label>                    <div class=\"col-sm-12 col-md-4\">                        <select class=\"form-control align\">                            <option>Left</option>                            <option>Center</option>                        </select>                    </div>                </div>            </p>        </a>               ", "formType4": "        <div class=\"list-group list-divider-items\">                    </div>    ", "divider_item": "        <a href=\"javascript:;\" class=\"list-group-item\" data-id=\"{{id}}\" data-index=\"{{index}}\">            <h4 class=\"list-group-item-heading margin-bottom-20\">                <!-- <strong>Divider To Be Added To The Launcher</strong> -->                <i class=\"fa fa-close pull-right\"></i>            </h4>            <p class=\"list-group-item-text\">                 <div class=\"form-group\">                    <label class=\"col-xs-3 control-label\">Visible</label>                    <div class=\"col-xs-2\">                        <input type=\"checkbox\" name=\"divider-switch\" class=\"make-switch\" data-size=\"small\" checked data-on-color=\"success\">                                            </div>                </div>                <div class=\"divider-settings\">                    <div class=\"form-group\">                        <label class=\"col-md-3 control-label\">Colour</label>                        <div class=\"col-sm-12 col-md-6\">                            <input type=\"text\" class=\"form-control color-picker\" data-control=\"hue\" value=\"#{{colour}}\">                        </div>                    </div>                    <div class=\"form-group\">                        <label class=\"col-xs-3 control-label\">Dimension (w,h)</label>                        <div class=\"col-xs-9\">                            <input type=\"text\" name=\"dim_w\" class=\"form-control inlinesmall\" placeholder=\"w\" value=\"{{width}}\">                            <input type=\"text\" name=\"dim_h\" class=\"form-control inlinesmall\" placeholder=\"h\" value=\"{{height}}\">                        </div>                    </div>                    <div class=\"form-group\">                        <label class=\"col-xs-3 control-label\">Position (x,y)</label>                        <div class=\"col-xs-9\">                            <input type=\"text\" name=\"pos_x\" class=\"form-control inlinesmall\" placeholder=\"x\" value=\"{{x}}\">                            <input type=\"text\" name=\"pos_y\" class=\"form-control inlinesmall\" placeholder=\"y\" value=\"{{y}}\">                        </div>                    </div>                </div>            </p>        </a>    ", "formType5": "        <div class=\"list-group list-button-items\">                </div>    ", "button_item": "        <a href=\"javascript:;\" class=\"list-group-item\" data-id=\"{{id}}\" data-index=\"{{index}}\" data-dashboard=\"{{dashboardID}}\">            <h4 class=\"list-group-item-heading margin-bottom-20\">                Dashboard <i class=\"fa fa-arrow-right\"></i> <strong>{{dashboardRef}}</strong>                <i class=\"fa fa-close pull-right\"></i>            </h4>            <p class=\"list-group-item-text\">                 <button type=\"button\" class=\"btn\" style=\"background:#{{background}};color:#{{copy.colour}}\">{{copy.text}} </button>            </p>        </a>    ", "button_edit_item": "        <div class=\"form-group\">            <label class=\"col-xs-4 control-label\">Visible</label>            <div class=\"col-xs-2\">                <input type=\"checkbox\" name=\"btn-switch\" class=\"make-switch\" data-size=\"small\" checked data-on-color=\"success\">            </div>        </div>        <div class=\"form-group\">            <label class=\"col-xs-4 control-label\"><strong>Dashboard ID</strong></label>            <div class=\"col-xs-5 dashboardID-select\">                <!-- I will build the select dynamically from buttonFormItem-ctrl.js -->            </div>        </div>        <div class=\"form-group\">            <label class=\"col-xs-4 control-label\">Background Color</label>            <div class=\"col-xs-5\">                <input type=\"text\" name=\"background\" class=\"form-control color-picker\" data-control=\"hue\" value=\"#{{background}}\">            </div>        </div>        <div class=\"form-group\">            <label class=\"col-xs-4 control-label\">Transparency</label>            <div class=\"col-xs-5\">                <input type=\"text\" name=\"backgroundTransparent\" class=\"form-control inlinesmall\" placeholder=\"\" value=\"{{backgroundTransparent}}\">            </div>        </div>        <div class=\"form-group\">            <label class=\"col-xs-4 control-label\">Dimension (w,h)</label>            <div class=\"col-xs-8\">                <input type=\"text\" name=\"dim_w\" class=\"form-control inlinesmall\" placeholder=\"w\" value=\"{{width}}\">                <input type=\"text\" name=\"dim_h\" class=\"form-control inlinesmall\" placeholder=\"h\" value=\"{{height}}\">            </div>        </div>        <div class=\"form-group\">            <label class=\"col-xs-4 control-label\">Position (x,y)</label>            <div class=\"col-xs-8\">                <input type=\"text\" name=\"pos_x\" class=\"form-control inlinesmall\" placeholder=\"x\" value=\"{{x}}\">                <input type=\"text\" name=\"pos_y\" class=\"form-control inlinesmall\" placeholder=\"y\" value=\"{{y}}\">            </div>        </div>        <div class=\"form-group\">            <label class=\"col-xs-4 control-label\">Copy</label>            <div class=\"col-xs-5\">                <input type=\"text\" name=\"copy\" class=\"form-control\" placeholder=\"This is the copy that will get displayed\" value=\"{{copy.text}}\">            </div>        </div>        <div class=\"form-group\">            <label class=\"col-xs-4 control-label\">Copy Colour</label>            <div class=\"col-xs-5\">                <input type=\"text\" name=\"copy-colour\" class=\"form-control color-picker\" data-control=\"hue\" value=\"#{{copy.colour}}\">            </div>        </div>        <div class=\"form-group\">            <label class=\"col-xs-4 control-label\">Copy Size</label>            <div class=\"col-xs-8\">                <input type=\"text\" name=\"copy-size\" class=\"form-control inlinesmall\" placeholder=\"x\" value=\"{{copy.size}}\">            </div>        </div>        <div class=\"form-group\">            <label class=\"col-xs-4 control-label\">Copy Weight</label>            <div class=\"col-xs-8\">                <input type=\"text\" name=\"copy-weight\" class=\"form-control inlinesmall\" placeholder=\"x\" value=\"{{copy.weight}}\">            </div>        </div>        <div class=\"form-group\">            <label class=\"col-xs-4 control-label\">Playlist Autoplay</label>            <div class=\"col-xs-2\">                <input type=\"checkbox\" name=\"btn-playlist-switch\" class=\"make-switch\" data-size=\"small\" checked data-on-color=\"success\">            </div>        </div>        <div class=\"playlist-properties\">            <div class=\"form-group\">                <label class=\"col-xs-4 control-label\">Playlist Position</label>                <div class=\"col-xs-8\">                    <input type=\"text\" name=\"playlist-pos\" class=\"form-control inlinesmall\" placeholder=\"1\" value=\"{{autoplay.playpos}}\">                </div>            </div>            <div class=\"form-group\">                <label class=\"col-xs-4 control-label\">Playlist Seconds</label>                <div class=\"col-xs-8\">                    <input type=\"text\" name=\"playlist-mins\" class=\"form-control inlinesmall\" placeholder=\"10\" value=\"{{autoplay.seconds}}\">                </div>            </div>        </div>    " };
+var templates = { "formLayout": "                <div class=\"portlet light bordered\">            <div class=\"portlet-title\">                <div class=\"caption\">                    <span class=\"caption-subject font-dark bold uppercase\">Form Section Name Goes here</span>                </div>                <div class=\"actions\">                                   </div>            </div>            <div class=\"portlet-body form\">                <form class=\"form-horizontal\" role=\"form\">                    <div class=\"form-body\">                        <!-- This will be filled dynamically -->                    </div><!--                     <div class=\"form-actions text-right\">                        <button type=\"submit\" class=\"btn green-jungle\">Update</button>                    </div> -->                </form>            </div>                    </div>    ", "formType1": "        <div class=\"form-group\">            <label class=\"col-xs-4 control-label\">Name</label>            <div class=\"col-xs-8\">                <input type=\"text\" name=\"launcherName\" class=\"form-control\" placeholder=\"Enter the name of the Launcher\" value=\"{{name}}\">            </div>        </div>        <div class=\"form-group control-group\">             <label class=\"col-xs-4 control-label\" for=\"bg_file\">Image</label>             <div class=\"col-xs-8 controls sonata-ba-field sonata-ba-field-standard-natural \">                 <form>                    <div id=\"queue1\"></div>                    <input id=\"cf_backgroundImageUpload\" name=\"cf_backgroundImageUpload\" type=\"file\" multiple=\"false\">                </form>            </div>        </div>        <div class=\"form-group whatever\">            <label class=\"col-xs-4 control-label\">Playlist Enabled</label>            <div class=\"col-xs-2\">                <input type=\"checkbox\" name=\"playlist-enabled-switch\" class=\"make-switch\" data-size=\"small\" checked data-on-color=\"success\">            </div>        </div>        <div class=\"row launch-playlist-settings\">            <div class=\"portlet light\">                <div class=\"portlet-title\">                    <div class=\"caption\">                        <span class=\"caption-subject font-dark bold uppercase\"> \"Launch as Playlist\" Settings</span>                    </div>                    <div class=\"actions\">                    </div>                </div>                <div class=\"portlet-body\">                        <label class=\"margin-bottom-10\"><input type=\"checkbox\" class=\"icheck\"> Preloader View</label>                                            <div class=\"alert alert-info\">                            <strong>NOTE: </strong> These settings are only applicable when you click on the \"Launch as Playlist\" button in Dashboard Manager -> Launcher Editor page. Once you finished you can switch to Dashboard Launcher clicking on the checkbox above.                        </div>                        <div class=\"form-group\">                            <label class=\"col-xs-4 control-label\">Scale</label>                            <div class=\"col-md-2 col-sm-4 col-xs-3\">                                <input type=\"text\" name=\"scale\" class=\"form-control inlinesmall\" placeholder=\"Scale\" value=\"{{scale}}\">                            </div>                        </div>                        <div class=\"form-group\">                            <label class=\"col-xs-4 control-label\">yOffset</label>                            <div class=\"col-md-2 col-sm-4 col-xs-3\">                                <input type=\"text\" name=\"yoffset\" class=\"form-control inlinesmall\" placeholder=\"yOffset\" value=\"{{yoffset}}\">                            </div>                        </div>                        <div class=\"form-group\">                            <label class=\"col-md-4 control-label\">BG Colour</label>                            <div class=\"col-sm-12 col-md-4\">                                <input type=\"text\" name=\"bgcolor\" class=\"form-control color-picker\" data-control=\"hue\" value=\"#{{bgcolour}}\">                            </div>                        </div>                        <div class=\"form-group\">                            <label class=\"col-xs-4 control-label\">BG Opacity</label>                            <div class=\"col-md-2 col-sm-4 col-xs-3\">                                <input type=\"text\" name=\"bgopacity\" class=\"form-control inlinesmall\" placeholder=\"Opacity\" value=\"{{bgopacity}}\">                            </div>                        </div>                        <div class=\"form-group\">                            <label class=\"col-md-4 control-label\">FG Colour</label>                            <div class=\"col-sm-12 col-md-4\">                                <input type=\"text\" name=\"fgcolor\" class=\"form-control color-picker\" data-control=\"hue\" value=\"#{{fgcolour}}\">                            </div>                        </div>                        <div class=\"form-group\">                            <label class=\"col-xs-4 control-label\">FG Opacity</label>                            <div class=\"col-md-2 col-sm-4 col-xs-3\">                                <input type=\"text\" name=\"fgopacity\" class=\"form-control inlinesmall\" placeholder=\"Opacity\" value=\"{{fgopacity}}\">                            </div>                        </div>                </div>            </div>        </div>", "formType2": "        <!-- <div class=\"form-group\">            <label class=\"col-xs-3 control-label\">Enabled</label>            <div class=\"col-xs-2\">                <input type=\"checkbox\" name=\"logo-switch\" class=\"make-switch\" data-size=\"small\" checked data-on-color=\"success\" >                            </div>        </div> -->        <div class=\"form-group control-group\">             <label class=\"col-xs-3 control-label\" for=\"logoVendor_file\">Logo</label>             <div class=\"col-xs-8 controls sonata-ba-field sonata-ba-field-standard-natural \">                 <form>                    <div id=\"queue1\"></div>                    <input id=\"cf_backgroundLogoVendorUpload\" name=\"cf_backgroundLogoVendorUpload\" type=\"file\" multiple=\"false\">                </form>            </div>        </div>        <div class=\"form-group\">            <label class=\"col-xs-3 control-label\">Dimension (w,h)</label>            <div class=\"col-xs-9\">                <input type=\"text\" name=\"dim_w\" class=\"form-control inlinesmall\" placeholder=\"w\" value=\"{{width}}\">                <input type=\"text\" name=\"dim_h\" class=\"form-control inlinesmall\" placeholder=\"h\" value=\"{{height}}\">            </div>        </div>        <div class=\"form-group\">            <label class=\"col-xs-3 control-label\">Position (x,y)</label>            <div class=\"col-xs-9\">                <input type=\"text\" name=\"pos_x\" class=\"form-control inlinesmall\" placeholder=\"x\" value=\"{{x}}\">                <input type=\"text\" name=\"pos_y\" class=\"form-control inlinesmall\" placeholder=\"y\" value=\"{{y}}\">            </div>        </div>            ", "formType3": "        <div class=\"list-group list-copy-items\">                    </div>    ", "copy_item": "        <a href=\"javascript:;\" class=\"list-group-item\" data-id=\"{{id}}\" data-index=\"{{index}}\">            <h4 class=\"list-group-item-heading margin-bottom-20\">                <!-- <strong>Copy To Be Added To The Launcher</strong> -->                <i class=\"fa fa-close pull-right\"></i>            </h4>            <p class=\"list-group-item-text\">                               <div class=\"form-group\">                    <label class=\"col-xs-3 control-label\">Copy</label>                    <div class=\"col-xs-8\">                        <input type=\"text\" name=\"copy\" class=\"form-control\" placeholder=\"This is the copy that will get displayed\" value=\"{{copy}}\">                    </div>                </div>                                <div class=\"form-group\">                    <label class=\"col-xs-3 control-label\">Width</label>                    <div class=\"col-xs-9\">                        <input type=\"text\" name=\"dim_w\" class=\"form-control inlinesmall\" placeholder=\"W\" value=\"{{width}}\">                    </div>                </div>                <div class=\"form-group\">                    <label class=\"col-xs-3 control-label\">Position (x,y)</label>                    <div class=\"col-xs-9\">                        <input type=\"text\" name=\"pos_x\" class=\"form-control inlinesmall\" placeholder=\"X\" value=\"{{x}}\">                        <input type=\"text\" name=\"pos_y\" class=\"form-control inlinesmall\" placeholder=\"Y\" value=\"{{y}}\">                    </div>                </div>                <div class=\"form-group\">                    <label class=\"col-xs-3 control-label\">Font Size</label>                    <div class=\"col-md-2 col-sm-4 col-xs-3\">                        <input type=\"text\" name=\"size\" class=\"form-control inlinesmall\" placeholder=\"Size\" value=\"{{size}}\">                    </div>                </div>                <div class=\"form-group\">                    <label class=\"col-md-3 control-label\">Colour</label>                    <div class=\"col-sm-12 col-md-3\">                        <input type=\"text\" class=\"form-control color-picker\" data-control=\"hue\" value=\"#{{colour}}\">                    </div>                </div>                <div class=\"form-group\">                    <label class=\"col-md-3 control-label\">Align</label>                    <div class=\"col-sm-12 col-md-4\">                        <select class=\"form-control align\">                            <option>Left</option>                            <option>Center</option>                        </select>                    </div>                </div>            </p>        </a>               ", "formType4": "        <div class=\"list-group list-divider-items\">                    </div>    ", "divider_item": "        <a href=\"javascript:;\" class=\"list-group-item\" data-id=\"{{id}}\" data-index=\"{{index}}\">            <h4 class=\"list-group-item-heading margin-bottom-20\">                <!-- <strong>Divider To Be Added To The Launcher</strong> -->                <i class=\"fa fa-close pull-right\"></i>            </h4>            <p class=\"list-group-item-text\">                 <div class=\"form-group\">                    <label class=\"col-xs-3 control-label\">Visible</label>                    <div class=\"col-xs-2\">                        <input type=\"checkbox\" name=\"divider-switch\" class=\"make-switch\" data-size=\"small\" checked data-on-color=\"success\">                                            </div>                </div>                <div class=\"divider-settings\">                    <div class=\"form-group\">                        <label class=\"col-md-3 control-label\">Colour</label>                        <div class=\"col-sm-12 col-md-6\">                            <input type=\"text\" class=\"form-control color-picker\" data-control=\"hue\" value=\"#{{colour}}\">                        </div>                    </div>                    <div class=\"form-group\">                        <label class=\"col-xs-3 control-label\">Dimension (w,h)</label>                        <div class=\"col-xs-9\">                            <input type=\"text\" name=\"dim_w\" class=\"form-control inlinesmall\" placeholder=\"w\" value=\"{{width}}\">                            <input type=\"text\" name=\"dim_h\" class=\"form-control inlinesmall\" placeholder=\"h\" value=\"{{height}}\">                        </div>                    </div>                    <div class=\"form-group\">                        <label class=\"col-xs-3 control-label\">Position (x,y)</label>                        <div class=\"col-xs-9\">                            <input type=\"text\" name=\"pos_x\" class=\"form-control inlinesmall\" placeholder=\"x\" value=\"{{x}}\">                            <input type=\"text\" name=\"pos_y\" class=\"form-control inlinesmall\" placeholder=\"y\" value=\"{{y}}\">                        </div>                    </div>                </div>            </p>        </a>    ", "formType5": "        <div class=\"list-group list-button-items\">                </div>    ", "button_item": "        <a href=\"javascript:;\" class=\"list-group-item\" data-id=\"{{id}}\" data-index=\"{{index}}\" data-dashboard=\"{{dashboardID}}\">            <h4 class=\"list-group-item-heading margin-bottom-20\">                Dashboard <i class=\"fa fa-arrow-right\"></i> <strong>{{dashboardRef}}</strong>                <i class=\"fa fa-close pull-right\"></i>            </h4>            <p class=\"list-group-item-text\">                 <button type=\"button\" class=\"btn\" style=\"background:#{{background}};color:#{{copy.colour}}\">{{copy.text}} </button>            </p>        </a>    ", "button_edit_item": "        <div class=\"form-group\">            <label class=\"col-xs-4 control-label\">Visible</label>            <div class=\"col-xs-2\">                <input type=\"checkbox\" name=\"btn-switch\" class=\"make-switch\" data-size=\"small\" checked data-on-color=\"success\">            </div>        </div>        <div class=\"form-group\">            <label class=\"col-xs-4 control-label\"><strong>Dashboard ID</strong></label>            <div class=\"col-xs-5 dashboardID-select\">                <!-- I will build the select dynamically from buttonFormItem-ctrl.js -->            </div>        </div>        <div class=\"form-group\">            <label class=\"col-xs-4 control-label\">Background Color</label>            <div class=\"col-xs-5\">                <input type=\"text\" name=\"background\" class=\"form-control color-picker\" data-control=\"hue\" value=\"#{{background}}\">            </div>        </div>        <div class=\"form-group\">            <label class=\"col-xs-4 control-label\">Transparency</label>            <div class=\"col-xs-5\">                <input type=\"text\" name=\"backgroundTransparent\" class=\"form-control inlinesmall\" placeholder=\"\" value=\"{{backgroundTransparent}}\">            </div>        </div>        <div class=\"form-group\">            <label class=\"col-xs-4 control-label\">Dimension (w,h)</label>            <div class=\"col-xs-8\">                <input type=\"text\" name=\"dim_w\" class=\"form-control inlinesmall\" placeholder=\"w\" value=\"{{width}}\">                <input type=\"text\" name=\"dim_h\" class=\"form-control inlinesmall\" placeholder=\"h\" value=\"{{height}}\">            </div>        </div>        <div class=\"form-group\">            <label class=\"col-xs-4 control-label\">Position (x,y)</label>            <div class=\"col-xs-8\">                <input type=\"text\" name=\"pos_x\" class=\"form-control inlinesmall\" placeholder=\"x\" value=\"{{x}}\">                <input type=\"text\" name=\"pos_y\" class=\"form-control inlinesmall\" placeholder=\"y\" value=\"{{y}}\">            </div>        </div>        <div class=\"form-group\">            <label class=\"col-xs-4 control-label\">Copy</label>            <div class=\"col-xs-5\">                <input type=\"text\" name=\"copy\" class=\"form-control\" placeholder=\"This is the copy that will get displayed\" value=\"{{copy.text}}\">            </div>        </div>        <div class=\"form-group\">            <label class=\"col-xs-4 control-label\">Copy Colour</label>            <div class=\"col-xs-5\">                <input type=\"text\" name=\"copy-colour\" class=\"form-control color-picker\" data-control=\"hue\" value=\"#{{copy.colour}}\">            </div>        </div>        <div class=\"form-group\">            <label class=\"col-xs-4 control-label\">Copy Size</label>            <div class=\"col-xs-8\">                <input type=\"text\" name=\"copy-size\" class=\"form-control inlinesmall\" placeholder=\"x\" value=\"{{copy.size}}\">            </div>        </div>        <div class=\"form-group\">            <label class=\"col-xs-4 control-label\">Copy Weight</label>            <div class=\"col-xs-8\">                <input type=\"text\" name=\"copy-weight\" class=\"form-control inlinesmall\" placeholder=\"x\" value=\"{{copy.weight}}\">            </div>        </div>        <div class=\"form-group\">            <label class=\"col-xs-4 control-label\">Playlist Autoplay</label>            <div class=\"col-xs-2\">                <input type=\"checkbox\" name=\"btn-playlist-switch\" class=\"make-switch\" data-size=\"small\" checked data-on-color=\"success\">            </div>        </div>        <div class=\"playlist-properties\">            <div class=\"form-group\">                <label class=\"col-xs-4 control-label\">Playlist Position</label>                <div class=\"col-xs-8\">                    <input type=\"text\" name=\"playlist-pos\" class=\"form-control inlinesmall\" placeholder=\"1\" value=\"{{autoplay.playpos}}\">                </div>            </div>            <div class=\"form-group\">                <label class=\"col-xs-4 control-label\">Playlist Seconds</label>                <div class=\"col-xs-8\">                    <input type=\"text\" name=\"playlist-mins\" class=\"form-control inlinesmall\" placeholder=\"10\" value=\"{{autoplay.seconds}}\">                </div>            </div>        </div>    " };
 /*jslint node: true, unused: true, esnext: true */
 
 var Handlebars = require('Handlebars');
@@ -3158,7 +3416,7 @@ HBTemplates.prototype.loadTemplate = function (tplId, data, targetElem) {
 
 module.exports = new HBTemplates();
 
-},{"Handlebars":56}],24:[function(require,module,exports){
+},{"Handlebars":57}],25:[function(require,module,exports){
 /*jslint node: true, unused: true, esnext: true */
 
 "use strict";
@@ -3205,7 +3463,7 @@ JSONHandler.prototype.load = function (jsonURL, onSuccess) {
 
 module.exports = new JSONHandler();
 
-},{"./A01_DisplayGlobals-srv":20,"lodash":72}],25:[function(require,module,exports){
+},{"./A01_DisplayGlobals-srv":21,"lodash":73}],26:[function(require,module,exports){
 /*jslint node: true, unused: true, esnext: true */
 
 'use strict';
@@ -3341,7 +3599,29 @@ Utils_SRV.prototype.validateTransparency = function (formDOM, objMO, propertyNam
     if (transp >= 0 && transp <= 100) {
         formDOM.find('input[name=' + propertyName + ']').closest('.form-group').removeClass('has-error');
         objMO[propertyName] = Number(transp);
-        formDOM.find('input[name=' + propertyName + ']').val(objMO.backgroundTransparent);
+        formDOM.find('input[name=' + propertyName + ']').val(objMO[propertyName]);
+    } else {
+        error = true;
+        formDOM.find('input[name=' + propertyName + ']').closest('.form-group').addClass('has-error');
+    }
+
+    return error;
+};
+
+//----------------------------
+// Validate Scale (0 to 100)
+//----------------------------
+
+Utils_SRV.prototype.validateScale = function (formDOM, objMO, propertyName) {
+
+    var error = false;
+    var transp = Number($.trim(formDOM.find('input[name=' + propertyName + ']').val()));
+
+    if (transp >= 40 && transp <= 100) {
+        console.log("bbbbbb");
+        formDOM.find('input[name=' + propertyName + ']').closest('.form-group').removeClass('has-error');
+        objMO[propertyName] = Number(transp);
+        formDOM.find('input[name=' + propertyName + ']').val(objMO[propertyName]);
     } else {
         error = true;
         formDOM.find('input[name=' + propertyName + ']').closest('.form-group').addClass('has-error');
@@ -3487,7 +3767,7 @@ Utils_SRV.prototype.getTransformValues = function (d3Elem) {
 
 module.exports = new Utils_SRV();
 
-},{"./A01_DisplayGlobals-srv":20,"lodash":72}],26:[function(require,module,exports){
+},{"./A01_DisplayGlobals-srv":21,"lodash":73}],27:[function(require,module,exports){
 "use strict";
 
 !(function (e, r) {
@@ -3906,7 +4186,7 @@ module.exports = new Utils_SRV();
   }]);
 });
 
-},{}],27:[function(require,module,exports){
+},{}],28:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -3973,7 +4253,7 @@ exports['default'] = inst;
 module.exports = exports['default'];
 
 
-},{"./handlebars.runtime":28,"./handlebars/compiler/ast":30,"./handlebars/compiler/base":31,"./handlebars/compiler/compiler":33,"./handlebars/compiler/javascript-compiler":35,"./handlebars/compiler/visitor":38,"./handlebars/no-conflict":52}],28:[function(require,module,exports){
+},{"./handlebars.runtime":29,"./handlebars/compiler/ast":31,"./handlebars/compiler/base":32,"./handlebars/compiler/compiler":34,"./handlebars/compiler/javascript-compiler":36,"./handlebars/compiler/visitor":39,"./handlebars/no-conflict":53}],29:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -4041,7 +4321,7 @@ exports['default'] = inst;
 module.exports = exports['default'];
 
 
-},{"./handlebars/base":29,"./handlebars/exception":42,"./handlebars/no-conflict":52,"./handlebars/runtime":53,"./handlebars/safe-string":54,"./handlebars/utils":55}],29:[function(require,module,exports){
+},{"./handlebars/base":30,"./handlebars/exception":43,"./handlebars/no-conflict":53,"./handlebars/runtime":54,"./handlebars/safe-string":55,"./handlebars/utils":56}],30:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -4147,7 +4427,7 @@ exports.createFrame = _utils.createFrame;
 exports.logger = _logger2['default'];
 
 
-},{"./decorators":40,"./exception":42,"./helpers":43,"./logger":51,"./utils":55}],30:[function(require,module,exports){
+},{"./decorators":41,"./exception":43,"./helpers":44,"./logger":52,"./utils":56}],31:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -4180,7 +4460,7 @@ exports['default'] = AST;
 module.exports = exports['default'];
 
 
-},{}],31:[function(require,module,exports){
+},{}],32:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -4230,7 +4510,7 @@ function parse(input, options) {
 }
 
 
-},{"../utils":55,"./helpers":34,"./parser":36,"./whitespace-control":39}],32:[function(require,module,exports){
+},{"../utils":56,"./helpers":35,"./parser":37,"./whitespace-control":40}],33:[function(require,module,exports){
 /* global define */
 'use strict';
 
@@ -4398,7 +4678,7 @@ exports['default'] = CodeGen;
 module.exports = exports['default'];
 
 
-},{"../utils":55,"source-map":57}],33:[function(require,module,exports){
+},{"../utils":56,"source-map":58}],34:[function(require,module,exports){
 /* eslint-disable new-cap */
 
 'use strict';
@@ -4972,7 +5252,7 @@ function transformLiteralToPath(sexpr) {
 }
 
 
-},{"../exception":42,"../utils":55,"./ast":30}],34:[function(require,module,exports){
+},{"../exception":43,"../utils":56,"./ast":31}],35:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -5204,7 +5484,7 @@ function preparePartialBlock(open, program, close, locInfo) {
 }
 
 
-},{"../exception":42}],35:[function(require,module,exports){
+},{"../exception":43}],36:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -6332,7 +6612,7 @@ exports['default'] = JavaScriptCompiler;
 module.exports = exports['default'];
 
 
-},{"../base":29,"../exception":42,"../utils":55,"./code-gen":32}],36:[function(require,module,exports){
+},{"../base":30,"../exception":43,"../utils":56,"./code-gen":33}],37:[function(require,module,exports){
 /* istanbul ignore next */
 /* Jison generated parser */
 "use strict";
@@ -7072,7 +7352,7 @@ var handlebars = (function () {
 exports['default'] = handlebars;
 
 
-},{}],37:[function(require,module,exports){
+},{}],38:[function(require,module,exports){
 /* eslint-disable new-cap */
 'use strict';
 
@@ -7260,7 +7540,7 @@ PrintVisitor.prototype.HashPair = function (pair) {
 /* eslint-enable new-cap */
 
 
-},{"./visitor":38}],38:[function(require,module,exports){
+},{"./visitor":39}],39:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -7402,7 +7682,7 @@ exports['default'] = Visitor;
 module.exports = exports['default'];
 
 
-},{"../exception":42}],39:[function(require,module,exports){
+},{"../exception":43}],40:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -7625,7 +7905,7 @@ exports['default'] = WhitespaceControl;
 module.exports = exports['default'];
 
 
-},{"./visitor":38}],40:[function(require,module,exports){
+},{"./visitor":39}],41:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -7643,7 +7923,7 @@ function registerDefaultDecorators(instance) {
 }
 
 
-},{"./decorators/inline":41}],41:[function(require,module,exports){
+},{"./decorators/inline":42}],42:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -7674,7 +7954,7 @@ exports['default'] = function (instance) {
 module.exports = exports['default'];
 
 
-},{"../utils":55}],42:[function(require,module,exports){
+},{"../utils":56}],43:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -7716,7 +7996,7 @@ exports['default'] = Exception;
 module.exports = exports['default'];
 
 
-},{}],43:[function(require,module,exports){
+},{}],44:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -7764,7 +8044,7 @@ function registerDefaultHelpers(instance) {
 }
 
 
-},{"./helpers/block-helper-missing":44,"./helpers/each":45,"./helpers/helper-missing":46,"./helpers/if":47,"./helpers/log":48,"./helpers/lookup":49,"./helpers/with":50}],44:[function(require,module,exports){
+},{"./helpers/block-helper-missing":45,"./helpers/each":46,"./helpers/helper-missing":47,"./helpers/if":48,"./helpers/log":49,"./helpers/lookup":50,"./helpers/with":51}],45:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -7805,7 +8085,7 @@ exports['default'] = function (instance) {
 module.exports = exports['default'];
 
 
-},{"../utils":55}],45:[function(require,module,exports){
+},{"../utils":56}],46:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -7901,7 +8181,7 @@ exports['default'] = function (instance) {
 module.exports = exports['default'];
 
 
-},{"../exception":42,"../utils":55}],46:[function(require,module,exports){
+},{"../exception":43,"../utils":56}],47:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -7928,7 +8208,7 @@ exports['default'] = function (instance) {
 module.exports = exports['default'];
 
 
-},{"../exception":42}],47:[function(require,module,exports){
+},{"../exception":43}],48:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -7959,7 +8239,7 @@ exports['default'] = function (instance) {
 module.exports = exports['default'];
 
 
-},{"../utils":55}],48:[function(require,module,exports){
+},{"../utils":56}],49:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -7987,7 +8267,7 @@ exports['default'] = function (instance) {
 module.exports = exports['default'];
 
 
-},{}],49:[function(require,module,exports){
+},{}],50:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -8001,7 +8281,7 @@ exports['default'] = function (instance) {
 module.exports = exports['default'];
 
 
-},{}],50:[function(require,module,exports){
+},{}],51:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -8036,7 +8316,7 @@ exports['default'] = function (instance) {
 module.exports = exports['default'];
 
 
-},{"../utils":55}],51:[function(require,module,exports){
+},{"../utils":56}],52:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -8085,7 +8365,7 @@ exports['default'] = logger;
 module.exports = exports['default'];
 
 
-},{"./utils":55}],52:[function(require,module,exports){
+},{"./utils":56}],53:[function(require,module,exports){
 (function (global){
 /* global window */
 'use strict';
@@ -8109,7 +8389,7 @@ module.exports = exports['default'];
 
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],53:[function(require,module,exports){
+},{}],54:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -8403,7 +8683,7 @@ function executeDecorators(fn, prog, container, depths, data, blockParams) {
 }
 
 
-},{"./base":29,"./exception":42,"./utils":55}],54:[function(require,module,exports){
+},{"./base":30,"./exception":43,"./utils":56}],55:[function(require,module,exports){
 // Build out our basic SafeString type
 'use strict';
 
@@ -8420,7 +8700,7 @@ exports['default'] = SafeString;
 module.exports = exports['default'];
 
 
-},{}],55:[function(require,module,exports){
+},{}],56:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -8546,7 +8826,7 @@ function appendContextPath(contextPath, id) {
 }
 
 
-},{}],56:[function(require,module,exports){
+},{}],57:[function(require,module,exports){
 // USAGE:
 // var handlebars = require('handlebars');
 /* eslint-disable no-var */
@@ -8573,7 +8853,7 @@ if (typeof require !== 'undefined' && require.extensions) {
   require.extensions['.hbs'] = extension;
 }
 
-},{"../dist/cjs/handlebars":27,"../dist/cjs/handlebars/compiler/printer":37,"fs":69}],57:[function(require,module,exports){
+},{"../dist/cjs/handlebars":28,"../dist/cjs/handlebars/compiler/printer":38,"fs":70}],58:[function(require,module,exports){
 /*
  * Copyright 2009-2011 Mozilla Foundation and contributors
  * Licensed under the New BSD license. See LICENSE.txt or:
@@ -8583,7 +8863,7 @@ exports.SourceMapGenerator = require('./source-map/source-map-generator').Source
 exports.SourceMapConsumer = require('./source-map/source-map-consumer').SourceMapConsumer;
 exports.SourceNode = require('./source-map/source-node').SourceNode;
 
-},{"./source-map/source-map-consumer":64,"./source-map/source-map-generator":65,"./source-map/source-node":66}],58:[function(require,module,exports){
+},{"./source-map/source-map-consumer":65,"./source-map/source-map-generator":66,"./source-map/source-node":67}],59:[function(require,module,exports){
 /* -*- Mode: js; js-indent-level: 2; -*- */
 /*
  * Copyright 2011 Mozilla Foundation and contributors
@@ -8692,7 +8972,7 @@ define(function (require, exports, module) {
 
 });
 
-},{"./util":67,"amdefine":68}],59:[function(require,module,exports){
+},{"./util":68,"amdefine":69}],60:[function(require,module,exports){
 /* -*- Mode: js; js-indent-level: 2; -*- */
 /*
  * Copyright 2011 Mozilla Foundation and contributors
@@ -8840,7 +9120,7 @@ define(function (require, exports, module) {
 
 });
 
-},{"./base64":60,"amdefine":68}],60:[function(require,module,exports){
+},{"./base64":61,"amdefine":69}],61:[function(require,module,exports){
 /* -*- Mode: js; js-indent-level: 2; -*- */
 /*
  * Copyright 2011 Mozilla Foundation and contributors
@@ -8915,7 +9195,7 @@ define(function (require, exports, module) {
 
 });
 
-},{"amdefine":68}],61:[function(require,module,exports){
+},{"amdefine":69}],62:[function(require,module,exports){
 /* -*- Mode: js; js-indent-level: 2; -*- */
 /*
  * Copyright 2011 Mozilla Foundation and contributors
@@ -9034,7 +9314,7 @@ define(function (require, exports, module) {
 
 });
 
-},{"amdefine":68}],62:[function(require,module,exports){
+},{"amdefine":69}],63:[function(require,module,exports){
 /* -*- Mode: js; js-indent-level: 2; -*- */
 /*
  * Copyright 2014 Mozilla Foundation and contributors
@@ -9122,7 +9402,7 @@ define(function (require, exports, module) {
 
 });
 
-},{"./util":67,"amdefine":68}],63:[function(require,module,exports){
+},{"./util":68,"amdefine":69}],64:[function(require,module,exports){
 /* -*- Mode: js; js-indent-level: 2; -*- */
 /*
  * Copyright 2011 Mozilla Foundation and contributors
@@ -9244,7 +9524,7 @@ define(function (require, exports, module) {
 
 });
 
-},{"amdefine":68}],64:[function(require,module,exports){
+},{"amdefine":69}],65:[function(require,module,exports){
 /* -*- Mode: js; js-indent-level: 2; -*- */
 /*
  * Copyright 2011 Mozilla Foundation and contributors
@@ -10323,7 +10603,7 @@ define(function (require, exports, module) {
 
 });
 
-},{"./array-set":58,"./base64-vlq":59,"./binary-search":61,"./quick-sort":63,"./util":67,"amdefine":68}],65:[function(require,module,exports){
+},{"./array-set":59,"./base64-vlq":60,"./binary-search":62,"./quick-sort":64,"./util":68,"amdefine":69}],66:[function(require,module,exports){
 /* -*- Mode: js; js-indent-level: 2; -*- */
 /*
  * Copyright 2011 Mozilla Foundation and contributors
@@ -10724,7 +11004,7 @@ define(function (require, exports, module) {
 
 });
 
-},{"./array-set":58,"./base64-vlq":59,"./mapping-list":62,"./util":67,"amdefine":68}],66:[function(require,module,exports){
+},{"./array-set":59,"./base64-vlq":60,"./mapping-list":63,"./util":68,"amdefine":69}],67:[function(require,module,exports){
 /* -*- Mode: js; js-indent-level: 2; -*- */
 /*
  * Copyright 2011 Mozilla Foundation and contributors
@@ -11140,7 +11420,7 @@ define(function (require, exports, module) {
 
 });
 
-},{"./source-map-generator":65,"./util":67,"amdefine":68}],67:[function(require,module,exports){
+},{"./source-map-generator":66,"./util":68,"amdefine":69}],68:[function(require,module,exports){
 /* -*- Mode: js; js-indent-level: 2; -*- */
 /*
  * Copyright 2011 Mozilla Foundation and contributors
@@ -11512,7 +11792,7 @@ define(function (require, exports, module) {
 
 });
 
-},{"amdefine":68}],68:[function(require,module,exports){
+},{"amdefine":69}],69:[function(require,module,exports){
 (function (process,__filename){
 /** vim: et:ts=4:sw=4:sts=4
  * @license amdefine 1.0.0 Copyright (c) 2011-2015, The Dojo Foundation All Rights Reserved.
@@ -11817,9 +12097,9 @@ function amdefine(module, requireFn) {
 module.exports = amdefine;
 
 }).call(this,require('_process'),"/node_modules/Handlebars/node_modules/source-map/node_modules/amdefine/amdefine.js")
-},{"_process":71,"path":70}],69:[function(require,module,exports){
+},{"_process":72,"path":71}],70:[function(require,module,exports){
 
-},{}],70:[function(require,module,exports){
+},{}],71:[function(require,module,exports){
 (function (process){
 // Copyright Joyent, Inc. and other Node contributors.
 //
@@ -12047,7 +12327,7 @@ var substr = 'ab'.substr(-1) === 'b'
 ;
 
 }).call(this,require('_process'))
-},{"_process":71}],71:[function(require,module,exports){
+},{"_process":72}],72:[function(require,module,exports){
 // shim for using process in browser
 
 var process = module.exports = {};
@@ -12143,7 +12423,7 @@ process.chdir = function (dir) {
 };
 process.umask = function() { return 0; };
 
-},{}],72:[function(require,module,exports){
+},{}],73:[function(require,module,exports){
 (function (global){
 /**
  * @license

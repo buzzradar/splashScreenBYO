@@ -7,6 +7,7 @@ const LogoVendor_CTRL = require('../controllers/preview/logoVendor-ctrl');
 const Buttons_CTRL = require('../controllers/preview/buttons-ctrl');
 const Dividers_CTRL = require('../controllers/preview/dividers-ctrl');
 const Copy_CTRL = require('../controllers/preview/copy-ctrl');
+const Preloader_CTRL = require('../controllers/preview/preloader-ctrl');
 
 
 
@@ -142,6 +143,15 @@ D3Handler_CTRL.prototype.loadButtons = function () {
 
 
 
+D3Handler_CTRL.prototype.loadPreloader = function () {
+
+  this.preloader = new Preloader_CTRL(this.svgContainer);
+  DisplayGlobals_SRV.setPreloaderRef(this.preloader);
+
+}
+
+
+
 
 
 
@@ -263,13 +273,13 @@ D3Handler_CTRL.prototype.hideLoader = function () {
 
 D3Handler_CTRL.prototype.updateChanges = function () {
 
-  // console.log("D3: update changes....");
+  console.log("D3: update changes....", DisplayGlobals_SRV.getPreloaderFlag());
 
   this.buttons.update();
   this.dividers.update();
   this.copy.update();
   this.logoVendor.update();
-
+  this.preloader.update();
 }
 
 
@@ -279,11 +289,24 @@ D3Handler_CTRL.prototype.resetChanges = function () {
   this.dividers.reset();
   this.copy.reset();
   this.logoVendor.reset();
+  this.preloader.reset();
 
 }
 
 
 
+D3Handler_CTRL.prototype.hidePreloaderPlaylist = function () {
+
+  this.preloader.remove();
+
+}
+
+
+D3Handler_CTRL.prototype.showPreloaderPlaylist = function () {
+
+  this.preloader.update();
+
+}
 
 
 

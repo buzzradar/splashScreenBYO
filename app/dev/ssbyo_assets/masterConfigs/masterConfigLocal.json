@@ -28,6 +28,28 @@
         "align": "center"
       }
     ],
+
+
+
+    "autoplay" : 0,
+    "autoplaySettings" : {
+        "loader" : {
+            "scale" : "50",
+            "yOffset" : "0",
+            "background" : {
+                "colour" : "444444",
+                "transparent" : "60"
+            },
+            "foreground" : {
+                "colour" : "F6921E",
+                "transparent" : "0"
+            }
+        }
+    },
+
+
+
+
     "buttons": [
       {
         "id": 131,

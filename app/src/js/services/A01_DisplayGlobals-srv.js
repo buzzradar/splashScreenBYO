@@ -437,6 +437,58 @@ DisplayGlobals.prototype.getButtonsRef = function () {
 
 
 
+//----------------------------
+// Preloader Reference
+// We use this to emulate the preloader and change the settings 
+// like scale, yOffset, foreground and background color
+//----------------------------
+
+let _PreloaderCtrl;  
+
+DisplayGlobals.prototype.setPreloaderRef = function (PreloaderCtrl) {
+
+  _PreloaderCtrl = PreloaderCtrl
+  
+};
+
+
+DisplayGlobals.prototype.getPreloaderRef = function () {
+
+  return _PreloaderCtrl;
+  
+};
+
+
+
+
+
+
+//----------------------------
+// Preloader Flag
+// We use this flag to show/hide the Preloader on the D3 Preview.
+// It is activated from a checkbox in Type1 
+//----------------------------
+
+let _PreloaderFlag = true;  
+
+DisplayGlobals.prototype.setPreloaderFlag = function (PreloaderFlag) {
+
+  _PreloaderFlag = PreloaderFlag
+  
+};
+
+
+DisplayGlobals.prototype.getPreloaderFlag = function () {
+
+  return _PreloaderFlag;
+  
+};
+
+
+
+
+
+
 
 
 

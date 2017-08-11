@@ -64,11 +64,12 @@ function _init() {
 	this.d3SVG_Ctrl.loadCopy();
 	this.d3SVG_Ctrl.loadLine();
 	this.d3SVG_Ctrl.loadButtons();
-
 	//If Editor Mode Add buttons for each element that can be edited
 	if (DisplayGlobals_SRV.getArguments().editor) {
 		DisplayGlobals_SRV.setEditorRef( new Editor_CTRL(this.d3SVG_Ctrl) );
 	}
+	this.d3SVG_Ctrl.loadPreloader();
+
 
 	_checkIfPlaylistAvailable.call(this);
 	_onPreviewReady.call(this);
@@ -175,6 +176,18 @@ Preview_Ctrl.prototype.showLoader = function (label) {
 Preview_Ctrl.prototype.hideLoader = function () {
 
 	this.d3SVG_Ctrl.hideLoader();
+
+}
+
+Preview_Ctrl.prototype.hidePreloaderPlaylist = function () {
+
+	this.d3SVG_Ctrl.hidePreloaderPlaylist();
+
+}
+
+Preview_Ctrl.prototype.showPreloaderPlaylist = function () {
+
+	this.d3SVG_Ctrl.showPreloaderPlaylist();
 
 }
 

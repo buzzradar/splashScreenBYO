@@ -11,6 +11,7 @@
 
 const DisplayGlobals_SRV = require('../../../services/A01_DisplayGlobals-srv'); 
 const HBTemplates = require('../../../services/HBTemplates-srv');
+const Utils_SRV = require('../../../services/Utils-srv');
 
 
 
@@ -24,9 +25,7 @@ function FormType1_Ctrl () {
 
 	this.parentDOM = $('#splScrEditorForm');
 	this.backImage = null;
-	this.autoplay = null;
-
-    // console.log ("%c -> Form Type 1 Constructor. DONE! ", "background:#ff0000;");
+	this.preloaderViewFlag = true;
 
     _init.call(this);
 
@@ -57,40 +56,86 @@ function _getMasterConfigValues() {
 
 function _addPlaylistSwitch() {
 
+	_addPreloaderViewCheckbox.call(this);
 
 	var masterConfig = DisplayGlobals_SRV.getMasterConfig().AppSplash;
-    this.autoplay = DisplayGlobals_SRV.getMasterConfig().AppSplash;
-
     if(!masterConfig.hasOwnProperty('autoplay')){
         masterConfig['autoplay'] = 0;
     }
     masterConfig.autoplay = Number(masterConfig.autoplay);
 
-    console.log("masterConfig.autoplay (before setting the switch) => ", masterConfig.autoplay, Boolean(masterConfig.autoplay) );
-
     this.settingsDom.find("input[name='playlist-enabled-switch']").prop( "checked", Boolean(masterConfig.autoplay) );
     this.settingsDom.find("input[name='playlist-enabled-switch']").bootstrapSwitch();
+
+    if (!masterConfig.autoplay) {
+ 		this.parentDOM.find('.launch-playlist-settings').hide();
+ 	}else{
+ 		this.parentDOM.find('.launch-playlist-settings').show();
+ 	}
 
     let self = this;
     this.settingsDom.find("input[name='playlist-enabled-switch']").on("switchChange.bootstrapSwitch", function(event, state) {
         masterConfig.autoplay = Number(state);
      	DisplayGlobals_SRV.getPreviewRef().updateChanges();
+    
+    	_showLaunchAsPlaylistSettings.call(self,state)
+
     });
 
 }
 
 
+function _addPreloaderViewCheckbox() {
+
+	let self = this;
+	this.settingsDom.find("input.icheck").iCheck({checkboxClass:'icheckbox_minimal-grey'});	
+	if( DisplayGlobals_SRV.getPreloaderFlag() ) this.settingsDom.find("input.icheck").iCheck('check');
+	this.settingsDom.find("input.icheck").on('ifChecked', function(event){
+        DisplayGlobals_SRV.setPreloaderFlag(true);
+     	DisplayGlobals_SRV.getPreviewRef().showPreloaderPlaylist();
+    }).on('ifUnchecked', function(event) {
+        DisplayGlobals_SRV.setPreloaderFlag(false);
+     	DisplayGlobals_SRV.getPreviewRef().hidePreloaderPlaylist();
+    });
+
+}
+
+
+function _showLaunchAsPlaylistSettings(show) {
+
+	if (!show) {
+ 		this.parentDOM.find('.launch-playlist-settings').hide();
+     	DisplayGlobals_SRV.getPreviewRef().hidePreloaderPlaylist();
+ 	}else{
+ 		this.parentDOM.find('.launch-playlist-settings').show();
+     	DisplayGlobals_SRV.getPreviewRef().showPreloaderPlaylist();
+ 	}
+
+}
+
 
 
 FormType1_Ctrl.prototype.load = function () {
 
-	this.settingsDom = HBTemplates.getTemplate('formType1', {name: DisplayGlobals_SRV.getMasterConfig().AppSplash.name, visible : _getVisible.call(this) });
+	var objToTemplate = {
+		name: DisplayGlobals_SRV.getMasterConfig().AppSplash.name, 
+		visible : _getVisible.call(this),
+		scale : DisplayGlobals_SRV.getMasterConfig().AppSplash.autoplaySettings.loader.scale,
+		yoffset : DisplayGlobals_SRV.getMasterConfig().AppSplash.autoplaySettings.loader.yOffset,
+		bgcolour : DisplayGlobals_SRV.getMasterConfig().AppSplash.autoplaySettings.loader.background.colour,
+		bgopacity : DisplayGlobals_SRV.getMasterConfig().AppSplash.autoplaySettings.loader.background.transparent,
+		fgcolour : DisplayGlobals_SRV.getMasterConfig().AppSplash.autoplaySettings.loader.foreground.colour,
+		fgopacity : DisplayGlobals_SRV.getMasterConfig().AppSplash.autoplaySettings.loader.foreground.transparent,
+	};
+
+	this.settingsDom = HBTemplates.getTemplate('formType1', objToTemplate);
 	this.parentDOM.find('.form-body').html(this.settingsDom);
 
 	// _addSwitchButton.call(this);
-	_onFocusOut.call(this);
+	_onFocusOut.call(this,objToTemplate);
 	_setupUploadify.call(this);
 	_addPlaylistSwitch.call(this);
+	_addPickColors.call(this);
 
 };
 
@@ -107,22 +152,84 @@ function _getVisible() {
 
 
 
-function _onFocusOut() {
+function _onFocusOut(objToTemplate) {
 
-    this.settingsDom.find('input').focusout(function() {
-		DisplayGlobals_SRV.getMasterConfig().AppSplash.name = $('input[name=launcherName]').val();
+	let self = this;
+    this.settingsDom.find('input').focusout(function(event) {
+		
+    	console.log("On focus out ->", $(this).val(), $(this).attr('name') );
+
+    	let inputName = $(this).attr('name');
+    	let inputVal = $(this).val();
+    	let masterConfig = DisplayGlobals_SRV.getMasterConfig();    
+    	let error;
+
+    	switch(inputName){
+    		case 'launcherName':
+				masterConfig.AppSplash.name = inputVal;
+    		break;
+    		case 'scale':
+    			error = Utils_SRV.validateScale(self.settingsDom, objToTemplate, "scale");
+				if (!error) masterConfig.AppSplash.autoplaySettings.loader.scale = inputVal;
+    		break;
+    		case 'yoffset':
+				masterConfig.AppSplash.autoplaySettings.loader.yOffset = inputVal;
+    		break;
+    		case 'bgopacity':
+    			error = Utils_SRV.validateTransparency(self.settingsDom, objToTemplate, "bgopacity");
+				if (!error) masterConfig.AppSplash.autoplaySettings.loader.background.transparent = inputVal;
+    		break;
+    	}
+
      	DisplayGlobals_SRV.getPreviewRef().updateChanges();
-    }.bind(this));
+
+    });
 
 }
 
 
 
-function _setupUploadify() {
 
-	$('#cf_backgroundImageUpload').uploadifive( _getUploadifySettings("BG_"+Date.now(), 3000, 'UPLOAD BG IMAGE') );
+
+
+function _addPickColors() {
+
+    let self = this;
+    let masterConfig = DisplayGlobals_SRV.getMasterConfig();    
+    $('input.color-picker').each(function() {
+
+        $(this).minicolors({
+            control: $(this).attr('data-control') || 'hue',
+            defaultValue: $(this).attr('data-defaultValue') || '',
+            inline: $(this).attr('data-inline') === 'true',
+            letterCase: $(this).attr('data-letterCase') || 'lowercase',
+            opacity: $(this).attr('data-opacity'),
+            position: $(this).attr('data-position') || 'bottom left',
+            change: function(hex, opacity) {
+                if (!hex) return;
+                if (opacity) hex += ', ' + opacity;
+                if (typeof console === 'object') {
+                    let inputName = $(this).attr('name');
+
+                    //Background color
+                    if (inputName === "bgcolor"){
+						masterConfig.AppSplash.autoplaySettings.loader.background.colour = hex.substring(1,7);
+                    }else{
+						masterConfig.AppSplash.autoplaySettings.loader.foreground.colour = hex.substring(1,7);
+                    }
+                    DisplayGlobals_SRV.getPreviewRef().updateChanges();    
+                }
+            },
+            theme: 'bootstrap'
+        });
+
+    });
+
 
 }
+
+
+
 
 
 
@@ -143,6 +250,11 @@ function _addSwitchButton() {
 }
 
 
+function _setupUploadify() {
+
+	$('#cf_backgroundImageUpload').uploadifive( _getUploadifySettings("BG_"+Date.now(), 3000, 'UPLOAD BG IMAGE') );
+
+}
 
 
 function _getUploadifySettings (imageID, fileSizeLimit, buttonText) {

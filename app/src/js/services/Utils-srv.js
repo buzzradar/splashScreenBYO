@@ -171,7 +171,7 @@ Utils_SRV.prototype.validateTransparency = function (formDOM, objMO, propertyNam
     if ( transp >=0 && transp <= 100  )  {
         formDOM.find('input[name='+propertyName+']').closest('.form-group').removeClass('has-error');
         objMO[propertyName] = Number(transp);
-        formDOM.find('input[name='+propertyName+']').val(objMO.backgroundTransparent);
+        formDOM.find('input[name='+propertyName+']').val(objMO[propertyName]);
     }else{
         error = true;
         formDOM.find('input[name='+propertyName+']').closest('.form-group').addClass('has-error');
@@ -181,6 +181,32 @@ Utils_SRV.prototype.validateTransparency = function (formDOM, objMO, propertyNam
 
 };
 
+
+
+
+
+//----------------------------
+// Validate Scale (0 to 100)
+//----------------------------
+
+Utils_SRV.prototype.validateScale = function (formDOM, objMO, propertyName) {
+
+    let error = false;
+    let transp = Number($.trim(formDOM.find('input[name='+propertyName+']').val()));
+
+    if ( transp >=40 && transp <= 100  )  {
+        console.log("bbbbbb")
+        formDOM.find('input[name='+propertyName+']').closest('.form-group').removeClass('has-error');
+        objMO[propertyName] = Number(transp);
+        formDOM.find('input[name='+propertyName+']').val(objMO[propertyName]);
+    }else{
+        error = true;
+        formDOM.find('input[name='+propertyName+']').closest('.form-group').addClass('has-error');
+    }
+  
+    return error;
+
+};
 
 
 
