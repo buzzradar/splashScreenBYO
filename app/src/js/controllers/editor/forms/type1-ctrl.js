@@ -179,6 +179,10 @@ function _onFocusOut(objToTemplate) {
     			error = Utils_SRV.validateTransparency(self.settingsDom, objToTemplate, "bgopacity");
 				if (!error) masterConfig.AppSplash.autoplaySettings.loader.background.transparent = inputVal;
     		break;
+            case 'fgopacity':
+                error = Utils_SRV.validateTransparency(self.settingsDom, objToTemplate, "fgopacity");
+                if (!error) masterConfig.AppSplash.autoplaySettings.loader.foreground.transparent = inputVal;
+            break;
     	}
 
      	DisplayGlobals_SRV.getPreviewRef().updateChanges();

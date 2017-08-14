@@ -31,10 +31,10 @@
 
 
 
-    "autoplay" : 0,
+    "autoplay" : 1,
     "autoplaySettings" : {
         "loader" : {
-            "scale" : "50",
+            "scale" : "100",
             "yOffset" : "0",
             "background" : {
                 "colour" : "444444",

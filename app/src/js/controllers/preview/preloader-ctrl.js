@@ -17,9 +17,9 @@ function Preloader_CTRL (svg) {
 
 	this.svgContainer = svg;
 
-  this.width = 200;
-  this.height = 200;
-  this.arcWidth = this.width * 0.1;
+  this.width = 250;
+  this.height = 250;
+  this.arcWidth = 20;
 
   _loadPreloader.call(this);
 
@@ -39,6 +39,7 @@ function _loadPreloader() {
 
   if (DisplayGlobals_SRV.getMasterConfig().AppSplash.autoplay){
 
+    _applyScale.call(this);
     _addBackgroundSolidColor.call(this);
     _addPreloaderGuide.call(this);
     _loadForegroundArc.call(this);
@@ -46,6 +47,16 @@ function _loadPreloader() {
     _movePreloaderYOffset.call(this);
 
   }
+
+}
+
+
+
+function _applyScale() {
+
+  this.width = 250 * Number(DisplayGlobals_SRV.getMasterConfig().AppSplash.autoplaySettings.loader.scale)/100;
+  this.height = 250 * Number(DisplayGlobals_SRV.getMasterConfig().AppSplash.autoplaySettings.loader.scale)/100;
+
 
 }
 
@@ -116,6 +127,7 @@ function _loadForegroundArc() {
       .attr("class", "arc")
       .attr("d", foregroundArc)
       .style("fill", DisplayGlobals_SRV.getMasterConfig().AppSplash.autoplaySettings.loader.background.colour)
+      .style("opacity", Utils_SRV.setOpacity(DisplayGlobals_SRV.getMasterConfig().AppSplash.autoplaySettings.loader.background.transparent))
 
   this.foregroundPath.attr("transform", "translate("+this.width/2+","+this.height/2+")");
 
@@ -135,10 +147,13 @@ function _loadBackgroundArc() {
       .attr("class", "arc")
       .attr("d", backgroundArc)
       .style("fill", DisplayGlobals_SRV.getMasterConfig().AppSplash.autoplaySettings.loader.foreground.colour)
+      .style("opacity", Utils_SRV.setOpacity(DisplayGlobals_SRV.getMasterConfig().AppSplash.autoplaySettings.loader.foreground.transparent))
 
   this.backgroundPath.attr("transform", "translate("+this.width/2+","+this.height/2+")");
 
 }
+
+
 
 
 function _movePreloaderYOffset() {
@@ -170,8 +185,11 @@ Preloader_CTRL.prototype.reset = function() {
 
 Preloader_CTRL.prototype.remove = function() {
 
-  this.preloaderGroup.selectAll("*").remove();
-  this.bgGroup.selectAll("*").remove();
+  if (typeof this.preloaderGroup !== 'undefined') {
+      this.preloaderGroup.selectAll("*").remove();
+      this.bgGroup.selectAll("*").remove();
+  }
+
 }
 
 

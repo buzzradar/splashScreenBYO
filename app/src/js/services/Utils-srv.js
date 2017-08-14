@@ -361,6 +361,16 @@ Utils_SRV.prototype.getJsonVal = function (defaultVal, jsonVal, convertTo) {
 
 
 
+Utils_SRV.prototype.setOpacity = function (transparentValueJSON) {
+
+    let transp = 100 - Number(transparentValueJSON);
+    return transp/100;
+
+}
+
+
+
+
 
 
 
