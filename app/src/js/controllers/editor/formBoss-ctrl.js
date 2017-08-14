@@ -65,6 +65,7 @@ function _init() {
 FormBoss_Ctrl.prototype.loadForm = function (id) {
 
 	this.formId = id;
+	DisplayGlobals_SRV.setFormStep(id);
 
 	//Reset the Actions on the Top of the form
 	this.parentDOM.find('.actions').html('');
@@ -138,9 +139,6 @@ FormBoss_Ctrl.prototype.reset = function () {
 	this.formArray[this.formId-1].objRef.load();
 
 }
-
-
-
 
 
 

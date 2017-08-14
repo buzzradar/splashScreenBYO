@@ -279,13 +279,11 @@ D3Handler_CTRL.prototype.hideLoader = function () {
 
 D3Handler_CTRL.prototype.updateChanges = function () {
 
-  console.log("D3: update changes....", DisplayGlobals_SRV.getPreloaderFlag());
-
   this.buttons.update();
   this.dividers.update();
   this.copy.update();
   this.logoVendor.update();
-  this.preloader.update();
+  if(DisplayGlobals_SRV.getFormStep() == 1) this.preloader.update();
 }
 
 

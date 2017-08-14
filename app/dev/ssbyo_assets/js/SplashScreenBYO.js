@@ -378,6 +378,7 @@ function _init() {
 FormBoss_Ctrl.prototype.loadForm = function (id) {
 
 	this.formId = id;
+	DisplayGlobals_SRV.setFormStep(id);
 
 	//Reset the Actions on the Top of the form
 	this.parentDOM.find('.actions').html('');
@@ -3088,6 +3089,22 @@ DisplayGlobals.prototype.getArrayIds = function () {
 };
 
 //----------------------------
+// Form Step
+//----------------------------
+
+var _formStep = undefined;
+
+DisplayGlobals.prototype.setFormStep = function (formStep) {
+
+  _formStep = formStep;
+};
+
+DisplayGlobals.prototype.getFormStep = function () {
+
+  return _formStep;
+};
+
+//----------------------------
 //Resize Window
 //----------------------------
 
@@ -3369,13 +3386,11 @@ D3Handler_CTRL.prototype.hideLoader = function () {
 
 D3Handler_CTRL.prototype.updateChanges = function () {
 
-  console.log("D3: update changes....", DisplayGlobals_SRV.getPreloaderFlag());
-
   this.buttons.update();
   this.dividers.update();
   this.copy.update();
   this.logoVendor.update();
-  this.preloader.update();
+  if (DisplayGlobals_SRV.getFormStep() == 1) this.preloader.update();
 };
 
 D3Handler_CTRL.prototype.resetChanges = function () {

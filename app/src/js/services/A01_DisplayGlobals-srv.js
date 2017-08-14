@@ -555,6 +555,32 @@ DisplayGlobals.prototype.getArrayIds = function () {
 
 
 
+//----------------------------
+// Form Step
+//----------------------------
+
+let _formStep;  
+
+DisplayGlobals.prototype.setFormStep = function (formStep) {
+
+  _formStep = formStep;
+  
+};
+
+
+DisplayGlobals.prototype.getFormStep = function () {
+
+  return _formStep;
+  
+};
+
+
+
+
+
+
+
+
 
 
 
