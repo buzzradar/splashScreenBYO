@@ -47,7 +47,30 @@ function _init() {
 
 function _getMasterConfigValues() {
 
-    this.backImage = DisplayGlobals_SRV.getMasterConfig().AppSplash.backImage;
+    var masterConfig = DisplayGlobals_SRV.getMasterConfig().AppSplash;
+
+    this.backImage = masterConfig.backImage;
+
+    if(!masterConfig.hasOwnProperty('autoplaySettings')){
+        masterConfig['autoplaySettings'] = {
+            "loader" : {
+                "scale" : 100,
+                "yOffset" : 0,
+                "background" : {
+                    "colour" : "444444",
+                    "transparent" : 60
+                },
+                "foreground" : {
+                    "colour" : "F6921E",
+                    "transparent" : 0
+                }
+            }
+        }
+    }
+
+    if(!masterConfig.hasOwnProperty('autoplay')){
+        masterConfig['autoplay'] = 0;
+    }
 
 }
 
@@ -57,11 +80,8 @@ function _getMasterConfigValues() {
 function _addPlaylistSwitch() {
 
 	_addPreloaderViewCheckbox.call(this);
-
-	var masterConfig = DisplayGlobals_SRV.getMasterConfig().AppSplash;
-    if(!masterConfig.hasOwnProperty('autoplay')){
-        masterConfig['autoplay'] = 0;
-    }
+    
+    var masterConfig = DisplayGlobals_SRV.getMasterConfig().AppSplash;
     masterConfig.autoplay = Number(masterConfig.autoplay);
 
     this.settingsDom.find("input[name='playlist-enabled-switch']").prop( "checked", Boolean(masterConfig.autoplay) );
