@@ -35,7 +35,7 @@ function Preview_Ctrl (masterConfJSON, targetDOM) {
     this.autoSaveTimeout = setTimeout(function() {});
 
 
-	_init.call(this);
+    _checkMasterConfig.call(this);
 
 }
 
@@ -45,6 +45,30 @@ function Preview_Ctrl (masterConfJSON, targetDOM) {
 
 
 
+
+
+
+
+//Function that checks if there are values missing in the master json and adds default values
+function _checkMasterConfig() {
+
+	//COPY
+	if(!this.masterConfJSON.AppSplash.hasOwnProperty('copy')){
+	    this.masterConfJSON.AppSplash.copy = [];
+	}
+	//DIVIDERS
+	if(!this.masterConfJSON.AppSplash.hasOwnProperty('dividers')){
+	    this.masterConfJSON.AppSplash.dividers = [];
+	}
+	//BUTTONS
+	if(!this.masterConfJSON.AppSplash.hasOwnProperty('buttons')){
+	    this.masterConfJSON.AppSplash.buttons = [];
+	}
+
+	_init.call(this);
+
+
+}
 
 
 
@@ -74,7 +98,7 @@ function _init() {
 	_checkIfPlaylistAvailable.call(this);
 	_onPreviewReady.call(this);
 
-};
+}
 
 
 
@@ -171,25 +195,25 @@ Preview_Ctrl.prototype.showLoader = function (label) {
 
 	this.d3SVG_Ctrl.showLoader(label);
 
-}
+};
 
 Preview_Ctrl.prototype.hideLoader = function () {
 
 	this.d3SVG_Ctrl.hideLoader();
 
-}
+};
 
 Preview_Ctrl.prototype.hidePreloaderPlaylist = function () {
 
 	this.d3SVG_Ctrl.hidePreloaderPlaylist();
 
-}
+};
 
 Preview_Ctrl.prototype.showPreloaderPlaylist = function () {
 
 	this.d3SVG_Ctrl.showPreloaderPlaylist();
 
-}
+};
 
 
 

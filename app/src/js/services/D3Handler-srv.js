@@ -51,7 +51,7 @@ function _createSVG(target) {
   var targetSelection = d3.select(target.get(0));
   this.svgContainer = targetSelection.append("svg")
   .attr("width", 1920)
-  .attr("height", 1080)
+  .attr("height", 1080);
 
 
 }
@@ -75,7 +75,7 @@ D3Handler_CTRL.prototype.loadBGImage = function () {
     .attr("width", 1920)
     .attr("height", 1080);
 
-}
+};
 
 
 D3Handler_CTRL.prototype.updateBGImage = function () {
@@ -101,7 +101,7 @@ D3Handler_CTRL.prototype.loadVendorLogo = function () {
 
   DisplayGlobals_SRV.setLogoVendorRef(this.logoVendor);
 
-}
+};
 
 
 D3Handler_CTRL.prototype.updateLogoImage = function () {
@@ -109,7 +109,7 @@ D3Handler_CTRL.prototype.updateLogoImage = function () {
   var imgObject = DisplayGlobals_SRV.getMasterConfig().AppSplash.vendorLogo;
   this.logoVendor.updateLogo(imgObject);
 
-}
+};
 
 
 
@@ -120,7 +120,7 @@ D3Handler_CTRL.prototype.loadCopy = function () {
   this.copy = new Copy_CTRL(this.svgContainer);
   DisplayGlobals_SRV.setCopyRef(this.copy);
 
-}
+};
 
 
 
@@ -129,7 +129,7 @@ D3Handler_CTRL.prototype.loadLine = function () {
 
   this.dividers = new Dividers_CTRL(this.svgContainer);
 
-}
+};
 
 
 
@@ -139,7 +139,7 @@ D3Handler_CTRL.prototype.loadButtons = function () {
   this.buttons = new Buttons_CTRL(this.svgContainer);
   DisplayGlobals_SRV.setButtonsRef(this.buttons);
 
-}
+};
 
 
 
@@ -148,7 +148,7 @@ D3Handler_CTRL.prototype.loadPreloader = function () {
   this.preloader = new Preloader_CTRL(this.svgContainer);
   DisplayGlobals_SRV.setPreloaderRef(this.preloader);
 
-}
+};
 
 
 
@@ -159,19 +159,19 @@ D3Handler_CTRL.prototype.loadPreloader = function () {
 D3Handler_CTRL.prototype.drawLegendOnTop = function (buttonsArrayMO) {
 
   let _this = this;
-  let legendOnTop = this.svgContainer.append("g")
+  let legendOnTop = this.svgContainer.append("g");
 
   $.each( buttonsArrayMO, function( key, button ) {
 
     let circleBtnGroup = legendOnTop.append("g")
         .style('cursor', 'pointer')
-        .attr('data-id', key+1)
+        .attr('data-id', key+1);
 
     var c = circleBtnGroup.append("circle")
         .attr("cx", button.cx)
         .attr("cy", button.cy)
         .attr("r", button.radius)
-        .style("fill", button.fill)
+        .style("fill", button.fill);
 
     circleBtnGroup.append("text")
         .attr("text-anchor", "middle")
@@ -180,7 +180,7 @@ D3Handler_CTRL.prototype.drawLegendOnTop = function (buttonsArrayMO) {
         .text(button.index)
         .attr("font-family", this.fontFamily)
         .attr("font-size", 40)
-        .attr("fill", '#ffffff')
+        .attr("fill", '#ffffff');
 
     this.legendCirclesArray.push(c);
 
@@ -188,12 +188,12 @@ D3Handler_CTRL.prototype.drawLegendOnTop = function (buttonsArrayMO) {
       let id = $(this).data('id');
       DisplayGlobals_SRV.getEditorRef().loadFormSettings(id);
       _this.selectLegendItem(id);
-    })
+    });
 
   }.bind(this));
 
 
-}
+};
 
 
 
@@ -217,7 +217,7 @@ D3Handler_CTRL.prototype.selectLegendItem = function (id) {
   //Change color to selected state (blue)
   legendBtn.style("fill", '#3598DC');
 
-}
+};
 
 
 
@@ -263,7 +263,7 @@ D3Handler_CTRL.prototype.showLoader = function (label) {
 
   }
 
-}
+};
 
 
 
@@ -272,7 +272,7 @@ D3Handler_CTRL.prototype.hideLoader = function () {
   if (this.updatingGroup) this.updatingGroup.remove();
   this.updatingGroup = null;
 
-}
+};
 
 
 
@@ -283,8 +283,8 @@ D3Handler_CTRL.prototype.updateChanges = function () {
   this.dividers.update();
   this.copy.update();
   this.logoVendor.update();
-  if(DisplayGlobals_SRV.getFormStep() == 1) this.preloader.update();
-}
+  //if(DisplayGlobals_SRV.getFormStep() == 1) this.preloader.update();
+};
 
 
 D3Handler_CTRL.prototype.resetChanges = function () {
@@ -293,9 +293,9 @@ D3Handler_CTRL.prototype.resetChanges = function () {
   this.dividers.reset();
   this.copy.reset();
   this.logoVendor.reset();
-  this.preloader.reset();
+  //this.preloader.reset();
 
-}
+};
 
 
 
@@ -303,14 +303,14 @@ D3Handler_CTRL.prototype.hidePreloaderPlaylist = function () {
 
   this.preloader.remove();
 
-}
+};
 
 
 D3Handler_CTRL.prototype.showPreloaderPlaylist = function () {
 
   if (typeof this.preloader !== 'undefined') this.preloader.update();
 
-}
+};
 
 
 

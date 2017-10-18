@@ -211,7 +211,7 @@ function _init() {
 	this.form_Ctrl = new Form_CTRL();
 
 	_setupPublishButtons.call(this);
-};
+}
 
 Editor_Ctrl.prototype.loadFormSettings = function (id) {
 
@@ -1103,18 +1103,21 @@ function _addPlaylistSwitch() {
     this.settingsDom.find("input[name='playlist-enabled-switch']").prop("checked", Boolean(masterConfig.autoplay));
     this.settingsDom.find("input[name='playlist-enabled-switch']").bootstrapSwitch();
 
-    if (!masterConfig.autoplay) {
-        this.parentDOM.find('.launch-playlist-settings').hide();
-    } else {
-        this.parentDOM.find('.launch-playlist-settings').show();
-    }
+    //Important Developer NOTE!!!!!!!!!!!!!!!!!
+    //Delete this when we add the playlist setting functionality back
+    this.parentDOM.find('.launch-playlist-settings').hide();
+    // if (!masterConfig.autoplay) {
+    // 	this.parentDOM.find('.launch-playlist-settings').hide();
+    // }else{
+    // 	this.parentDOM.find('.launch-playlist-settings').show();
+    // }
 
     var self = this;
     this.settingsDom.find("input[name='playlist-enabled-switch']").on("switchChange.bootstrapSwitch", function (event, state) {
         masterConfig.autoplay = Number(state);
         DisplayGlobals_SRV.getPreviewRef().updateChanges();
 
-        _showLaunchAsPlaylistSettings.call(self, state);
+        //_showLaunchAsPlaylistSettings.call(self,state)
     });
 }
 
@@ -2554,12 +2557,16 @@ function _loadPreloader() {
 
   if (DisplayGlobals_SRV.getMasterConfig().AppSplash.autoplay) {
 
-    _applyScale.call(this);
-    _addBackgroundSolidColor.call(this);
-    _addPreloaderGuide.call(this);
-    _loadForegroundArc.call(this);
-    _loadBackgroundArc.call(this);
-    _movePreloaderYOffset.call(this);
+    //DEVELOPER NOTE!!!!!
+    //Uncomment the lines below once we want to implement the preloader again
+
+    // _applyScale.call(this);
+    // _addBackgroundSolidColor.call(this);
+    // _addPreloaderGuide.call(this);
+    // _loadForegroundArc.call(this);
+    // _loadBackgroundArc.call(this);
+    // _movePreloaderYOffset.call(this);
+
   }
 }
 
@@ -2666,6 +2673,25 @@ function Preview_Ctrl(masterConfJSON, targetDOM) {
 	this.masterConfJSON = masterConfJSON;
 	this.autoSaveTimeout = setTimeout(function () {});
 
+	_checkMasterConfig.call(this);
+}
+
+//Function that checks if there are values missing in the master json and adds default values
+function _checkMasterConfig() {
+
+	//COPY
+	if (!this.masterConfJSON.AppSplash.hasOwnProperty('copy')) {
+		this.masterConfJSON.AppSplash.copy = [];
+	}
+	//DIVIDERS
+	if (!this.masterConfJSON.AppSplash.hasOwnProperty('dividers')) {
+		this.masterConfJSON.AppSplash.dividers = [];
+	}
+	//BUTTONS
+	if (!this.masterConfJSON.AppSplash.hasOwnProperty('buttons')) {
+		this.masterConfJSON.AppSplash.buttons = [];
+	}
+
 	_init.call(this);
 }
 
@@ -2691,7 +2717,7 @@ function _init() {
 
 	_checkIfPlaylistAvailable.call(this);
 	_onPreviewReady.call(this);
-};
+}
 
 function _checkIfPlaylistAvailable() {
 
@@ -2799,7 +2825,7 @@ function DisplayGlobals() {
 // version
 //--------------------------------------
 
-var _version = "0.90";
+var _version = "0.93";
 
 DisplayGlobals.prototype.getVersion = function () {
 
@@ -3390,7 +3416,7 @@ D3Handler_CTRL.prototype.updateChanges = function () {
   this.dividers.update();
   this.copy.update();
   this.logoVendor.update();
-  if (DisplayGlobals_SRV.getFormStep() == 1) this.preloader.update();
+  //if(DisplayGlobals_SRV.getFormStep() == 1) this.preloader.update();
 };
 
 D3Handler_CTRL.prototype.resetChanges = function () {
@@ -3399,7 +3425,7 @@ D3Handler_CTRL.prototype.resetChanges = function () {
   this.dividers.reset();
   this.copy.reset();
   this.logoVendor.reset();
-  this.preloader.reset();
+  //this.preloader.reset();
 };
 
 D3Handler_CTRL.prototype.hidePreloaderPlaylist = function () {

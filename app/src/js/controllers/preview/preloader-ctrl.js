@@ -39,12 +39,16 @@ function _loadPreloader() {
 
   if (DisplayGlobals_SRV.getMasterConfig().AppSplash.autoplay){
 
-    _applyScale.call(this);
-    _addBackgroundSolidColor.call(this);
-    _addPreloaderGuide.call(this);
-    _loadForegroundArc.call(this);
-    _loadBackgroundArc.call(this);
-    _movePreloaderYOffset.call(this);
+    //DEVELOPER NOTE!!!!!
+    //Uncomment the lines below once we want to implement the preloader again
+  
+
+    // _applyScale.call(this);
+    // _addBackgroundSolidColor.call(this);
+    // _addPreloaderGuide.call(this);
+    // _loadForegroundArc.call(this);
+    // _loadBackgroundArc.call(this);
+    // _movePreloaderYOffset.call(this);
 
   }
 
@@ -127,7 +131,7 @@ function _loadForegroundArc() {
       .attr("class", "arc")
       .attr("d", foregroundArc)
       .style("fill", DisplayGlobals_SRV.getMasterConfig().AppSplash.autoplaySettings.loader.background.colour)
-      .style("opacity", Utils_SRV.setOpacity(DisplayGlobals_SRV.getMasterConfig().AppSplash.autoplaySettings.loader.background.transparent))
+      .style("opacity", Utils_SRV.setOpacity(DisplayGlobals_SRV.getMasterConfig().AppSplash.autoplaySettings.loader.background.transparent));
 
   this.foregroundPath.attr("transform", "translate("+this.width/2+","+this.height/2+")");
 
@@ -141,13 +145,13 @@ function _loadBackgroundArc() {
     .innerRadius(this.width/2 - this.arcWidth)
     .outerRadius(this.width/2)
     .startAngle(Math.PI)
-    .endAngle(2 * Math.PI)
+    .endAngle(2 * Math.PI);
 
   this.backgroundPath = this.preloaderGroup.append("path")
       .attr("class", "arc")
       .attr("d", backgroundArc)
       .style("fill", DisplayGlobals_SRV.getMasterConfig().AppSplash.autoplaySettings.loader.foreground.colour)
-      .style("opacity", Utils_SRV.setOpacity(DisplayGlobals_SRV.getMasterConfig().AppSplash.autoplaySettings.loader.foreground.transparent))
+      .style("opacity", Utils_SRV.setOpacity(DisplayGlobals_SRV.getMasterConfig().AppSplash.autoplaySettings.loader.foreground.transparent));
 
   this.backgroundPath.attr("transform", "translate("+this.width/2+","+this.height/2+")");
 
@@ -177,11 +181,11 @@ Preloader_CTRL.prototype.update = function() {
   //Developer Note: We check if the Flag for Preloader View is true
   //that is activated in the checkbox in Type1  
   if( DisplayGlobals_SRV.getPreloaderFlag() ) _loadPreloader.call(this);
-}
+};
 
 Preloader_CTRL.prototype.reset = function() {
 
-}
+};
 
 Preloader_CTRL.prototype.remove = function() {
 
@@ -190,7 +194,7 @@ Preloader_CTRL.prototype.remove = function() {
       this.bgGroup.selectAll("*").remove();
   }
 
-}
+};
 
 
 

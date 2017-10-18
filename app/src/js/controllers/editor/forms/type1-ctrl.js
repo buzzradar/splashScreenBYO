@@ -65,7 +65,7 @@ function _getMasterConfigValues() {
                     "transparent" : 0
                 }
             }
-        }
+        };
     }
 
     if(!masterConfig.hasOwnProperty('autoplay')){
@@ -87,18 +87,22 @@ function _addPlaylistSwitch() {
     this.settingsDom.find("input[name='playlist-enabled-switch']").prop( "checked", Boolean(masterConfig.autoplay) );
     this.settingsDom.find("input[name='playlist-enabled-switch']").bootstrapSwitch();
 
-    if (!masterConfig.autoplay) {
- 		this.parentDOM.find('.launch-playlist-settings').hide();
- 	}else{
- 		this.parentDOM.find('.launch-playlist-settings').show();
- 	}
+
+    //Important Developer NOTE!!!!!!!!!!!!!!!!!
+    //Delete this when we add the playlist setting functionality back
+     this.parentDOM.find('.launch-playlist-settings').hide();
+    // if (!masterConfig.autoplay) {
+ 	// 	this.parentDOM.find('.launch-playlist-settings').hide();
+ 	// }else{
+ 	// 	this.parentDOM.find('.launch-playlist-settings').show();
+ 	// }
 
     let self = this;
     this.settingsDom.find("input[name='playlist-enabled-switch']").on("switchChange.bootstrapSwitch", function(event, state) {
         masterConfig.autoplay = Number(state);
      	DisplayGlobals_SRV.getPreviewRef().updateChanges();
     
-    	_showLaunchAsPlaylistSettings.call(self,state)
+    	//_showLaunchAsPlaylistSettings.call(self,state)
 
     });
 

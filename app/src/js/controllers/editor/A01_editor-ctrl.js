@@ -62,13 +62,13 @@ function _init() {
 		{cx:150, cy:960, radius : 40, label : 'Buttons', fill : '#c0c0c0', 'metroColor' : 'blue-oleo', index : 5},
 	];
 
-	DisplayGlobals_SRV.setBottomLegendRef(new Legend_CTRL(this.d3SVG_Ctrl,buttonsArray))
+	DisplayGlobals_SRV.setBottomLegendRef(new Legend_CTRL(this.d3SVG_Ctrl,buttonsArray));
 	this.form_Ctrl = new Form_CTRL();
 	
 	_setupPublishButtons.call(this);
 
 
-};
+}
 
 
 
@@ -81,7 +81,7 @@ Editor_Ctrl.prototype.loadFormSettings = function (id) {
 
 	this.form_Ctrl.loadForm(id);
 	
-}
+};
 
 
 
@@ -205,7 +205,7 @@ Editor_Ctrl.prototype.publishChanges = function () {
 	    console.log ("%c -> Buttons Array is Empty! ", "background:#ff0000;", "Cannot be published because the array of buttons is empty. Add a button please." );
 	}
 
-}
+};
 
 
 
@@ -216,20 +216,20 @@ Editor_Ctrl.prototype.updateLogoPosition = function (x,y) {
 
 	this.form_Ctrl.updateLogoPosition(x,y);
 
-}
+};
 
 
 Editor_Ctrl.prototype.updateCopyPosition = function (x,y,index) {
 
 	this.form_Ctrl.updateCopyPosition(x,y,index);
 
-}
+};
 
 Editor_Ctrl.prototype.updateButtonPosition = function (x,y,index) {
 
 	this.form_Ctrl.updateButtonPosition(x,y,index);
 
-}
+};
 
 
 
