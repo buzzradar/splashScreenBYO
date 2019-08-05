@@ -250,8 +250,11 @@ function _validateCopy() {
         this.buttonMO.copy.text = copy;
         this.btnFormDOM.find('input[name=copy]').val(this.buttonMO.copy.text);
     }else{
-        this.error = true;
-        this.btnFormDOM.find('input[name=copy]').closest('.form-group').addClass('has-error');
+        // this.error = true;
+        // this.btnFormDOM.find('input[name=copy]').closest('.form-group').addClass('has-error');
+        this.btnFormDOM.find('input[name=copy]').closest('.form-group').removeClass('has-error');
+        this.buttonMO.copy.text = copy;
+        this.btnFormDOM.find('input[name=copy]').val(this.buttonMO.copy.text);
     }
 
 }
