@@ -56,7 +56,7 @@
     "gulp-html-js-template": "^0.1.6",
     "gulp-html-to-js": "0.0.1",
     "gulp-statil": "0.0.9",
-    "handlebars": "^4.0.5",
+    "handlebars": "^4.3.0",
     "jquery": "^2.2.0",
     "lodash": "^4.0.0"
   }
